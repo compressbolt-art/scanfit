@@ -1348,8 +1348,8 @@ async function loadLoginDiagnostics() {
     }
     if (hintEl && !ok) {
       hintEl.textContent = currentLanguage === 'en-US'
-        ? 'Fill the SMTP values in .env, then retry login.'
-        : '.env에 SMTP 값을 넣은 뒤 다시 로그인하세요.';
+        ? 'Email delivery needs AUTH_SECRET, RESEND_API_KEY, and RESEND_FROM in the deployment settings.'
+        : '배포 설정에 AUTH_SECRET, RESEND_API_KEY, RESEND_FROM을 넣어야 이메일 인증이 동작합니다.';
     }
   } catch {
     if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
@@ -1874,6 +1874,7 @@ function setFreeUsage(data) {
 }
 
 function consumeFreeUse(stepKey, suggestedPetCount = 1) {
+  if (!requireAuth(stepKey || 'ScanFit')) return false;
   if (isPaid) return true;
   const usage = getFreeUsage();
   const used = Number(usage[stepKey] || 0);
