@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "start": "node server.js",
+    "mcp": "node mcp-server.js",
+    "analyze:breed-groups": "node scripts/analyze-breed-groups.js"
+  }
+}

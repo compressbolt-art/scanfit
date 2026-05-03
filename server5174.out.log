@@ -1,0 +1,4 @@
+ScanFit running at http://localhost:5174
+Food AI endpoint uses model gpt-5.5. Set OPENAI_API_KEY before running for real analysis.
+Podi chat uses model gpt-realtime-1.5.
+Report image endpoint uses image model gpt-image-1.5.

@@ -1,0 +1,69 @@
+{
+  "pending": [
+    {
+      "token": "4d1d85e40bf9f80eaff155aa8f08a40df96e9cd3798d42cb",
+      "email": "test@example.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784374641,
+      "expiresAt": 1777785274641
+    },
+    {
+      "token": "88cb013cb4d7621325642d3b3fe0154b242607401934f268",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784416320,
+      "expiresAt": 1777785316320
+    },
+    {
+      "token": "e2edab12458d77778784ec9df72fb9e40ac9cd0fe853a0b5",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784421959,
+      "expiresAt": 1777785321959
+    },
+    {
+      "token": "c5b24f9d3cd2cdeb8b40e5392c94088b8f4e07d32b615058",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784982776,
+      "expiresAt": 1777785882776
+    },
+    {
+      "token": "595130408d9d1960c9b2855f15071bdd68c01961eaf10b2d",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784983658,
+      "expiresAt": 1777785883658
+    },
+    {
+      "token": "30fdd5ea378ae01bc75d2b2db10ead58a91edb081228ebb2",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784983893,
+      "expiresAt": 1777785883893
+    },
+    {
+      "token": "6cf6ce88b3535f339e7db2f9a311462ff6434732325bd33a",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784984137,
+      "expiresAt": 1777785884137
+    },
+    {
+      "token": "97f1ee8347ae69a3ce532cfac3f2a84624d9d4b2b3655e51",
+      "email": "onmahanaim@gmail.com",
+      "language": "ko-KR",
+      "page": "/",
+      "createdAt": 1777784984410,
+      "expiresAt": 1777785884410
+    }
+  ],
+  "sessions": []
+}

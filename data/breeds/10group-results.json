@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-05-02T13:33:10.857Z",
+  "model": null,
+  "source": "public/images/10그룹-*",
+  "count": 6,
+  "results": [
+    {
+      "status": "pending",
+      "fileName": "10그룹-1.JPG",
+      "relativePath": "public/images/10그룹-1.JPG",
+      "petType": "unknown",
+      "petCount": null,
+      "petCountConfidence": 0,
+      "breed": null,
+      "breedConfidence": 0,
+      "evidence": [],
+      "warnings": [
+        "OPENAI_API_KEY is missing; analysis has not been run yet."
+      ]
+    },
+    {
+      "status": "pending",
+      "fileName": "10그룹-2.JPG",
+      "relativePath": "public/images/10그룹-2.JPG",
+      "petType": "unknown",
+      "petCount": null,
+      "petCountConfidence": 0,
+      "breed": null,
+      "breedConfidence": 0,
+      "evidence": [],
+      "warnings": [
+        "OPENAI_API_KEY is missing; analysis has not been run yet."
+      ]
+    },
+    {
+      "status": "pending",
+      "fileName": "10그룹-3.JPG",
+      "relativePath": "public/images/10그룹-3.JPG",
+      "petType": "unknown",
+      "petCount": null,
+      "petCountConfidence": 0,
+      "breed": null,
+      "breedConfidence": 0,
+      "evidence": [],
+      "warnings": [
+        "OPENAI_API_KEY is missing; analysis has not been run yet."
+      ]
+    },
+    {
+      "status": "pending",
+      "fileName": "10그룹-4.JPG",
+      "relativePath": "public/images/10그룹-4.JPG",
+      "petType": "unknown",
+      "petCount": null,
+      "petCountConfidence": 0,
+      "breed": null,
+      "breedConfidence": 0,
+      "evidence": [],
+      "warnings": [
+        "OPENAI_API_KEY is missing; analysis has not been run yet."
+      ]
+    },
+    {
+      "status": "pending",
+      "fileName": "10그룹-5.JPG",
+      "relativePath": "public/images/10그룹-5.JPG",
+      "petType": "unknown",
+      "petCount": null,
+      "petCountConfidence": 0,
+      "breed": null,
+      "breedConfidence": 0,
+      "evidence": [],
+      "warnings": [
+        "OPENAI_API_KEY is missing; analysis has not been run yet."
+      ]
+    },
+    {
+      "status": "pending",
+      "fileName": "10그룹-6.JPG",
+      "relativePath": "public/images/10그룹-6.JPG",
+      "petType": "unknown",
+      "petCount": null,
+      "petCountConfidence": 0,
+      "breed": null,
+      "breedConfidence": 0,
+      "evidence": [],
+      "warnings": [
+        "OPENAI_API_KEY is missing; analysis has not been run yet."
+      ]
+    }
+  ]
+}

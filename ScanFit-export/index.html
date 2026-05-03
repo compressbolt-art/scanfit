@@ -1,0 +1,2919 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ScanFit - AI Health Scan for Pets</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#f8f7f2;color:#1b1c1a;overflow-x:hidden}
+.font-display{font-family:'Epilogue',sans-serif}
+.future-slide{min-height:calc(100vh - 80px);background:#f8f7f2;position:relative}
+.future-slide::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(28,31,30,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(28,31,30,.055) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.82),transparent 90%);pointer-events:none}
+.future-slide::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to bottom,transparent,#fff);pointer-events:none}
+.slide-kicker{letter-spacing:.14em}
+.brand-chip{box-shadow:0 12px 34px rgba(15,23,42,.08)}
+.podi-video{background:#111918;border:1px solid rgba(255,255,255,.12);box-shadow:0 28px 80px rgba(17,25,24,.24);overflow:hidden}
+.podi-video::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.18),transparent 28%),linear-gradient(135deg,rgba(46,91,255,.34),transparent 42%),linear-gradient(315deg,rgba(15,185,129,.28),transparent 46%);pointer-events:none}
+.podi-video::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(17,25,24,.52) 100%);pointer-events:none}
+.podi-stage{animation:podiFloat 4.5s ease-in-out infinite}
+.podi-orbit{animation:orbitGlow 7s linear infinite}
+.hero-film{position:absolute;inset:0;perspective:1500px;transform-style:preserve-3d}
+.hero-film-stage{position:absolute;inset:0;transform-style:preserve-3d}
+.hero-film-grid{position:absolute;inset:0;background:
+  linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:40px 40px;opacity:.42;transform:translateZ(-120px) scale(1.04)}
+.hero-film-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 22%,rgba(255,255,255,.16),transparent 26%),radial-gradient(circle at 50% 58%,rgba(59,130,246,.18),transparent 35%),radial-gradient(circle at 50% 84%,rgba(16,185,129,.14),transparent 28%)}
+.hero-film-track{position:absolute;left:50%;top:49%;width:min(82%,520px);height:70%;transform:translate(-50%,-50%) translateZ(80px);border-radius:34px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);box-shadow:0 28px 80px rgba(0,0,0,.34),inset 0 0 50px rgba(255,255,255,.04);overflow:hidden}
+.hero-film-track::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);width:28%;animation:filmSweep 10s ease-in-out infinite}
+.hero-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#050b14;filter:saturate(1.05) contrast(1.03) brightness(.9)}
+.hero-poster-glow{position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 12%,rgba(255,255,255,.12),transparent 26%),
+  linear-gradient(180deg,rgba(4,8,17,.12),rgba(4,8,17,.48) 72%,rgba(4,8,17,.88));
+  pointer-events:none}
+.hero-poster-pan{animation:posterPan 12s ease-in-out infinite alternate}
+.hero-track-copy{position:absolute;left:18px;bottom:18px;z-index:25;padding:10px 14px;border-radius:18px;background:rgba(4,10,20,.58);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);color:#fff;max-width:min(360px,74%)}
+.hero-track-copy .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.56);font-weight:900}
+.hero-track-copy .v{font-size:12px;font-weight:900;margin-top:4px;line-height:1.35}
+.cute-stage{background:
+  radial-gradient(circle at 50% 35%,rgba(255,255,255,.12),transparent 24%),
+  radial-gradient(circle at 50% 64%,rgba(59,130,246,.14),transparent 26%),
+  linear-gradient(145deg,#07101b,#0d1a31 52%,#0b3a2b);
+  overflow:hidden}
+.cute-stage::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:36px 36px;opacity:.34;mask-image:radial-gradient(circle at 50% 52%,#000,transparent 80%)}
+.cute-core{position:absolute;left:50%;top:54%;width:min(64%,360px);transform:translate(-50%,-50%);transform-style:preserve-3d}
+.cute-podi{width:100%;height:auto;filter:drop-shadow(0 26px 34px rgba(0,0,0,.42));animation:cuteFloat 4.4s ease-in-out infinite}
+.cute-halo{display:none}
+.cute-ring{display:none}
+.cute-card{position:absolute;z-index:10;min-width:174px;max-width:210px;padding:14px 16px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);color:#fff;box-shadow:0 24px 60px rgba(0,0,0,.24);opacity:0;will-change:opacity,transform;animation:cuteCardFloat 10s ease-in-out infinite}
+.cute-card .tag{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.56);font-weight:900}
+.cute-card .title{font-size:14px;font-weight:900;margin-top:6px}
+.cute-card .copy{font-size:11px;line-height:1.45;color:rgba(255,255,255,.72);margin-top:6px}
+.cute-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:10px;align-items:end;height:62px}
+.cute-bars span{display:block;border-radius:999px 999px 8px 8px;background:linear-gradient(180deg,#7dd3fc,#10b981);box-shadow:0 0 14px rgba(125,211,252,.24)}
+.cute-bars.scan span:nth-child(1){height:42%}.cute-bars.scan span:nth-child(2){height:64%}.cute-bars.scan span:nth-child(3){height:55%}.cute-bars.scan span:nth-child(4){height:78%}.cute-bars.scan span:nth-child(5){height:58%}.cute-bars.scan span:nth-child(6){height:86%}.cute-bars.scan span:nth-child(7){height:48%}
+.cute-bars.result span:nth-child(1){height:34%}.cute-bars.result span:nth-child(2){height:56%}.cute-bars.result span:nth-child(3){height:68%}.cute-bars.result span:nth-child(4){height:60%}.cute-bars.result span:nth-child(5){height:82%}.cute-bars.result span:nth-child(6){height:66%}.cute-bars.result span:nth-child(7){height:44%}
+.cute-bars.exercise span:nth-child(1){height:28%}.cute-bars.exercise span:nth-child(2){height:48%}.cute-bars.exercise span:nth-child(3){height:72%}.cute-bars.exercise span:nth-child(4){height:52%}.cute-bars.exercise span:nth-child(5){height:80%}.cute-bars.exercise span:nth-child(6){height:62%}.cute-bars.exercise span:nth-child(7){height:40%}
+.cute-schedule{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+.cute-schedule span{min-height:44px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:6px 5px 5px;text-align:center}
+.cute-schedule .d{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.56);font-weight:900}
+.cute-schedule .v{display:block;font-size:11px;font-weight:900;margin-top:5px}
+.cute-card.scan{left:8%;top:16%;--r:-6deg;transform:rotate(-6deg);animation-name:cuteCardFloat,cuteStepScan}
+.cute-card.result{right:8%;top:16%;--r:6deg;transform:rotate(6deg);animation-name:cuteCardFloat,cuteStepResult}
+.cute-card.exercise{right:8%;bottom:14%;--r:4deg;transform:rotate(4deg);animation-name:cuteCardFloat,cuteStepExercise}
+.cute-card.meal{left:8%;bottom:14%;--r:-4deg;transform:rotate(-4deg);animation-name:cuteCardFloat,cuteStepMeal}
+.cute-chip-row{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:10px;z-index:12}
+.cute-chip{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(10px)}
+.cute-video-badge{position:absolute;left:18px;top:18px;z-index:12;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.cute-bottom-note{position:absolute;left:18px;right:18px;bottom:18px;z-index:12;padding:12px 14px;border-radius:18px;background:rgba(4,10,20,.62);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(14px);color:#fff;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.cute-bottom-note .left{display:flex;flex-direction:column;gap:6px}
+.cute-bottom-note .left .k{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.56)}
+.cute-bottom-note .left .v{font-size:12px;font-weight:900;line-height:1.35}
+.cute-progress{width:170px;max-width:34vw;height:10px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden}
+.cute-progress span{display:block;width:72%;height:100%;border-radius:999px;background:linear-gradient(90deg,#7dd3fc,#10b981);box-shadow:0 0 18px rgba(125,211,252,.34);animation:cuteProgress 2.6s ease-in-out infinite alternate}
+@keyframes cuteProgress{0%{transform:translateX(-18%) scaleX(.82)}100%{transform:translateX(26%) scaleX(1.04)}}
+@keyframes cuteStepScan{
+  0%,21%{opacity:1}
+  24%,100%{opacity:0}
+}
+@keyframes cuteStepResult{
+  0%,24%{opacity:0}
+  26%,46%{opacity:1}
+  49%,100%{opacity:0}
+}
+@keyframes cuteStepMeal{
+  0%,49%{opacity:0}
+  51%,71%{opacity:1}
+  74%,100%{opacity:0}
+}
+@keyframes cuteStepExercise{
+  0%,74%{opacity:0}
+  76%,96%{opacity:1}
+  100%{opacity:0}
+}
+@keyframes cuteFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-16px) rotate(2deg)}}
+@keyframes cuteOrbit{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes cuteCardFloat{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(calc(var(--r,0deg) + 1deg))}}
+.hero-film-stage .scene{position:absolute;inset:0;padding:24px;opacity:0;transform:translateY(24px) scale(.96);animation:sceneCycle 10s infinite}
+.hero-film-stage .scene.scan{animation-delay:0s}
+.hero-film-stage .scene.result{animation-delay:2.5s}
+.hero-film-stage .scene.meal{animation-delay:5s}
+.hero-film-stage .scene.exercise{animation-delay:7.5s}
+.scene-shell{position:absolute;inset:20px;border-radius:28px;border:1px solid rgba(255,255,255,.08);background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.06),transparent 28%)}
+.scene-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px 0;color:#fff}
+.scene-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.scene-title{font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.scene-body{position:absolute;inset:66px 18px 18px;display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+.scene-left,.scene-right{position:relative;border-radius:24px;overflow:hidden}
+.scene-left{background:linear-gradient(145deg,#0b1220,#12203b 55%,#0b3b26)}
+.scene-right{background:linear-gradient(145deg,#0e1728,#13233f 60%,#1b1f5a)}
+.scene-left::before,.scene-right::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:28px 28px;opacity:.4}
+.scan-card{position:absolute;left:18px;top:18px;width:47%;min-width:180px;padding:14px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff}
+.scan-card .row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.scan-bar{height:8px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden}
+.scan-bar span{display:block;height:100%;width:66%;background:linear-gradient(90deg,#7dd3fc,#10b981);box-shadow:0 0 18px rgba(96,165,250,.28)}
+.scan-label{font-size:11px;color:rgba(255,255,255,.64);margin-top:10px;line-height:1.45}
+.scan-line{position:absolute;left:0;right:0;top:50%;height:3px;background:linear-gradient(90deg,transparent,#7dd3fc,transparent);box-shadow:0 0 18px rgba(125,211,252,.8);animation:scanLineMove 2.8s ease-in-out infinite}
+.scan-podi{position:absolute;left:8%;bottom:6%;width:34%;filter:drop-shadow(0 20px 32px rgba(0,0,0,.45));transform:rotate(-6deg);animation:podiLook 3.8s ease-in-out infinite}
+.scan-target{position:absolute;right:8%;bottom:12%;width:40%;padding:12px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff;transform:rotate(6deg)}
+.scan-target h4,.result-panel h4,.exercise-panel h4{margin:0;font-size:13px;font-weight:900}
+.scan-target p,.result-panel p,.exercise-panel p{margin:6px 0 0;font-size:11px;line-height:1.5;color:rgba(255,255,255,.72)}
+.scan-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.scan-mini div{min-height:56px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:10px}
+.scan-mini .k{font-size:10px;color:rgba(255,255,255,.58);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.scan-mini .v{font-size:13px;font-weight:900;margin-top:4px}
+.result-panel{position:absolute;left:50%;top:52%;width:82%;transform:translate(-50%,-50%);padding:16px;border-radius:26px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);color:#fff;box-shadow:0 24px 64px rgba(0,0,0,.26)}
+.result-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.result-metric{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#10b981 0 72%, rgba(255,255,255,.12) 72% 100%);box-shadow:0 0 26px rgba(16,185,129,.28)}
+.result-metric::before{content:"";width:64px;height:64px;border-radius:50%;background:rgba(8,15,31,.96);position:absolute}
+.result-metric span{position:relative;font-size:18px;font-weight:900}
+.result-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:120px;margin-top:14px}
+.result-bars span{display:block;border-radius:999px 999px 10px 10px;background:linear-gradient(180deg,#7dd3fc,#10b981)}
+.result-bars span:nth-child(1){height:42%}.result-bars span:nth-child(2){height:66%}.result-bars span:nth-child(3){height:54%}.result-bars span:nth-child(4){height:78%}.result-bars span:nth-child(5){height:60%}.result-bars span:nth-child(6){height:86%}.result-bars span:nth-child(7){height:58%}
+.result-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.result-row div{padding:10px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
+.result-row .k{font-size:10px;color:rgba(255,255,255,.58);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.result-row .v{font-size:13px;font-weight:900;margin-top:4px}
+.result-podi{position:absolute;right:6%;bottom:9%;width:32%;filter:drop-shadow(0 24px 34px rgba(0,0,0,.42));animation:podiFloat 4.5s ease-in-out infinite}
+.result-note{position:absolute;left:6%;bottom:8%;width:36%;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff}
+.result-note strong,.exercise-note strong{display:block;font-size:12px;font-weight:900}
+.result-note span,.exercise-note span{display:block;margin-top:6px;font-size:11px;line-height:1.45;color:rgba(255,255,255,.72)}
+.exercise-stage{position:absolute;inset:0;background:linear-gradient(145deg,#07111f,#101a31 46%,#1a1451 100%)}
+.exercise-track{position:absolute;left:6%;right:6%;top:22%;bottom:12%;border-radius:30px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.exercise-track::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:30px 30px;opacity:.38}
+.exercise-podi{position:absolute;left:6%;bottom:12%;width:28%;filter:drop-shadow(0 24px 34px rgba(0,0,0,.45));animation:podiFloat 4.2s ease-in-out infinite}
+.exercise-board{position:absolute;right:6%;top:14%;width:42%;padding:16px;border-radius:24px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff}
+.exercise-board .week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px}
+.exercise-board .week span{min-height:62px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:8px}
+.exercise-board .week .d{font-size:9px;color:rgba(255,255,255,.56);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.exercise-board .week .t{font-size:11px;font-weight:900;margin-top:6px;line-height:1.3}
+.exercise-note{position:absolute;left:6%;top:12%;width:32%;padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff}
+.exercise-bars{position:absolute;left:6%;right:6%;bottom:8%;display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end;height:96px}
+.exercise-bars span{display:block;border-radius:999px 999px 10px 10px;background:linear-gradient(180deg,#60a5fa,#10b981);box-shadow:0 0 18px rgba(96,165,250,.22)}
+.exercise-bars span:nth-child(1){height:34%}.exercise-bars span:nth-child(2){height:58%}.exercise-bars span:nth-child(3){height:46%}.exercise-bars span:nth-child(4){height:80%}.exercise-bars span:nth-child(5){height:60%}.exercise-bars span:nth-child(6){height:74%}.exercise-bars span:nth-child(7){height:42%}
+.hero-overlay{position:absolute;left:0;right:0;bottom:0;padding:18px 18px 16px;background:linear-gradient(180deg,transparent,rgba(4,10,20,.72) 68%,rgba(4,10,20,.94));color:#fff;z-index:24}
+.hero-overlay-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.hero-overlay-card{padding:12px 14px;border-radius:18px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px)}
+.hero-overlay-card .label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.58);font-weight:900}
+.hero-overlay-card .value{font-size:14px;font-weight:900;margin-top:4px}
+.hero-overlay-card .sub{font-size:11px;color:rgba(255,255,255,.64);margin-top:4px;line-height:1.45}
+@keyframes sceneCycle{0%,28%{opacity:1;transform:translateY(0) scale(1)}33%,61%{opacity:0;transform:translateY(20px) scale(.97)}66%,94%{opacity:0;transform:translateY(20px) scale(.97)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes filmSweep{0%{transform:translateX(-120%) skewX(-12deg)}100%{transform:translateX(420%) skewX(-12deg)}}
+@keyframes scanLineMove{0%,100%{transform:translateY(-130%)}50%{transform:translateY(130%)}}
+@keyframes podiLook{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+@keyframes posterPan{0%{transform:scale(1.01) translate3d(0,0,0)}100%{transform:scale(1.08) translate3d(-1.2%, -0.6%, 0)}}
+@keyframes podiFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-18px) rotate(2deg)}}
+@keyframes orbitGlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes videoScan{0%{transform:translateY(-110%)}100%{transform:translateY(110%)}}
+.video-scan{animation:videoScan 3.2s ease-in-out infinite alternate}
+.metric-tile{min-height:96px}
+.flow-panel{background:linear-gradient(180deg,#fff,rgba(248,250,252,.78));border:1px solid #e7eaf0;box-shadow:0 18px 52px rgba(15,23,42,.06)}
+.section-label{letter-spacing:.12em}
+.prose-balance{text-wrap:balance}
+.report-3d{background:radial-gradient(circle at 48% 30%,rgba(255,255,255,.36),transparent 24%),linear-gradient(145deg,#0f172a,#172554 52%,#064e3b);perspective:900px}
+.pet-wireframe{position:relative;width:210px;height:132px;margin:auto;transform-style:preserve-3d;animation:wireRotate 7s ease-in-out infinite}
+.pet-wireframe::before{content:"";position:absolute;left:35px;top:34px;width:122px;height:62px;border:2px solid rgba(125,211,252,.92);border-radius:54% 46% 48% 52%;box-shadow:0 0 24px rgba(56,189,248,.42),inset 0 0 28px rgba(56,189,248,.18)}
+.pet-wireframe::after{content:"";position:absolute;right:18px;top:20px;width:44px;height:42px;border:2px solid rgba(52,211,153,.92);border-radius:48% 52% 45% 55%;box-shadow:0 0 22px rgba(52,211,153,.38)}
+.wire-leg{position:absolute;bottom:13px;width:2px;height:42px;background:rgba(191,219,254,.9);box-shadow:0 0 14px rgba(96,165,250,.7)}
+.wire-leg:nth-child(1){left:62px}.wire-leg:nth-child(2){left:96px}.wire-leg:nth-child(3){left:135px}.wire-leg:nth-child(4){left:162px}
+@keyframes wireRotate{0%,100%{transform:rotateY(-18deg) rotateX(6deg)}50%{transform:rotateY(18deg) rotateX(-2deg)}}
+.info-bar{height:10px;border-radius:999px;background:#e5e7eb;overflow:hidden}
+.info-bar span{display:block;height:100%;border-radius:999px}
+.report-card{background:#fff;border:1px solid #e8edf3;box-shadow:0 16px 46px rgba(15,23,42,.06)}
+.timeline-dot{box-shadow:0 0 0 6px rgba(46,91,255,.1)}
+.nutri-stage{position:relative;min-height:260px;background:radial-gradient(circle at 50% 42%,rgba(16,185,129,.38),transparent 34%),linear-gradient(145deg,#07111f,#102345 58%,#063820);overflow:hidden}
+.nutri-stage::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:34px 34px;transform:perspective(420px) rotateX(58deg) translateY(38px);transform-origin:bottom;opacity:.48}
+.nutri-core{position:absolute;left:50%;top:45%;width:132px;height:132px;border-radius:36px;transform:translate(-50%,-50%) rotateX(58deg) rotateZ(45deg);background:linear-gradient(135deg,rgba(96,165,250,.95),rgba(16,185,129,.92));box-shadow:0 0 60px rgba(45,212,191,.38),inset 0 0 28px rgba(255,255,255,.28);animation:nutriSpin 6s ease-in-out infinite}
+.nutri-ring{position:absolute;left:50%;top:45%;border:1px solid rgba(255,255,255,.38);border-radius:50%;transform:translate(-50%,-50%) rotateX(66deg);animation:orbitGlow 9s linear infinite}
+.nutri-ring.r1{width:220px;height:220px}.nutri-ring.r2{width:292px;height:292px;animation-direction:reverse}.nutri-ring.r3{width:360px;height:360px;opacity:.45}
+@keyframes nutriSpin{0%,100%{transform:translate(-50%,-50%) rotateX(58deg) rotateZ(45deg) scale(1)}50%{transform:translate(-50%,-56%) rotateX(58deg) rotateZ(135deg) scale(1.08)}}
+.macro-card{background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid #e6edf5;box-shadow:0 20px 50px rgba(15,23,42,.07)}
+.meal-tile{position:relative;overflow:hidden;background:linear-gradient(135deg,#ffffff,#f0fdf4);border:1px solid #d9f2e4}
+.meal-tile::after{content:"";position:absolute;right:-24px;top:-24px;width:78px;height:78px;border-radius:999px;background:rgba(16,185,129,.12)}
+.exercise-stage{position:relative;min-height:300px;background:radial-gradient(circle at 50% 30%,rgba(59,130,246,.34),transparent 28%),linear-gradient(145deg,#080f1f,#111827 48%,#1e1b4b);overflow:hidden}
+.exercise-avatar{position:absolute;left:50%;top:45%;width:158px;height:158px;border-radius:46% 54% 48% 52%;transform:translate(-50%,-50%);border:2px solid rgba(147,197,253,.9);box-shadow:0 0 70px rgba(96,165,250,.45),inset 0 0 32px rgba(96,165,250,.18);animation:podiFloat 4.2s ease-in-out infinite}
+.exercise-avatar::before,.exercise-avatar::after{content:"";position:absolute;background:rgba(52,211,153,.9);box-shadow:0 0 24px rgba(52,211,153,.6)}
+.exercise-avatar::before{width:86px;height:2px;left:-52px;top:82px;transform:rotate(-22deg)}
+.exercise-avatar::after{width:2px;height:92px;left:75px;bottom:-58px;transform:rotate(9deg)}
+.premium-report{background:linear-gradient(135deg,#f8fafc,#ffffff 48%,#ecfdf5);border:1px solid #dce7ef;box-shadow:0 28px 80px rgba(15,23,42,.08)}
+.report-cover{position:relative;overflow:hidden;background:#07111f;color:white}
+.report-cover::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 120deg,rgba(16,185,129,.2),rgba(59,130,246,.32),rgba(245,158,11,.18),rgba(16,185,129,.2));animation:orbitGlow 14s linear infinite}
+.report-cover>*{position:relative;z-index:1}
+.ai-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(16,185,129,.25);background:rgba(236,253,245,.86);color:#047857;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900}
+.ai-badge::before{content:"";width:8px;height:8px;border-radius:999px;background:#10b981;box-shadow:0 0 0 6px rgba(16,185,129,.12)}
+.metric-ring{--value:72;--color:#10b981;width:94px;height:94px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--color) calc(var(--value)*1%),rgba(226,232,240,.9) 0);position:relative}
+.metric-ring::before{content:"";position:absolute;inset:10px;border-radius:50%;background:#fff}
+.metric-ring span{position:relative;font-weight:900;color:#0f172a}
+.huashu-canvas{position:relative;overflow:hidden;border-radius:30px;background:#050914;color:#fff;box-shadow:0 34px 90px rgba(2,6,23,.2)}
+.huashu-canvas::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(circle at 50% 45%,#000,transparent 76%)}
+.huashu-canvas::after{content:"";position:absolute;inset:-30%;background:conic-gradient(from 180deg,rgba(16,185,129,.22),rgba(59,130,246,.28),rgba(245,158,11,.14),rgba(16,185,129,.22));animation:orbitGlow 18s linear infinite;opacity:.72}
+.huashu-canvas>*{position:relative;z-index:1}
+.iso-stack{position:relative;width:260px;height:220px;margin:auto;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(42deg)}
+.iso-layer{position:absolute;left:50%;top:50%;width:150px;height:150px;border-radius:28px;transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.28);box-shadow:0 0 38px rgba(59,130,246,.25)}
+.iso-layer.l1{background:rgba(37,99,235,.85);transform:translate(-50%,-50%) translateZ(56px)}
+.iso-layer.l2{background:rgba(16,185,129,.72);transform:translate(-50%,-50%) translateZ(20px)}
+.iso-layer.l3{background:rgba(245,158,11,.58);transform:translate(-50%,-50%) translateZ(-16px)}
+.iso-label{position:absolute;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.09);backdrop-filter:blur(12px);border-radius:16px;padding:12px 14px;font-size:12px}
+.iso-label.a{left:24px;top:28px}.iso-label.b{right:28px;top:74px}.iso-label.c{left:38px;bottom:30px}
+.report-strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.report-strip div{min-height:74px;border-radius:16px;background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid #e5edf5;padding:10px;position:relative;overflow:hidden}
+.report-strip div::after{content:"";position:absolute;right:-12px;bottom:-16px;width:48px;height:48px;border-radius:999px;background:rgba(16,185,129,.12)}
+.motion-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:end;height:180px;padding:18px;border-radius:22px;background:linear-gradient(180deg,#0f172a,#111827)}
+.motion-bars span{display:block;border-radius:999px 999px 8px 8px;background:linear-gradient(180deg,#60a5fa,#10b981);box-shadow:0 0 24px rgba(96,165,250,.25)}
+.huashu-mark{position:absolute;right:22px;bottom:18px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.34);font-family:monospace}
+.locked-content{position:relative}
+.locked-content.locked::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.94));backdrop-filter:blur(8px);z-index:20}
+.locked-content.locked::before{content:"Full report unlocks after payment";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;background:#0f172a;color:white;border-radius:999px;padding:12px 18px;font-weight:900;font-size:13px;box-shadow:0 18px 45px rgba(15,23,42,.22);white-space:nowrap}
+.evidence-card{background:linear-gradient(180deg,#fff,#f8fafc);border:1px solid #e5edf5;border-radius:18px;padding:16px}
+.risk-card{background:linear-gradient(135deg,#fff7ed,#ffffff);border:1px solid #fed7aa;border-radius:18px;padding:16px}
+.paywall-cta{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:#fff;border-radius:24px;box-shadow:0 24px 70px rgba(29,78,216,.24)}
+/* Card hover */
+.feature-card{transition:transform 0.3s ease,box-shadow 0.3s ease}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(46,91,255,0.15)}
+/* Glass */
+.glass{background:rgba(255,255,255,0.85);backdrop-filter:blur(16px)}
+/* Modal */
+.modal{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px)}
+.modal.active{display:flex;align-items:center;justify-content:center}
+/* Upload area */
+.upload-zone{border:3px dashed #bbc5ff;transition:all 0.3s}
+.upload-zone:hover,.upload-zone.drag{border-color:#2e5bff;background:rgba(46,91,255,0.05)}
+/* Currency active */
+.currency-btn.active{background:#2e5bff;color:#fff}
+/* Sticky nav */
+header{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(15,23,42,0.08)}
+/* Scan overlay */
+@keyframes scan{0%{top:0}100%{top:calc(100% - 4px)}}
+.scan-line{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#2e5bff,transparent);animation:scan 2s ease-in-out infinite alternate;box-shadow:0 0 12px #2e5bff}
+/* Notification toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1b1c1a;color:white;padding:12px 24px;border-radius:100px;font-size:14px;z-index:9999;transition:opacity 0.3s;opacity:0;pointer-events:none}
+.toast.show{opacity:1}
+@media (max-width:640px){
+  .future-slide{min-height:auto}
+  .metric-tile{min-height:86px}
+  .podi-video{border-radius:24px}
+}
+</style>
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+  <button onclick="toggleSpeech()" class="fixed bottom-6 right-6 z-[1000] bg-white border border-slate-200 p-4 rounded-full shadow-2xl hover:bg-slate-50 transition-all flex items-center justify-center group">
+    <span class="material-symbols-outlined text-blue-600 group-hover:scale-110 transition-transform">volume_up</span>
+  </button>
+  <button onclick="openPodiChat()" class="fixed bottom-6 left-6 z-[1000] bg-slate-950 text-white border border-slate-900 px-4 py-3 rounded-full shadow-2xl hover:bg-blue-600 transition-all flex items-center gap-2">
+    <span class="material-symbols-outlined">chat</span>
+    <span class="text-sm font-bold" id="podiChatButtonText" data-i18n="chatButtonText">Podi Chat</span>
+  </button>
+<!-- HEADER -->
+<header>
+<div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+  <div class="flex items-center gap-8">
+    <a href="#" class="text-2xl font-black text-slate-950 font-display tracking-tight flex items-center gap-2">
+      <span class="w-3 h-3 rounded-full bg-blue-600 shadow-[0_0_0_5px_rgba(46,91,255,.12)]"></span>
+      ScanFit
+    </a>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="#analysis" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navAnalysis">Analysis</a>
+      <a href="#pricing" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navPricing">Pricing</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-3">
+    <div class="inline-flex items-center rounded-full border border-slate-200 bg-white p-1 shadow-sm">
+      <button onclick="setLanguage('ko-KR')" id="langBtnKo" class="px-3 py-2 rounded-full text-xs font-black transition-all">KR</button>
+      <button onclick="setLanguage('en-US')" id="langBtnEn" class="px-3 py-2 rounded-full text-xs font-black transition-all">EN</button>
+    </div>
+    <button onclick="openModal('loginModal')" class="hidden sm:block border border-slate-200 text-slate-600 px-5 py-2 rounded-full hover:bg-slate-50 transition-all text-sm font-semibold" id="signInButton" data-i18n="signIn">Sign In</button>
+    <a href="#analysis" class="bg-slate-950 text-white px-6 py-2.5 rounded-full shadow-lg hover:bg-blue-600 active:scale-95 transition-all text-sm font-bold" data-i18n="startScan">Start Scan</a>
+  </div>
+</div>
+</header>
+
+<main class="pt-20">
+<!-- HERO SECTION -->
+<section class="future-slide flex items-center py-14 md:py-20 px-6 overflow-hidden">
+  <div class="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-[1.02fr_.98fr] gap-10 lg:gap-14 items-center">
+    <div class="space-y-8 text-center lg:text-left">
+      <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+        <span class="slide-kicker brand-chip inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full text-slate-500 font-black text-[11px] uppercase" id="heroKicker" data-i18n="heroKicker">
+          01 / ScanFit Food AI
+        </span>
+        <span class="brand-chip inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-100 rounded-full text-emerald-700 font-bold text-sm" id="heroBadge" data-i18n="heroBadge">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+          AI report engine
+        </span>
+      </div>
+      <div class="space-y-5">
+        <h1 class="font-display font-black text-4xl md:text-6xl leading-[1.06] tracking-tight text-slate-950">
+          ScanFit
+          <span class="block text-blue-600" id="heroTitleLine1" data-i18n="heroTitleLine1">Scan Your Pet.</span>
+          <span class="block text-slate-700" id="heroTitleLine2" data-i18n="heroTitleLine2">Fit Your Love.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-700 leading-snug max-w-2xl mx-auto lg:mx-0 prose-balance" id="heroLead1" data-i18n="heroLead1">
+          Podi reads the food label, then connects it to a 7-day meal plan and exercise prescription.
+        </p>
+        <p class="text-sm md:text-base text-slate-500 max-w-2xl leading-relaxed mx-auto lg:mx-0 prose-balance" id="heroLead2" data-i18n="heroLead2">
+          Upload a dog or cat food image and ScanFit analyzes ingredients, calories, feeding amount, and activity routines in one flow.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
+        <a href="#analysis" class="bg-slate-950 text-white font-bold px-8 py-4 rounded-2xl shadow-[0_16px_40px_rgba(15,23,42,0.2)] hover:bg-blue-600 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 text-lg" id="heroScanButton">
+          <span class="material-symbols-outlined">photo_camera</span> <span id="heroScanButtonText" data-i18n="heroScanButtonText">ScanFit</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="podi-video relative rounded-[2rem] aspect-[4/5] md:aspect-video lg:aspect-[4/5] flex items-center justify-center">
+        <div class="hero-film">
+          <div class="hero-film-grid"></div>
+          <div class="hero-film-glow"></div>
+          <div class="hero-film-track cute-stage">
+            <div class="cute-video-badge">
+              <span class="w-2 h-2 rounded-full bg-red-400"></span>
+              <span id="heroVideoLabel" data-i18n="heroVideoLabel">Live Podi</span>
+            </div>
+            <div class="cute-card scan hero-scene-step hero-scene-scan">
+              <div class="tag" id="heroSceneScanTag" data-i18n="heroSceneScanTag">Step 1 · Scan</div>
+              <div class="title" id="heroSceneScanTitle" data-i18n="heroSceneScanTitle">Food label capture</div>
+              <div class="copy" id="heroSceneScanCardCopy" data-i18n="heroSceneScanCardCopy">Podi reads ingredient lines, guaranteed analysis, calories, and warnings.</div>
+              <div class="cute-bars scan" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="cute-card result hero-scene-step hero-scene-result">
+              <div class="tag" id="heroSceneResultTag" data-i18n="heroSceneResultTag">Step 2 · Report</div>
+              <div class="title" id="heroSceneResultTitle" data-i18n="heroSceneResultTitle">Meal result</div>
+              <div class="copy" id="heroSceneResultCardCopy" data-i18n="heroSceneResultCardCopy">Calories, grams, and balance are calculated together.</div>
+              <div class="cute-bars result" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="cute-card meal hero-scene-step hero-scene-meal">
+              <div class="tag" id="heroChip1Label" data-i18n="heroChip1Label">식단</div>
+              <div class="title" id="heroChip1Value" data-i18n="heroChip1Value">7일 식단표</div>
+              <div class="copy" id="heroChip1Sub" data-i18n="heroChip1Sub">하루씩 펼쳐보는 식단표</div>
+              <div class="cute-schedule" aria-hidden="true">
+                <span><b class="d">Mon</b><b class="v">120g</b></span>
+                <span><b class="d">Tue</b><b class="v">120g</b></span>
+                <span><b class="d">Wed</b><b class="v">130g</b></span>
+                <span><b class="d">Thu</b><b class="v">120g</b></span>
+                <span><b class="d">Fri</b><b class="v">125g</b></span>
+                <span><b class="d">Sat</b><b class="v">130g</b></span>
+                <span><b class="d">Sun</b><b class="v">110g</b></span>
+              </div>
+            </div>
+            <div class="cute-card exercise hero-scene-step hero-scene-exercise">
+              <div class="tag" id="heroSceneExerciseTag" data-i18n="heroSceneExerciseTag">Step 3 · Exercise</div>
+              <div class="title" id="heroSceneExerciseTitle" data-i18n="heroSceneExerciseTitle">Exercise prescription</div>
+              <div class="copy" id="heroSceneExerciseNoteCopy" data-i18n="heroSceneExerciseNoteCopy">Weekly activity, rest, and burn targets</div>
+              <div class="cute-bars exercise" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="cute-core">
+              <img src="/public/images/podi_character.png"
+                   alt="ScanFit mascot Podi"
+                   class="cute-podi"
+                   id="podiImg"
+                   onclick="speak('Hello! I am Podi, your ScanFit guide. Upload a photo and I will create a health report for you!')"/>
+            </div>
+            <div class="cute-chip-row">
+              <div class="cute-chip" id="heroSceneTag" data-i18n="heroSceneTag">Real-time plan handoff</div>
+            </div>
+            <div class="cute-bottom-note">
+              <div class="left">
+                <div class="k" id="heroSceneScanRightTitle" data-i18n="heroSceneScanRightTitle">Step order</div>
+                <div class="v" id="heroSceneOrderCopy" data-i18n="heroSceneOrderCopy">1단계 스캔 → 식단결과 → 식단표 → 3단계 운동처방 순서로 보입니다.</div>
+              </div>
+              <div class="cute-progress" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT FLOW -->
+<section class="bg-white px-6 pb-8 md:pb-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="flow-panel rounded-[2rem] p-5 md:p-7 grid md:grid-cols-3 gap-4">
+      <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-10 h-10 rounded-xl bg-slate-950 text-white flex items-center justify-center font-black">1</span>
+          <span class="section-label text-[10px] font-black text-slate-400 uppercase" id="flowStep1Label" data-i18n="flowStep1Label">Capture</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2" id="flowStep1Title" data-i18n="flowStep1Title">Food Label Upload</h3>
+        <p class="text-sm text-slate-500 leading-relaxed" id="flowStep1Copy" data-i18n="flowStep1Copy">Upload a food label photo and AI reads ingredients, calories, and feeding guidance.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-blue-50 border border-blue-100">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black">2</span>
+          <span class="section-label text-[10px] font-black text-blue-400 uppercase" id="flowStep2Label" data-i18n="flowStep2Label">Analyze</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2" id="flowStep2Title" data-i18n="flowStep2Title">Meal Report</h3>
+        <p class="text-sm text-slate-600 leading-relaxed" id="flowStep2Copy" data-i18n="flowStep2Copy">Breed and weight are used to build a 7-day meal plan.</p>
+      </div>
+      <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-100">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black">3</span>
+          <span class="section-label text-[10px] font-black text-emerald-500 uppercase" id="flowStep3Label" data-i18n="flowStep3Label">Act</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2" id="flowStep3Title" data-i18n="flowStep3Title">Exercise Prescription</h3>
+        <p class="text-sm text-slate-600 leading-relaxed" id="flowStep3Copy" data-i18n="flowStep3Copy">Meal results are turned into a weekly activity plan in the exercise prescription step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS SECTION -->
+<section class="py-20 px-6 bg-white" id="analysis">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="section-label inline-block bg-blue-50 text-blue-600 font-black text-xs px-4 py-2 rounded-full mb-4 uppercase" id="analysisLabel" data-i18n="analysisLabel">AI-Powered Analysis</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mb-4 prose-balance" id="analysisSectionTitle">AI 사료분석과 운동처방</h2>
+      <p class="text-slate-500 text-lg prose-balance mx-auto max-w-2xl" id="analysisSectionCopy">사료 이미지 하나로 리포트와 1주 식단표를 만들고, 운동처방 단계로 이어집니다.</p>
+    </div>
+    
+    <!-- STEP 01: Food Bag AI Analysis & Weekly Meal Plan -->
+    <div class="glass border-2 border-blue-200 rounded-[2.5rem] shadow-2xl p-8 md:p-12 mb-12 feature-card relative overflow-hidden" id="step2Section">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xl shadow-lg">01</span>
+        <div>
+          <h3 class="font-display font-bold text-2xl" id="foodSectionTitle">AI 사료분석 리포트</h3>
+          <p class="text-slate-500 text-sm mt-1" id="foodSectionCopy">사료 뒷면 성분표를 찍으세요. ScanFit이 AI로 분석해 <strong>권장 급여량, 1주 식단표</strong>를 만듭니다.</p>
+        </div>
+      </div>
+      
+      <div class="upload-zone rounded-2xl p-12 text-center relative overflow-hidden bg-white/50 border-2 border-dashed border-blue-200" id="uploadZoneStep2">
+        <div class="scan-line" id="scanLineStep2" style="display:none"></div>
+        <input type="file" id="fileInputStep2" accept="image/*" capture="environment" class="sr-only" onchange="handleStep2OCR(event)"/>
+        
+        <div id="uploadPlaceholderStep2">
+          <div class="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform cursor-pointer" onclick="triggerStep2Upload()">
+            <span class="material-symbols-outlined text-5xl text-emerald-600">document_scanner</span>
+          </div>
+          <h4 class="font-black text-slate-800 text-xl mb-3" id="foodUploadTitle">사료 성분표를 찍어 올려주세요</h4>
+          <p class="text-slate-500 text-sm max-w-lg mx-auto mb-8 leading-relaxed" id="foodUploadCopy">
+            이미지를 업로드하면 AI가 원료와 보증성분을 읽고, 급여량과 1주 식단표를 리포트 형식으로 생성합니다.
+          </p>
+          <div class="max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 text-left">
+            <div>
+              <label id="foodPetTypeLabel" data-i18n="foodPetTypeLabel" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Pet Type</label>
+              <select id="foodPetType" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-400 outline-none bg-white">
+                <option value="dog">강아지</option>
+                <option value="cat">고양이</option>
+              </select>
+            </div>
+            <div>
+              <label id="foodPetBreedLabel" data-i18n="foodPetBreedLabel" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Breed</label>
+              <input list="breedList" id="foodPetBreed" placeholder="예: 푸들, 코숏" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-400 outline-none bg-white"/>
+              <datalist id="breedList"></datalist>
+              <div class="mt-2 flex items-center justify-between gap-3">
+                <p class="text-[11px] text-slate-400" id="breedMissingText">목록에 없으면 직접 입력하세요. 믹스견은 믹스견 / unknown / 혼합견으로 적어도 됩니다.</p>
+                <button type="button" onclick="useCustomBreedInput()" class="text-[11px] font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap" id="breedMissingButton">내 품종이 없어요</button>
+              </div>
+            </div>
+            <div>
+              <label id="foodPetWeightLabel" data-i18n="foodPetWeightLabel" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Weight kg</label>
+              <input type="number" id="foodPetWeight" placeholder="5.2" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-400 outline-none bg-white"/>
+            </div>
+          </div>
+          <button onclick="triggerStep2Upload()" class="bg-emerald-600 text-white font-bold px-10 py-4 rounded-full shadow-xl hover:brightness-110 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 mx-auto">
+            <span id="foodUploadButtonText">사료 라벨 업로드</span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </button>
+          <label for="fileInputStep2" class="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-full border border-slate-200 text-slate-600 text-xs font-bold cursor-pointer hover:bg-slate-50 transition-all">
+            <span class="material-symbols-outlined text-sm">attach_file</span>
+            <span id="foodDirectUploadText">직접 파일 선택</span>
+          </label>
+          <div class="grid grid-cols-3 gap-2 max-w-md mx-auto mt-8 text-left">
+            <div class="bg-white rounded-xl border border-slate-100 p-3">
+              <p class="text-[10px] font-black text-slate-400 uppercase">Energy</p>
+              <p class="font-bold text-slate-800">kcal/kg</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-100 p-3">
+              <p class="text-[10px] font-black text-slate-400 uppercase">Protein</p>
+              <p class="font-bold text-slate-800">Auto</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-100 p-3">
+              <p class="text-[10px] font-black text-slate-400 uppercase">Portion</p>
+              <p class="font-bold text-slate-800">grams</p>
+            </div>
+          </div>
+        </div>
+        <div id="uploadStatusStep2" style="display:none" class="flex flex-col items-center gap-2">
+          <div class="w-10 h-10 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+          <p class="text-blue-600 font-bold text-sm" id="uploadStatusTextStep2" data-i18n="analysisLoadingText">분석 중...</p>
+        </div>
+      </div>
+
+      <!-- Step 2 Result -->
+      <div id="step2Result" style="display:none" class="bg-slate-50 rounded-3xl p-6 md:p-10 border border-slate-200 mt-8">
+        <div class="report-cover rounded-3xl p-7 md:p-9 mb-8">
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <span class="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/10 px-3 py-2 text-xs font-black text-emerald-200 uppercase tracking-widest" id="foodLiveBadge">AI 실시간 분석 완료</span>
+              <h4 class="font-display font-black text-4xl md:text-5xl mt-5 leading-tight">Food Intelligence<br/>Report</h4>
+              <p class="text-white/60 mt-4 max-w-xl leading-relaxed" id="foodReportCopy">사료 이미지에서 영양 밀도, 성분 밸런스, 급여량, 1주 식단표를 하나의 리포트로 구성했습니다.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-3 min-w-[280px]">
+              <div class="rounded-2xl bg-white/10 border border-white/10 p-4 backdrop-blur">
+                <p class="text-white/45 text-[10px] font-black uppercase">Engine</p>
+                <p class="font-black text-xl">AI</p>
+              </div>
+              <div class="rounded-2xl bg-white/10 border border-white/10 p-4 backdrop-blur">
+                <p class="text-white/45 text-[10px] font-black uppercase">Format</p>
+                <p class="font-black text-xl">AI</p>
+              </div>
+              <div class="rounded-2xl bg-white/10 border border-white/10 p-4 backdrop-blur">
+                <p class="text-white/45 text-[10px] font-black uppercase">Plan</p>
+                <p class="font-black text-xl">7D</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="huashu-canvas p-6 md:p-8 mb-8">
+          <div class="grid lg:grid-cols-[1fr_1.05fr] gap-8 items-center">
+            <div>
+              <p class="section-label text-[10px] font-black text-emerald-300 uppercase mb-3" id="foodCanvasEyebrow">Huashu HTML-native output</p>
+              <h4 class="font-display font-black text-3xl md:text-4xl leading-tight" id="foodCanvasTitle">AI 사료분석<br/>리포트 캔버스</h4>
+              <p class="text-white/58 text-sm leading-relaxed mt-4 max-w-lg" id="foodCanvasCopy">업로드된 사료 라벨을 영양 밀도, 급여량, 식단 안정성으로 분해해 결제 전환 화면에서 바로 설득력 있게 보이는 리포트 형태로 렌더링합니다.</p>
+              <div class="grid grid-cols-3 gap-3 mt-6">
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <p class="text-white/40 text-[10px] font-black uppercase">Nutrition</p>
+                    <p class="font-black text-2xl text-emerald-200">AI</p>
+                </div>
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <p class="text-white/40 text-[10px] font-black uppercase">Table</p>
+                  <p class="font-black text-2xl text-blue-200">7D</p>
+                </div>
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <p class="text-white/40 text-[10px] font-black uppercase">Export</p>
+                  <p class="font-black text-2xl text-amber-200">HTML</p>
+                </div>
+              </div>
+            </div>
+            <div class="relative min-h-[300px]">
+              <div class="iso-stack">
+                <div class="iso-layer l1"></div>
+                <div class="iso-layer l2"></div>
+                <div class="iso-layer l3"></div>
+              </div>
+              <div class="iso-label a"><b>Protein</b><br/><span class="text-white/50" id="canvasProteinText">28%</span></div>
+              <div class="iso-label b"><b>Energy</b><br/><span class="text-white/50" id="canvasEnergyText">3,820 kcal</span></div>
+              <div class="iso-label c"><b>Portion</b><br/><span class="text-white/50" id="canvasPortionText">0 g/day</span></div>
+            </div>
+          </div>
+          <div class="huashu-mark">Created by Huashu-Design</div>
+        </div>
+        <div class="mb-8">
+          <p class="section-label text-[10px] font-black text-emerald-500 uppercase mb-2">Food Scan Report</p>
+          <h4 class="font-display font-black text-3xl text-slate-900" id="foodReportTitle">사료 분석 리포트</h4>
+        </div>
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <div class="w-full md:w-1/2">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 mb-5" id="ocrResultContainer" style="display:none">
+              <p class="text-[10px] font-black text-slate-400 uppercase mb-3">OCR Preview</p>
+              <img id="ocrPreviewImg" class="w-full h-40 object-cover rounded-xl border border-slate-100" alt="Uploaded food label preview"/>
+            </div>
+            <div class="bg-slate-950 text-white p-7 rounded-2xl shadow-xl">
+                <p class="text-sm text-slate-400 font-bold mb-2" id="foodRationLabel">오늘의 권장 급여량</p>
+              <div class="flex items-end gap-3 mb-4">
+                <span class="font-display font-black text-6xl" id="finalGramsText">0 g</span>
+                <span class="text-slate-400 pb-2 text-sm">/ day</span>
+              </div>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                <span id="podiTargetBreedSentence">반려동물의 체중, 체형 라인, 사료 열량을 합쳐 계산한 값입니다.</span>
+              </p>
+              <div class="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/10 px-3 py-2 text-xs font-bold">
+                <span class="material-symbols-outlined text-sm">pets</span>
+                <span id="foodDetectedPetsLabel" data-i18n="foodDetectedPetsLabel">사진 속 반려동물</span>:
+                <span id="foodDetectedPetsText">1</span>
+              </div>
+              <p id="foodMultiPetWarning" class="text-[11px] text-amber-200/90 mt-3 leading-relaxed"></p>
+            </div>
+            <div class="nutri-stage rounded-2xl p-6 mt-5 text-white">
+              <p class="relative z-10 text-white/50 text-[10px] font-black uppercase tracking-widest mb-2">Nutrition Map</p>
+              <h5 class="relative z-10 font-display font-bold text-xl mb-5" id="foodCoreTitle">영양 밀도 코어</h5>
+              <div class="nutri-ring r1"></div>
+              <div class="nutri-ring r2"></div>
+              <div class="nutri-ring r3"></div>
+              <div class="nutri-core"></div>
+              <div class="absolute left-5 right-5 bottom-5 z-10 grid grid-cols-3 gap-2 text-xs">
+                <div class="rounded-xl bg-white/10 border border-white/10 p-3 backdrop-blur">
+                  <p class="text-white/50 font-bold" id="foodEnergyLabel" data-i18n="foodEnergyLabel">Energy</p><p class="font-black" id="energyDensityText">3,820</p>
+                </div>
+                <div class="rounded-xl bg-white/10 border border-white/10 p-3 backdrop-blur">
+                  <p class="text-white/50 font-bold" id="foodConfidenceLabel" data-i18n="foodConfidenceLabel">AI 신뢰도</p><p class="font-black" id="foodConfidenceText">86%</p>
+                </div>
+                <div class="rounded-xl bg-white/10 border border-white/10 p-3 backdrop-blur">
+                  <p class="text-white/50 font-bold">Plan</p><p class="font-black">7일</p>
+                </div>
+              </div>
+            </div>
+            <div class="report-card rounded-2xl p-5 mt-5" id="foodGeneratedImageCard" style="display:none">
+              <div class="flex items-center justify-between gap-3 mb-3">
+                <h5 class="font-black text-slate-800 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-emerald-600">image</span>
+                  <span id="foodImageTitleText" data-i18n="foodImageTitle">AI 생성 리포트 이미지</span>
+                </h5>
+                <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full" id="foodImageBadgeText" data-i18n="foodImageBadge">Image AI</span>
+              </div>
+              <img id="foodGeneratedImage" class="w-full rounded-2xl border border-slate-100 shadow-lg" alt="AI generated food analysis report"/>
+            </div>
+            <div class="report-card rounded-2xl p-6 mt-5">
+              <p id="foodAiSummary" class="text-sm text-slate-600 leading-relaxed">사료 라벨 분석 결과가 여기에 표시됩니다.</p>
+            </div>
+            <div class="report-card rounded-2xl p-6 mt-5">
+              <h5 class="font-black text-slate-800 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-blue-600">fact_check</span>
+                <span id="foodEvidenceTitleText" data-i18n="evidenceTitle">분석 근거</span>
+              </h5>
+              <div id="foodEvidenceList" class="grid gap-3 text-sm"></div>
+            </div>
+            <div class="report-card rounded-2xl p-6 mt-5">
+              <h5 class="font-black text-slate-800 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-slate-700">article</span>
+                <span id="foodRawTitleText">라벨 원문 판독</span>
+              </h5>
+              <div id="rawLabelLines" class="rounded-2xl bg-slate-950 text-slate-200 p-4 text-xs leading-relaxed font-mono space-y-1"></div>
+            </div>
+            <div class="report-card rounded-2xl p-6 mt-5">
+              <h5 class="font-black text-slate-800 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-600">functions</span>
+                <span id="foodFormulaTitleText" data-i18n="formulaTitle">급여량 계산 공식</span>
+              </h5>
+              <p id="feedingFormulaText" class="text-sm text-slate-600 leading-relaxed"></p>
+            </div>
+            <div class="premium-report rounded-2xl p-6 mt-5">
+              <div class="flex items-center justify-between gap-4 mb-5">
+                <div>
+                  <h5 class="font-black text-slate-800" id="foodTrustTitle">AI 신뢰 지표</h5>
+                  <p class="text-xs text-slate-500 mt-1" id="foodTrustCopy">이미지 판독 품질과 성분 추정 안정성</p>
+                </div>
+                <div class="metric-ring" id="confidenceRing" style="--value:86;--color:#10b981"><span id="confidenceRingText">86%</span></div>
+              </div>
+              <div class="grid grid-cols-3 gap-3 text-center text-xs">
+                <div class="rounded-xl bg-white border border-slate-100 p-3"><b class="block text-slate-900">OCR</b><span class="text-slate-400">Label</span></div>
+                <div class="rounded-xl bg-white border border-slate-100 p-3"><b class="block text-slate-900">AI</b><span class="text-slate-400">Reasoning</span></div>
+                <div class="rounded-xl bg-white border border-slate-100 p-3"><b class="block text-slate-900">Report</b><span class="text-slate-400">Ready</span></div>
+              </div>
+            </div>
+            <div class="macro-card rounded-2xl p-6 mt-5">
+              <h5 class="font-black text-slate-800 mb-4" id="foodBalanceTitle">영양 성분 밸런스</h5>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs font-bold mb-1"><span id="foodProteinLabel" data-i18n="foodProteinLabel">단백질</span><span id="proteinPctText">28%</span></div>
+                  <div class="info-bar"><span id="proteinBar" style="width:78%;background:#2563eb"></span></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-bold mb-1"><span id="foodFatLabel" data-i18n="foodFatLabel">지방</span><span id="fatPctText">14%</span></div>
+                  <div class="info-bar"><span id="fatBar" style="width:52%;background:#10b981"></span></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-bold mb-1"><span id="foodCarbLabel" data-i18n="foodCarbLabel">탄수화물 추정</span><span id="carbPctText">36%</span></div>
+                  <div class="info-bar"><span id="carbBar" style="width:64%;background:#f59e0b"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2">
+            <div class="report-card rounded-2xl p-6 mb-5">
+              <h5 class="font-black text-slate-800 mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-emerald-600">calendar_month</span>
+                <span id="foodMealPlanTitle">AI 1주 식단 분석표</span>
+              </h5>
+              <div id="weeklyMealPlan" class="grid grid-cols-1 gap-2 text-sm"></div>
+              <div id="weeklyMealStrip" class="report-strip mt-5"></div>
+              <button onclick="downloadFoodReport()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl hover:brightness-110 transition-all mt-5 flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">download</span> <span id="foodDownloadButtonText">사료/식단 리포트 다운로드</span>
+              </button>
+            </div>
+            <div class="paywall-cta p-6">
+              <h5 class="font-display font-black text-2xl mb-2" data-i18n="unlockTitle">전체 리포트 잠금 해제</h5>
+              <p class="text-white/70 text-sm leading-relaxed mb-4" data-i18n="unlockCopy">결제 전에는 미리보기만 제공됩니다. 결제 후 전체 리포트와 이미지 리포트를 다운로드할 수 있습니다.</p>
+              <button onclick="openCheckout('monthly')" class="bg-white text-slate-950 font-black px-5 py-3 rounded-xl hover:bg-blue-50 transition-all" data-i18n="unlockButton">구독하고 다운로드</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 03: Exercise Prescription -->
+    <div class="glass border-2 border-blue-200 rounded-[2.5rem] shadow-2xl p-8 md:p-12 mb-12 feature-card relative overflow-hidden" id="step3Section">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="w-12 h-12 rounded-full bg-slate-950 text-white flex items-center justify-center font-black text-xl shadow-lg">02</span>
+        <div>
+          <h3 class="font-display font-bold text-2xl" id="exerciseSectionTitle">AI 운동처방 리포트</h3>
+          <p class="text-slate-500 text-sm mt-1" id="exerciseSectionCopy">사료분석과 식단표 결과를 바탕으로 주간 활동량, 관절 부담, 회복일을 설계합니다.</p>
+        </div>
+      </div>
+      <div class="upload-zone rounded-2xl p-10 text-center relative overflow-hidden bg-white/50 border-2 border-dashed border-slate-200" id="uploadZoneStep3">
+        <input type="file" id="fileInputStep3" accept="image/*,.txt,.html" capture="environment" class="sr-only" onchange="handleStep3Upload(event)"/>
+        <div id="uploadPlaceholderStep3">
+          <div class="max-w-3xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 text-left">
+            <div>
+              <label id="exercisePetTypeLabel" data-i18n="exercisePetTypeLabel" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Pet Type</label>
+              <select id="exercisePetType" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none bg-white">
+                <option value="dog">강아지</option>
+                <option value="cat">고양이</option>
+              </select>
+            </div>
+            <div>
+              <label id="exerciseAgeLabel" data-i18n="exerciseAgeLabel" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Age</label>
+              <input type="number" id="exerciseAge" placeholder="3" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none bg-white"/>
+            </div>
+            <div>
+              <label id="exerciseNeuteredLabel" data-i18n="exerciseNeuteredLabel" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Neutered</label>
+              <select id="exerciseNeutered" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none bg-white">
+                <option value="yes">예</option>
+                <option value="no">아니오</option>
+              </select>
+            </div>
+            <div>
+              <label id="exerciseJointLabelText" data-i18n="exerciseJointLabelText" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Joint</label>
+              <select id="exerciseJoint" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none bg-white">
+                <option value="normal">정상</option>
+                <option value="sensitive">주의</option>
+                <option value="pain">통증 의심</option>
+              </select>
+            </div>
+            <div>
+              <label id="exerciseActivityLabelText" data-i18n="exerciseActivityLabelText" class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-2">Activity</label>
+              <select id="exerciseActivity" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none bg-white">
+                <option value="low">낮음</option>
+                <option value="normal">보통</option>
+                <option value="high">높음</option>
+              </select>
+            </div>
+          </div>
+          <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform cursor-pointer" onclick="triggerStep3Upload()">
+            <span class="material-symbols-outlined text-5xl text-slate-900">fitness_center</span>
+          </div>
+          <h4 class="font-black text-slate-800 text-xl mb-3" id="exerciseUploadTitle">식단 리포트를 운동처방으로 전환하세요</h4>
+          <p class="text-slate-500 text-sm max-w-xl mx-auto mb-6 leading-relaxed" id="exerciseUploadCopy">ScanFit이 사료분석 결과와 1주 식단표를 합쳐 다음 7일간의 활동 강도, 휴식일, 목표 소모량을 계산합니다.</p>
+          <div class="flex flex-wrap gap-3 justify-center">
+          <button onclick="triggerStep3Upload()" class="bg-white border-2 border-slate-200 text-slate-700 font-bold px-6 py-3 rounded-full hover:border-blue-300 transition-all"><span id="exerciseUploadButtonText">리포트 업로드</span></button>
+          <label for="fileInputStep3" class="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-slate-200 text-slate-600 text-xs font-bold cursor-pointer hover:bg-slate-50 transition-all">
+            <span class="material-symbols-outlined text-sm">attach_file</span>
+            <span id="exerciseDirectUploadText">직접 파일 선택</span>
+          </label>
+          <button onclick="generateExercisePrescription()" class="bg-slate-950 text-white font-bold px-6 py-3 rounded-full hover:bg-blue-600 transition-all"><span id="exerciseGenerateButtonText">자동 운동처방 생성</span></button>
+          </div>
+        </div>
+      </div>
+      <div id="step3Result" style="display:none" class="bg-slate-50 rounded-3xl p-6 md:p-10 border border-slate-200 mt-8">
+        <div class="huashu-canvas p-6 md:p-8 mb-8">
+          <div class="grid lg:grid-cols-[.95fr_1.05fr] gap-8 items-center">
+            <div>
+              <p class="section-label text-[10px] font-black text-blue-300 uppercase mb-3" id="exerciseCanvasEyebrow">Huashu motion prescription</p>
+              <h4 class="font-display font-black text-3xl md:text-4xl leading-tight" id="exerciseCanvasTitle">AI 운동처방<br/>부하 리포트</h4>
+              <p class="text-white/58 text-sm leading-relaxed mt-4 max-w-lg" id="exerciseCanvasCopy">식단표를 활동 강도, 관절 부담, 회복일로 변환해 사용자가 “돈을 낼 만한 결과물”로 느끼는 처방 대시보드를 만듭니다.</p>
+              <div class="grid grid-cols-3 gap-3 mt-6">
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <p class="text-white/40 text-[10px] font-black uppercase">Load</p>
+                  <p class="font-black text-2xl text-blue-200" id="canvasJointLoadText">Low</p>
+                </div>
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <p class="text-white/40 text-[10px] font-black uppercase">Burn</p>
+                  <p class="font-black text-xl text-emerald-200" id="canvasBurnText">0 kcal</p>
+                </div>
+                <div class="rounded-2xl bg-white/10 border border-white/10 p-4">
+                  <p class="text-white/40 text-[10px] font-black uppercase">Plan</p>
+                  <p class="font-black text-2xl text-amber-200">7D</p>
+                </div>
+              </div>
+            </div>
+            <div class="motion-bars">
+              <span style="height:58%"></span>
+              <span style="height:42%"></span>
+              <span style="height:70%"></span>
+              <span style="height:22%"></span>
+              <span style="height:62%"></span>
+              <span style="height:48%"></span>
+              <span style="height:36%"></span>
+            </div>
+          </div>
+          <div class="huashu-mark">Created by Huashu-Design</div>
+        </div>
+        <div class="grid lg:grid-cols-[.9fr_1.1fr] gap-8">
+          <div class="exercise-stage rounded-3xl p-6 text-white">
+              <p class="relative z-10 text-white/50 text-[10px] font-black uppercase tracking-widest mb-2">AI Motion Load Map</p>
+              <h4 class="relative z-10 font-display font-bold text-2xl mb-6" id="exerciseSimTitle">활동 부하 시뮬레이션</h4>
+            <div class="nutri-ring r1"></div>
+            <div class="nutri-ring r2"></div>
+            <div class="exercise-avatar"></div>
+            <div class="absolute left-5 right-5 bottom-5 z-10 grid grid-cols-2 gap-3">
+              <div class="rounded-xl bg-white/10 border border-white/10 p-4 backdrop-blur">
+                <p class="text-white/50 text-xs font-bold" id="exerciseJointLabel" data-i18n="exerciseJointLabel">관절 부담</p>
+                <p class="font-black text-2xl" id="jointLoadText">낮음</p>
+                <div class="info-bar bg-white/10 mt-3"><span id="jointLoadBar" style="width:34%;background:#10b981"></span></div>
+              </div>
+              <div class="rounded-xl bg-white/10 border border-white/10 p-4 backdrop-blur">
+                <p class="text-white/50 text-xs font-bold" id="exerciseWeeklyBurnLabel" data-i18n="exerciseWeeklyBurnLabel">주간 소모 목표</p>
+                <p class="font-black text-2xl" id="weeklyBurnText">1,680 kcal</p>
+                <div class="info-bar bg-white/10 mt-3"><span style="width:72%;background:#60a5fa"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-5">
+            <div class="grid grid-cols-3 gap-3">
+              <div class="macro-card rounded-2xl p-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase" id="exerciseIntensityLabel" data-i18n="exerciseIntensityLabel">Intensity</p>
+                <p class="font-black text-2xl text-blue-600" id="exerciseIntensityText">M</p>
+              </div>
+              <div class="macro-card rounded-2xl p-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase" id="exerciseRecoveryLabel" data-i18n="exerciseRecoveryLabel">Recovery</p>
+                <p class="font-black text-2xl text-emerald-600">1d</p>
+              </div>
+              <div class="macro-card rounded-2xl p-4">
+                <p class="text-[10px] font-black text-slate-400 uppercase" id="exercisePlanLabel" data-i18n="exercisePlanLabel">Plan</p>
+                <p class="font-black text-2xl text-slate-900">7d</p>
+              </div>
+            </div>
+            <div class="report-card rounded-2xl p-6">
+              <h5 class="font-black text-slate-800 mb-4" id="exercisePlanTitle">주간 운동처방표</h5>
+              <div id="weeklyExercisePlan" class="space-y-2"></div>
+            </div>
+            <div class="report-card rounded-2xl p-6">
+              <h5 class="font-black text-slate-800 mb-4" id="exerciseReasonTitle">이번 주 조정 근거</h5>
+              <p id="exerciseRationale" class="text-sm text-slate-600 leading-relaxed"></p>
+            </div>
+            <div class="risk-card">
+              <h5 class="font-black text-amber-900 mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-amber-600">warning</span>
+                <span id="exerciseWarningsTitleText">운동 위험 경고</span>
+              </h5>
+              <div id="exerciseWarnings" class="space-y-2 text-sm text-amber-900"></div>
+            </div>
+            <div class="report-card rounded-2xl p-5" id="exerciseGeneratedImageCard" style="display:none">
+              <div class="flex items-center justify-between gap-3 mb-3">
+                <h5 class="font-black text-slate-800 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-blue-600">image</span>
+                  <span id="exerciseImageTitleText">AI 생성 운동처방 이미지</span>
+                </h5>
+                <span class="text-[10px] font-black uppercase text-blue-600 bg-blue-50 px-2 py-1 rounded-full" id="exerciseImageBadgeText" data-i18n="foodImageBadge">Image AI</span>
+              </div>
+              <img id="exerciseGeneratedImage" class="w-full rounded-2xl border border-slate-100 shadow-lg" alt="AI generated exercise prescription report"/>
+            </div>
+              <button onclick="downloadExerciseReport()" class="w-full bg-slate-950 text-white font-bold py-4 rounded-xl hover:bg-blue-600 transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">download</span> <span id="exerciseDownloadButtonText">운동처방 리포트 다운로드</span>
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAVED REPORTS -->
+<section class="py-16 px-6 bg-white" id="reports">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+      <div>
+        <span class="section-label inline-block bg-slate-100 text-slate-500 font-black text-xs px-4 py-2 rounded-full mb-3 uppercase">Paid Library</span>
+        <h2 class="font-display font-black text-4xl text-slate-900" id="savedReportsTitle">저장된 리포트</h2>
+        <p class="text-slate-500 mt-2" id="savedReportsCopy">결제 후 생성한 리포트는 이 브라우저에 저장되고 재다운로드할 수 있습니다.</p>
+      </div>
+      <button onclick="renderSavedReports()" class="bg-slate-950 text-white font-bold px-5 py-3 rounded-xl" id="savedReportsRefresh">새로고침</button>
+    </div>
+    <div id="savedReportsList" class="grid md:grid-cols-2 gap-4"></div>
+  </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section class="py-24 px-6 bg-gradient-to-br from-slate-50 to-blue-50" id="pricing">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="inline-block bg-blue-50 text-blue-600 font-bold text-sm px-4 py-2 rounded-full mb-4" id="pricingEyebrow" data-i18n="pricingEyebrow">Simple Pricing</span>
+      <h2 class="font-display font-black text-5xl mb-4" id="pricingTitle" data-i18n="pricingTitle">Choose Your Plan</h2>
+      <p class="text-slate-500 text-lg mb-8" id="pricingCopy" data-i18n="pricingCopy">ScanFit과 함께 우리 아이의 평생 건강을 설계하세요</p>
+      <!-- Currency Toggle -->
+      <div class="inline-flex bg-white rounded-full p-1 border border-slate-200 shadow-sm gap-1">
+        <button class="currency-btn active px-5 py-2 rounded-full font-bold text-sm transition-all" data-rate="1" data-sym="\" onclick="setCurrency(this)">KRW</button>
+        <button class="currency-btn px-5 py-2 rounded-full font-bold text-sm transition-all text-slate-500" data-rate="0.00073" data-sym="$" onclick="setCurrency(this)">USD</button>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <!-- Monthly Plan -->
+      <div class="bg-white p-10 rounded-[2.5rem] border border-slate-200 shadow-lg feature-card">
+        <div class="mb-8">
+          <h3 class="font-display font-bold text-2xl mb-2" id="monthlyPlanTitle" data-i18n="monthlyPlanTitle">Standard Monthly</h3>
+          <p class="text-slate-500" id="monthlyPlanCopy" data-i18n="monthlyPlanCopy">매월 체계적인 건강 분석</p>
+        </div>
+        <div class="mb-8">
+          <div class="text-5xl font-black text-slate-800 mb-2" id="monthPrice">₩29,000</div>
+          <p class="text-blue-600 text-sm font-semibold" id="pricingMonthlyLabel" data-i18n="pricingMonthlyLabel">/ 월</p>
+        </div>
+        <button onclick="openCheckout('monthly')" class="w-full bg-slate-100 text-slate-700 font-bold py-4 rounded-xl hover:bg-slate-200 transition-all" id="monthlyButton" data-i18n="monthlyButton">Get Started</button>
+      </div>
+      <!-- Annual Plan -->
+      <div class="bg-white p-10 rounded-[2.5rem] border-2 border-blue-500 shadow-2xl feature-card relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-blue-600 text-white px-6 py-2 rounded-bl-2xl font-bold text-sm" id="pricingBestValue" data-i18n="pricingBestValue">BEST VALUE</div>
+        <div class="mb-8">
+          <h3 class="font-display font-bold text-2xl mb-2" id="annualPlanTitle" data-i18n="annualPlanTitle">Premium Annual</h3>
+          <p class="text-slate-500" id="annualPlanCopy" data-i18n="annualPlanCopy">ScanFit의 모든 전문가 케어 포함</p>
+        </div>
+        <div class="mb-8">
+          <div class="text-5xl font-black text-blue-600 mb-2" id="yearPrice">₩290,000</div>
+          <p class="text-slate-400 text-sm font-semibold" id="pricingAnnualLabel" data-i18n="pricingAnnualLabel">/ 연간</p>
+        </div>
+        <button onclick="openCheckout('annual')" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition-all" id="annualButton" data-i18n="annualButton">Subscribe Now →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white py-16 px-6">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="text-2xl font-black font-display text-blue-400 mb-4">ScanFit</div>
+    <p class="text-slate-400 text-sm mb-6">ⓒ 2026 ScanFit. All rights reserved.</p>
+    <div class="flex justify-center gap-6 text-sm text-slate-500">
+      <a href="#" class="hover:text-white transition-colors" id="footerPrivacy" data-i18n="footerPrivacy">Privacy</a>
+      <a href="#" class="hover:text-white transition-colors" id="footerTerms" data-i18n="footerTerms">Terms</a>
+      <a href="mailto:support@scanfit.ai" class="hover:text-white transition-colors" id="footerHelp" data-i18n="footerHelp">support@scanfit.ai</a>
+    </div>
+  </div>
+</footer>
+</main>
+
+<!-- MODALS -->
+<div class="modal" id="loginModal">
+  <div class="bg-white rounded-[2rem] shadow-2xl p-8 w-full max-w-sm mx-4 relative">
+    <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-slate-400 text-2xl">?</button>
+    <h3 class="font-display font-black text-2xl text-blue-600 mb-6 text-center" id="loginTitle" data-i18n="loginTitle">Sign In</h3>
+    <input type="email" id="loginEmail" placeholder="Email" class="w-full border border-slate-200 rounded-xl px-4 py-3 mb-4"/>
+    <p class="text-xs text-slate-500 leading-relaxed mb-4" id="loginHint" data-i18n="loginHint">이메일로 인증 링크를 보내고, 링크를 열면 로그인 상태가 활성화됩니다.</p>
+    <button onclick="handleLogin()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl" id="loginButtonText">인증 메일 보내기</button>
+    <p id="loginStatus" class="text-xs font-semibold text-slate-500 mt-3 text-center"></p>
+  </div>
+</div>
+
+<div class="modal" id="checkoutModal">
+  <div class="bg-white rounded-[2rem] shadow-2xl p-8 w-full max-w-md mx-4 relative">
+    <button onclick="closeModal('checkoutModal')" class="absolute top-4 right-4 text-slate-400 text-2xl">?</button>
+    <h3 class="font-display font-black text-2xl mb-6 text-center" id="checkoutTitle" data-i18n="checkoutTitle">Payment</h3>
+    <div class="bg-blue-50 rounded-2xl p-4 mb-6">
+      <div class="mb-4">
+        <label class="block text-[10px] font-black text-slate-400 uppercase mb-1" id="checkoutPetsLabel" data-i18n="checkoutPetsLabel">Pets</label>
+        <input type="number" min="1" value="1" id="checkoutPetCount" class="w-full border border-blue-100 rounded-xl px-4 py-3 font-bold outline-none" onchange="updateCheckoutTotal()" oninput="updateCheckoutTotal()"/>
+        <p class="text-[11px] text-slate-500 mt-2" id="checkoutAddonHint">1마리부터 마리당 ₩1,000 또는 $1이 추가됩니다.</p>
+      </div>
+      <div class="flex justify-between font-bold mb-2"><span id="checkoutPlanLabel" data-i18n="checkoutPlanLabel">Plan</span><span id="orderItemPrice">₩0</span></div>
+      <div class="flex justify-between text-sm text-slate-500 mb-2"><span id="checkoutAddonLabel" data-i18n="checkoutAddonLabel">Pet Add-on</span><span id="petAddonPrice">₩0</span></div>
+      <div class="flex justify-between text-blue-600 font-black pt-2 border-t border-blue-100"><span id="checkoutTotalLabel" data-i18n="checkoutTotalLabel">Total (Inc. Tax)</span><span id="orderTotal">₩0</span></div>
+    </div>
+    <div id="paypalButtons" class="mb-4"></div>
+    <p id="paypalNotice" class="text-xs text-slate-500 leading-relaxed mb-4"></p>
+    <button onclick="processPayment()" class="w-full bg-slate-100 text-slate-500 font-bold py-4 rounded-xl" id="demoPaymentButton">데모 결제 완료 처리</button>
+  </div>
+</div>
+
+<div class="modal" id="successModal">
+  <div class="bg-white rounded-[2rem] shadow-2xl p-10 w-full max-w-sm mx-4 text-center">
+    <div class="text-5xl mb-6">?</div>
+    <h3 class="font-display font-black text-2xl mb-2 text-green-600" id="successTitle" data-i18n="successTitle">결제 완료!</h3>
+    <p class="text-slate-500 mb-6" id="successCopy" data-i18n="successCopy">ScanFit 구독이 시작되었습니다!</p>
+    <button onclick="closeModal('successModal')" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl" id="successButton">확인</button>
+  </div>
+</div>
+
+<div class="modal" id="sampleModal">
+  <div class="bg-white rounded-[2rem] shadow-2xl p-8 w-full max-w-md mx-4 relative">
+    <button onclick="closeModal('sampleModal')" class="absolute top-4 right-4 text-slate-400 text-2xl">?</button>
+    <h3 class="font-display font-black text-2xl text-blue-600 mb-4 text-center" id="sampleTitle" data-i18n="sampleTitle">Sample Report</h3>
+    <div class="bg-slate-50 p-6 rounded-2xl space-y-4">
+      <div class="flex justify-between"><span id="sampleCaloriesLabel" data-i18n="sampleCaloriesLabel">칼로리</span><span class="font-bold">480 kcal</span></div>
+      <div class="flex justify-between"><span id="sampleScoreLabel" data-i18n="sampleScoreLabel">영양 점수</span><span class="font-bold">92/100</span></div>
+      <p class="text-sm text-slate-500 pt-4 border-t" id="sampleSummary" data-i18n="sampleSummary">뽀디: 전반적으로 영양 균형이 훌륭합니다!</p>
+    </div>
+    <button onclick="closeModal('sampleModal')" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl mt-6" id="sampleClose" data-i18n="sampleClose">닫기</button>
+  </div>
+</div>
+
+<div class="modal" id="podiChatModal">
+  <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+      <div>
+        <h3 class="font-display font-black text-2xl text-slate-950" id="podiChatTitle" data-i18n="podiChatTitle">문의하기</h3>
+        <p class="text-xs text-slate-500 mt-1" id="podiChatSubtitle" data-i18n="podiChatSubtitle">이름, 이메일, 내용을 남기면 문의 폼으로 전달됩니다.</p>
+      </div>
+      <button onclick="closeModal('podiChatModal')" class="text-slate-400 text-2xl">?</button>
+    </div>
+    <form class="px-5 py-5 border-t border-slate-100 bg-white space-y-4" id="podiContactForm" action="https://formspree.io/f/mzdodrre" method="POST">
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+        <p class="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400" id="podiSupportEyebrow" data-i18n="podiSupportEyebrow">고객 문의</p>
+        <p class="mt-1 text-xs text-slate-600 leading-relaxed" id="podiSupportCopy" data-i18n="podiSupportCopy">이름, 이메일, 내용만 적어 보내세요.</p>
+      </div>
+      <div>
+        <label for="podiContactName" class="block text-[10px] font-black text-slate-400 uppercase mb-1" id="podiContactNameLabel" data-i18n="podiContactNameLabel">이름</label>
+        <input id="podiContactName" name="name" type="text" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm outline-none focus:border-blue-400" placeholder="홍길동" required />
+      </div>
+      <div>
+        <label for="podiContactEmail" class="block text-[10px] font-black text-slate-400 uppercase mb-1" id="podiContactEmailLabel" data-i18n="podiContactEmailLabel">이메일</label>
+        <input id="podiContactEmail" name="email" type="email" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm outline-none focus:border-blue-400" placeholder="name@example.com" required />
+      </div>
+      <div>
+        <label for="podiContactMessage" class="block text-[10px] font-black text-slate-400 uppercase mb-1" id="podiContactMessageLabel" data-i18n="podiContactMessageLabel">내용</label>
+        <textarea id="podiContactMessage" name="message" rows="4" class="w-full resize-none border border-slate-200 rounded-2xl px-4 py-3 text-sm outline-none focus:border-blue-400" placeholder="문의 내용을 적어주세요." required></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="ScanFit 문의" />
+      <div class="flex items-center gap-2">
+        <button type="submit" class="bg-slate-950 text-white font-bold px-4 py-3 rounded-2xl hover:bg-blue-600 transition-all" id="podiChatSendButton" data-i18n="podiChatSendButton">보내기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+let globalCategory = "athletic";
+let globalWeight = 5;
+let currentFoodPlan = null;
+let currentExercisePlan = null;
+let isPaid = localStorage.getItem("scanfit_paid") === "true";
+let authState = { authenticated: false, email: null, verifiedAt: null, expiresAt: null };
+let checkoutState = { plan: "monthly", currency: "KRW", petCount: 1 };
+let podiRealtimeState = {
+  pc: null,
+  dc: null,
+  connected: false,
+  connecting: false,
+  currentText: '',
+  pendingIndex: null,
+  sessionInstructions: ''
+};
+const storageKey = "scanfit_pet_history_v1";
+const freeUsageKey = "scanfit_free_usage_v1";
+const chatHistoryKey = "scanfit_podi_chat_v1";
+const FOOD_AI_ENDPOINT = "/api/analyze-food";
+const PODI_CHAT_ENDPOINT = "/api/podi-chat";
+const PODI_CHAT_STREAM_ENDPOINT = "/api/podi-chat-stream";
+const PODI_REALTIME_TOKEN_ENDPOINT = "/api/podi-realtime-token";
+const REPORT_IMAGE_ENDPOINT = "/api/generate-report-image";
+// ===== GLOBAL BREED DB (Mock Wikipedia API) =====
+const globalBreedDB = [
+  "진돗개 (Jindo)", "삽살개 (Sapsali)", "풍산개 (Poongsan)", "동경이 (Donggyeongi)", "제주개 (Jeju Dog)",
+  "래브라도 리트리버 (Labrador Retriever)", "골든 리트리버 (Golden Retriever)", "프렌치 불독 (French Bulldog)", 
+  "비글 (Beagle)", "닥스훈트 (Dachshund)", "저먼 셰퍼드 (German Shepherd)", "불독 (Bulldog)", 
+  "토이 푸들 (Toy Poodle)", "미디엄 푸들 (Medium Poodle)", "스탠다드 푸들 (Standard Poodle)",
+  "로트와일러 (Rottweiler)", "요크셔 테리어 (Yorkshire Terrier)", "박서 (Boxer)", "그레이트 데인 (Great Dane)", 
+  "도베르만 (Doberman)", "시베리안 허스키 (Siberian Husky)", "보스턴 테리어 (Boston Terrier)", "코커 스패니얼 (Cocker Spaniel)",
+  "보더 콜리 (Border Collie)", "시바견 (Shiba Inu)", "아키타 (Akita)", "사모예드 (Samoyed)", "차우차우 (Chow Chow)", 
+  "세인트 버나드 (Saint Bernard)", "뉴펀들랜드 (Newfoundland)", "티베탄 마스티프 (Tibetan Mastiff)", 
+  "아프간 하운드 (Afghan Hound)", "휘핏 (Whippet)", "비숑 프리제 (Bichon Frise)", "말티즈 (Maltese)", 
+  "치와와 (Chihuahua)", "시츄 (Shih Tzu)", "파피용 (Papillon)", "그레이하운드 (Greyhound)", 
+  "잭 러셀 테리어 (Jack Russell Terrier)", "슈나우저 (Schnauzer)", "웰시 코기 펨브록 (Pembroke Welsh Corgi)", 
+  "웰시 코기 카디건 (Cardigan Welsh Corgi)",
+  "말티푸 (Maltipoo)", "골든두들 (Goldendoodle)", "래브라두들 (Labradoodle)", "코카푸 (Cockapoo)", 
+  "요키푸 (Yorkipoo)", "시푸 (Shih-poo)", "비숑푸 (Bichonpoo)", "폼푸 (Pomapoo)", "캐부들 (Cavapoo)",
+  "폼스키 (Pomsky)", "폼치 (Pomchi)", "폼린 (Pominese)",
+  "코기푸 (Corgipoo)", "코기허스키/호기 (Horgi)", "코기먼 (Corman Shepherd)",
+  "퍼그글 (Puggle)", "불복서 (Bullboxer)", "치위너 (Chiweenie)", "잭치 (Jack Chi)",
+  "보르조이 셰퍼드 믹스 (Borzoi Shepherd Mix)", "리트리버 허스키 믹스 (Goberian)", "피트불 믹스 (Pitbull Mix)",
+  "알 수 없는 믹스견 (Unknown Mix)",
+  "코리안 쇼트헤어 (Korean Shorthair)", "페르시안 (Persian)", "러시안 블루 (Russian Blue)",
+  "브리티시 쇼트헤어 (British Shorthair)", "스코티시 폴드 (Scottish Fold)", "아메리칸 쇼트헤어 (American Shorthair)",
+  "랙돌 (Ragdoll)", "먼치킨 (Munchkin)", "메인쿤 (Maine Coon)", "샴 (Siamese)",
+  "벵갈 (Bengal)", "노르웨이 숲 (Norwegian Forest Cat)", "스핑크스 (Sphynx)", "알 수 없는 믹스묘 (Unknown Cat Mix)"
+];
+
+const dogBreedOptions = [
+  "진돗개 (Jindo)", "삽살개 (Sapsali)", "풍산개 (Poongsan)", "동경이 (Donggyeongi)", "제주개 (Jeju Dog)",
+  "래브라도 리트리버 (Labrador Retriever)", "골든 리트리버 (Golden Retriever)", "프렌치 불독 (French Bulldog)",
+  "비글 (Beagle)", "닥스훈트 (Dachshund)", "저먼 셰퍼드 (German Shepherd)", "불독 (Bulldog)",
+  "토이 푸들 (Toy Poodle)", "미디엄 푸들 (Medium Poodle)", "스탠다드 푸들 (Standard Poodle)",
+  "로트와일러 (Rottweiler)", "요크셔 테리어 (Yorkshire Terrier)", "박서 (Boxer)", "그레이트 데인 (Great Dane)",
+  "도베르만 (Doberman)", "시베리안 허스키 (Siberian Husky)", "보스턴 테리어 (Boston Terrier)", "코커 스패니얼 (Cocker Spaniel)",
+  "보더 콜리 (Border Collie)", "시바견 (Shiba Inu)", "아키타 (Akita)", "사모예드 (Samoyed)", "차우차우 (Chow Chow)",
+  "세인트 버나드 (Saint Bernard)", "뉴펀들랜드 (Newfoundland)", "티베탄 마스티프 (Tibetan Mastiff)",
+  "아프간 하운드 (Afghan Hound)", "휘핏 (Whippet)", "비숑 프리제 (Bichon Frise)", "말티즈 (Maltese)",
+  "치와와 (Chihuahua)", "시츄 (Shih Tzu)", "파피용 (Papillon)", "그레이하운드 (Greyhound)",
+  "잭 러셀 테리어 (Jack Russell Terrier)", "슈나우저 (Schnauzer)", "웰시 코기 펨브록 (Pembroke Welsh Corgi)",
+  "웰시 코기 카디건 (Cardigan Welsh Corgi)", "말티푸 (Maltipoo)", "골든두들 (Goldendoodle)",
+  "래브라두들 (Labradoodle)", "코카푸 (Cockapoo)", "요키푸 (Yorkipoo)", "시푸 (Shih-poo)",
+  "비숑푸 (Bichonpoo)", "폼푸 (Pomapoo)", "캐부들 (Cavapoo)", "폼스키 (Pomsky)", "폼치 (Pomchi)",
+  "폼린 (Pominese)", "코기푸 (Corgipoo)", "코기허스키/호기 (Horgi)", "코기먼 (Corman Shepherd)",
+  "퍼그글 (Puggle)", "불복서 (Bullboxer)", "치위너 (Chiweenie)", "잭치 (Jack Chi)",
+  "보르조이 셰퍼드 믹스 (Borzoi Shepherd Mix)", "리트리버 허스키 믹스 (Goberian)", "피트불 믹스 (Pitbull Mix)",
+  "알 수 없는 믹스견 (Unknown Mix)"
+];
+
+const catBreedOptions = [
+  "코리안 쇼트헤어 (Korean Shorthair)", "페르시안 (Persian)", "러시안 블루 (Russian Blue)",
+  "브리티시 쇼트헤어 (British Shorthair)", "스코티시 폴드 (Scottish Fold)", "아메리칸 쇼트헤어 (American Shorthair)",
+  "랙돌 (Ragdoll)", "먼치킨 (Munchkin)", "메인쿤 (Maine Coon)", "샴 (Siamese)",
+  "벵갈 (Bengal)", "노르웨이 숲 (Norwegian Forest Cat)", "스핑크스 (Sphynx)", "알 수 없는 믹스묘 (Unknown Cat Mix)"
+];
+
+const breedAliases = {
+  dog: {
+    "jindo": "진돗개 (Jindo)",
+    "jindo dog": "진돗개 (Jindo)",
+    "korean jindo": "진돗개 (Jindo)",
+    "shiba": "시바견 (Shiba Inu)",
+    "shiba inu": "시바견 (Shiba Inu)",
+    "poodle": "토이 푸들 (Toy Poodle)",
+    "toy poodle": "토이 푸들 (Toy Poodle)",
+    "mini poodle": "미디엄 푸들 (Medium Poodle)",
+    "standard poodle": "스탠다드 푸들 (Standard Poodle)",
+    "labrador": "래브라도 리트리버 (Labrador Retriever)",
+    "labrador retriever": "래브라도 리트리버 (Labrador Retriever)",
+    "golden retriever": "골든 리트리버 (Golden Retriever)",
+    "french bulldog": "프렌치 불독 (French Bulldog)",
+    "bulldog": "불독 (Bulldog)",
+    "border collie": "보더 콜리 (Border Collie)",
+    "corgi": "웰시 코기 펨브록 (Pembroke Welsh Corgi)",
+    "shih tzu": "시츄 (Shih Tzu)",
+    "maltese": "말티즈 (Maltese)",
+    "chihuahua": "치와와 (Chihuahua)",
+    "yorkie": "요크셔 테리어 (Yorkshire Terrier)",
+    "pomeranian": "폼푸 (Pomapoo)",
+    "mix": "알 수 없는 믹스견 (Unknown Mix)"
+  },
+  cat: {
+    "korean shorthair": "코리안 쇼트헤어 (Korean Shorthair)",
+    "korean short hair": "코리안 쇼트헤어 (Korean Shorthair)",
+    "persian": "페르시안 (Persian)",
+    "ragdoll": "랙돌 (Ragdoll)",
+    "maine coon": "메인쿤 (Maine Coon)",
+    "siamese": "샴 (Siamese)",
+    "bengal": "벵갈 (Bengal)",
+    "scottish fold": "스코티시 폴드 (Scottish Fold)",
+    "mix": "알 수 없는 믹스묘 (Unknown Cat Mix)"
+  }
+};
+
+function normalizeBreedInput(rawBreed = '', petType = 'dog') {
+  const clean = String(rawBreed || '').trim();
+  if (!clean) {
+    return petType === 'cat' ? '알 수 없는 믹스묘 (Unknown Cat Mix)' : '알 수 없는 믹스견 (Unknown Mix)';
+  }
+  const key = clean.toLowerCase().replace(/[()./,_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const aliasMap = breedAliases[petType] || {};
+  if (aliasMap[key]) return aliasMap[key];
+  const breedCatalog = petType === 'cat' ? catBreedOptions : dogBreedOptions;
+  const fromList = breedCatalog.find(item => {
+    const normalized = item.toLowerCase().replace(/[()./,_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+    return normalized.includes(key) || key.includes(normalized);
+  });
+  if (fromList) return fromList;
+  if (/mix|mutt|잡종/i.test(clean)) {
+    return petType === 'cat' ? '알 수 없는 믹스묘 (Unknown Cat Mix)' : '알 수 없는 믹스견 (Unknown Mix)';
+  }
+  return clean;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  populateBreedList(document.getElementById('foodPetType')?.value || 'dog');
+  const foodType = document.getElementById('foodPetType');
+  const exerciseType = document.getElementById('exercisePetType');
+  if (foodType) foodType.addEventListener('change', () => {
+    populateBreedList(foodType.value);
+    if (exerciseType && !exerciseType.dataset.locked) exerciseType.value = foodType.value;
+  });
+  if (exerciseType) exerciseType.addEventListener('change', () => {
+    exerciseType.dataset.locked = 'true';
+  });
+  applyTranslations();
+  refreshAuthStatus();
+  renderSavedReports();
+});
+
+function populateBreedList(petType = 'dog') {
+  const breedList = document.getElementById('breedList');
+  if (!breedList) return;
+  breedList.innerHTML = '';
+  const options = petType === 'cat' ? catBreedOptions : dogBreedOptions;
+  options.forEach(breed => {
+    const option = document.createElement('option');
+    option.value = breed;
+    breedList.appendChild(option);
+  });
+  const breedInput = document.getElementById('foodPetBreed');
+  if (breedInput) {
+    breedInput.placeholder = petType === 'cat'
+      ? (currentLanguage === 'en-US' ? 'e.g. Persian, Korean Shorthair' : '예: 페르시안, 코숏')
+      : (currentLanguage === 'en-US' ? 'e.g. Poodle, Jindo' : '예: 푸들, 진돗개');
+  }
+  updateBreedMissingCopy(petType);
+}
+
+function updateBreedMissingCopy(petType = 'dog') {
+  const text = document.getElementById('breedMissingText');
+  const button = document.getElementById('breedMissingButton');
+  if (text) {
+    text.textContent = currentLanguage === 'en-US'
+      ? (petType === 'cat'
+        ? 'If the cat breed is not listed, type it manually. You can enter mix / unknown / mixed.'
+        : 'If the dog breed is not listed, type it manually. You can enter mix / unknown / mixed.')
+      : (petType === 'cat'
+        ? '목록에 없으면 직접 입력하세요. 고양이도 믹스 / unknown / 혼합묘로 적어도 됩니다.'
+        : '목록에 없으면 직접 입력하세요. 강아지도 믹스견 / unknown / 혼합견으로 적어도 됩니다.');
+  }
+  if (button) {
+    button.textContent = currentLanguage === 'en-US'
+      ? (petType === 'cat' ? 'My cat breed is missing' : 'My dog breed is missing')
+      : (petType === 'cat' ? '내 고양이 품종이 없어요' : '내 강아지 품종이 없어요');
+  }
+}
+
+// ===== UTILITIES =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+  document.body.style.overflow = 'hidden';
+  if (id === 'loginModal') loadLoginDiagnostics();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function setAuthState(nextState) {
+  authState = { ...authState, ...nextState };
+  try {
+    localStorage.setItem('scanfit_auth_verified', authState.authenticated ? 'true' : 'false');
+    if (authState.email) localStorage.setItem('scanfit_auth_email', authState.email);
+  } catch {}
+  updateAuthButton();
+}
+
+function updateAuthButton() {
+  const btn = document.getElementById('signInButton');
+  if (!btn) return;
+  if (authState.authenticated) {
+    btn.textContent = authState.email || (currentLanguage === 'en-US' ? 'Verified' : '인증 완료');
+    btn.classList.remove('text-slate-600');
+    btn.classList.add('text-emerald-700', 'border-emerald-200');
+  } else {
+    btn.textContent = t('signIn');
+    btn.classList.add('text-slate-600');
+    btn.classList.remove('text-emerald-700', 'border-emerald-200');
+  }
+}
+
+async function refreshAuthStatus() {
+  try {
+    const response = await fetch('/api/auth/status', { credentials: 'include' });
+    if (!response.ok) throw new Error('status unavailable');
+    const data = await response.json();
+    setAuthState(data);
+  } catch {
+    const fallbackVerified = localStorage.getItem('scanfit_auth_verified') === 'true';
+    const fallbackEmail = localStorage.getItem('scanfit_auth_email') || null;
+    setAuthState({ authenticated: fallbackVerified, email: fallbackEmail });
+  }
+}
+
+function requireAuth(featureName = '') {
+  if (authState.authenticated || localStorage.getItem('scanfit_auth_verified') === 'true') return true;
+  openModal('loginModal');
+  const message = currentLanguage === 'en-US'
+    ? `Verify your email to use ${featureName || 'ScanFit'}`
+    : `${featureName || 'ScanFit'}를 사용하려면 이메일 인증이 필요합니다.`;
+  showToast(message);
+  return false;
+}
+
+async function loadLoginDiagnostics() {
+  const statusEl = document.getElementById('loginStatus');
+  const hintEl = document.getElementById('loginHint');
+  if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Checking email settings...' : '이메일 설정을 확인하는 중...';
+  try {
+    const response = await fetch('/api/email/diagnostics');
+    const data = await response.json();
+    const missing = Array.isArray(data.missing) ? data.missing : [];
+    const ok = response.ok && missing.length === 0;
+    if (statusEl) {
+      statusEl.textContent = ok
+        ? (currentLanguage === 'en-US' ? 'Email delivery is ready.' : '이메일 발송 준비가 완료되었습니다.')
+        : (currentLanguage === 'en-US'
+          ? `Missing: ${missing.join(', ')}`
+          : `누락: ${missing.join(', ')}`);
+    }
+    if (hintEl && !ok) {
+      hintEl.textContent = currentLanguage === 'en-US'
+        ? 'Fill the SMTP values in .env, then retry login.'
+        : '.env에 SMTP 값을 넣은 뒤 다시 로그인하세요.';
+    }
+  } catch {
+    if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
+      ? 'Could not read email settings.'
+      : '이메일 설정을 읽을 수 없습니다.';
+  }
+}
+
+const translations = {
+  "ko-KR": {
+    navAnalysis: "분석", navPricing: "가격", startScan: "스캔 시작", signIn: "로그인",
+    heroKicker: "01 / ScanFit Food AI",
+    heroBadge: "AI 리포트 엔진",
+    heroTitleLine1: "우리 아이를 스캔하세요.",
+    heroTitleLine2: "건강까지 맞춰드립니다.",
+    heroLead1: "뽀디가 사료 라벨을 읽고 7일 식단표와 운동처방으로 연결합니다.",
+    heroLead2: "강아지와 고양이의 사료 이미지를 올리면 성분, 칼로리, 급여량, 활동 루틴을 한 번에 분석합니다.",
+    heroScanButtonText: "ScanFit",
+    heroMetric1Label: "정확도",
+    heroMetric2Label: "케어 흐름",
+    heroMetric3Label: "평점",
+    heroVideoLabel: "뽀디 미리보기",
+    heroSceneTag: "실시간 플랜 전달",
+    heroSceneScanTag: "1단계 · 스캔",
+    heroSceneScanTitle: "사료 라벨 촬영",
+    heroSceneScanCardTitle: "라벨 OCR",
+    heroSceneScanCardCopy: "뽀디가 성분표, 보증성분, 칼로리, 경고문을 읽습니다.",
+    heroSceneScanRightTitle: "입력을 근거로",
+    heroSceneScanRightCopy: "원문 라벨을 그대로 보이게 두어 리포트가 출처를 명확히 밝힙니다.",
+    heroSceneResultTag: "2단계 · 리포트",
+    heroSceneResultTitle: "식단결과",
+    heroSceneResultCardTitle: "7일 식단 출력",
+    heroSceneResultCardCopy: "칼로리, 급여량, 균형을 한 번에 계산합니다.",
+    heroSceneResultNoteTitle: "왜 이런 결과인가",
+    heroSceneResultNoteCopy: "라벨 근거, 칼로리 공식, 급여 권고를 함께 보여줍니다.",
+    heroSceneExerciseTag: "3단계 · 운동",
+    heroSceneExerciseTitle: "운동처방",
+    heroSceneExerciseNoteTitle: "관절 안전 출력",
+    heroSceneExerciseNoteCopy: "주간 활동, 휴식, 소모 목표로 바꿉니다.",
+    heroSceneExerciseBoardTitle: "주간 처방표",
+    heroSceneExerciseBoardCopy: "뽀디가 식단 결과를 주간 운동 계획으로 바꿉니다.",
+    heroSceneOrderCopy: "1단계 스캔 → 식단결과 → 식단표 → 3단계 운동처방 순서로 보입니다.",
+    heroPodiState: "식단과 운동처방 수신 중",
+    heroPodiStateSub: "실시간 출력",
+    heroMealCardTag: "식단",
+    heroMealCardTitle: "7일 식단표",
+    heroMealCardCopy: "칼로리, 급여량, 급여 시간을 하나의 리포트로 정리합니다.",
+    heroExerciseCardTag: "운동",
+    heroExerciseCardTitle: "운동처방",
+    heroExerciseCardCopy: "식단표를 관절 안전 활동, 휴식일, 소모 목표로 바꿉니다.",
+    heroEvidenceCardTag: "근거",
+    heroEvidenceCardTitle: "라벨 근거",
+    heroEvidenceCardCopy: "성분 줄, 칼로리 계산, 경고를 그대로 보여줍니다.",
+    heroChip1Label: "식단",
+    heroChip1Value: "7일 식단표",
+    heroChip1Sub: "칼로리와 급여량을 함께",
+    heroChip2Label: "운동",
+    heroChip2Value: "관절 안전 루틴",
+    heroChip2Sub: "휴식일과 활동일 분리",
+    heroChip3Label: "근거",
+    heroChip3Value: "라벨 원문",
+    heroChip3Sub: "성분, 숫자, 경고를 표시",
+    heroTileFood: "사료",
+    heroTileMeal: "식단",
+    heroTileMotion: "운동",
+    flowStep1Label: "촬영",
+    flowStep1Title: "사료 라벨 업로드",
+    flowStep1Copy: "사료 라벨 사진을 올리면 AI가 성분, 칼로리, 급여 가이드를 읽습니다.",
+    flowStep2Label: "분석",
+    flowStep2Title: "식단 리포트",
+    flowStep2Copy: "품종과 체중을 바탕으로 7일 식단표를 만듭니다.",
+    flowStep3Label: "실행",
+    flowStep3Title: "운동처방",
+    flowStep3Copy: "식단 결과를 주간 활동 계획으로 변환합니다.",
+    evidenceTitle: "분석 근거", formulaTitle: "급여량 계산 공식",
+    unlockTitle: "전체 리포트 잠금 해제",
+    unlockCopy: "결제 전에는 미리보기만 제공됩니다. 결제 후 전체 리포트와 이미지 리포트를 다운로드할 수 있습니다.",
+    unlockButton: "구독하고 다운로드",
+    analysisSectionTitle: "AI 사료분석과 운동처방",
+    analysisSectionCopy: "사료 이미지 하나로 리포트와 1주 식단표를 만들고, 운동처방 단계로 이어집니다.",
+    foodSectionTitle: "AI 사료분석 리포트",
+    foodSectionCopy: "사료 뒷면 성분표를 찍으세요. ScanFit이 AI로 분석해 권장 급여량과 1주 식단표를 만듭니다.",
+    foodUploadTitle: "사료 성분표를 찍어 올려주세요",
+    foodUploadCopy: "이미지를 업로드하면 AI가 원료와 보증성분을 읽고, 급여량과 1주 식단표를 리포트 형식으로 생성합니다.",
+    foodUploadButtonText: "사료 라벨 업로드",
+    foodDirectUploadText: "직접 파일 선택",
+    foodPetTypeLabel: "반려동물 종류",
+    foodPetBreedLabel: "품종",
+    foodPetWeightLabel: "체중 kg",
+    breedMissingText: "목록에 없으면 직접 입력하세요. 믹스견은 믹스견 / unknown / 혼합견으로 적어도 됩니다.",
+    breedMissingButton: "내 품종이 없어요",
+    foodLiveBadge: "AI 실시간 분석 완료",
+    foodReportCopy: "사료 이미지에서 영양 밀도, 성분 밸런스, 급여량, 1주 식단표를 하나의 리포트로 구성했습니다.",
+    foodCanvasEyebrow: "Huashu HTML-native output",
+    foodCanvasTitle: "AI 사료분석 리포트 캔버스",
+    foodCanvasCopy: "업로드된 사료 라벨을 영양 밀도, 급여량, 식단 안정성으로 분해해 결제 전환 화면에서 바로 설득력 있게 보이는 리포트 형태로 렌더링합니다.",
+    foodReportTitle: "사료 분석 리포트",
+    foodRationLabel: "오늘의 권장 급여량",
+    foodRationSentence: "반려동물의 체중, 체형 라인, 사료 열량을 합쳐 계산한 값입니다.",
+    foodCoreTitle: "영양 밀도 코어",
+    foodEvidenceTitle: "분석 근거",
+    foodRawTitle: "라벨 원문 판독",
+    foodFormulaTitle: "급여량 계산 공식",
+    foodTrustTitle: "AI 신뢰 지표",
+    foodTrustCopy: "이미지 판독 품질과 성분 추정 안정성",
+    foodDetectedPetsLabel: "사진 속 반려동물",
+    foodMultiPetWarning: "여러 마리가 보이면 이 리포트는 보수적으로 계산됩니다. 정확도를 위해 각 반려동물을 따로 업로드하세요.",
+    chatButtonText: "문의하기",
+    podiChatTitle: "문의하기",
+    podiChatSubtitle: "이름, 이메일, 내용을 남기면 문의 폼으로 전달됩니다.",
+    podiChatSendButton: "이메일 보내기",
+    podiSupportEyebrow: "고객 문의",
+    podiSupportCopy: "뽀디 상담에 이름과 이메일과 내용을 남겨주시면 문의 폼으로 전달됩니다.",
+    podiContactNameLabel: "이름",
+    podiContactEmailLabel: "이메일",
+    podiContactMessageLabel: "내용",
+    podiContactNamePlaceholder: "홍길동",
+    podiContactEmailPlaceholder: "name@example.com",
+    podiContactMessagePlaceholder: "문의 내용을 적어주세요.",
+    podiContactEmailLink: "Formspree 문의 접수",
+    foodBalanceTitle: "영양 성분 밸런스",
+    foodMealPlanTitle: "AI 1주 식단 분석표",
+    foodDownloadButtonText: "사료/식단 리포트 다운로드",
+    foodImageTitle: "AI 생성 리포트 이미지",
+    foodImageBadge: "Image AI",
+    foodImageTitleText: "AI 생성 리포트 이미지",
+    foodImageBadgeText: "Image AI",
+    exerciseImageBadgeText: "Image AI",
+    analysisLoadingText: "분석 중...",
+    foodEnergyLabel: "에너지",
+    foodConfidenceLabel: "AI 신뢰도",
+    foodPlanLabel: "Plan",
+    foodProteinLabel: "단백질",
+    foodFatLabel: "지방",
+    foodCarbLabel: "탄수화물 추정",
+    exerciseIntensityLabel: "Intensity",
+    exerciseRecoveryLabel: "Recovery",
+    exercisePlanLabel: "Plan",
+    exerciseJointLabel: "관절 부담",
+    exerciseWeeklyBurnLabel: "주간 소모 목표",
+    exerciseSectionTitle: "AI 운동처방 리포트",
+    exerciseSectionCopy: "사료분석과 식단표 결과를 바탕으로 주간 활동량, 관절 부담, 회복일을 설계합니다.",
+    exerciseUploadTitle: "식단 리포트를 운동처방으로 전환하세요",
+    exerciseUploadCopy: "ScanFit이 사료분석 결과와 1주 식단표를 합쳐 다음 7일간의 활동 강도, 휴식일, 목표 소모량을 계산합니다.",
+    exerciseUploadButtonText: "리포트 업로드",
+    exerciseDirectUploadText: "직접 파일 선택",
+    exerciseGenerateButtonText: "자동 운동처방 생성",
+    exerciseAgeLabel: "나이",
+    exercisePetTypeLabel: "반려동물 종류",
+    exerciseNeuteredLabel: "중성화",
+    exerciseJointLabelText: "관절",
+    exerciseActivityLabelText: "활동량",
+    exerciseCanvasEyebrow: "Huashu motion prescription",
+    exerciseCanvasTitle: "AI 운동처방 부하 리포트",
+    exerciseCanvasCopy: "식단표를 활동 강도, 관절 부담, 회복일로 변환해 사용자가 “돈을 낼 만한 결과물”로 느끼는 처방 대시보드를 만듭니다.",
+    exerciseSimTitle: "활동 부하 시뮬레이션",
+    exercisePlanTitle: "주간 운동처방표",
+    exerciseReasonTitle: "이번 주 조정 근거",
+    exerciseWarningsTitle: "운동 위험 경고",
+    exerciseImageTitle: "AI 생성 운동처방 이미지",
+    exerciseDownloadButtonText: "운동처방 리포트 다운로드",
+    savedReportsTitle: "저장된 리포트",
+    savedReportsCopy: "결제 후 생성한 리포트는 이 브라우저에 저장되고 재다운로드할 수 있습니다.",
+    savedReportsRefresh: "새로고침",
+    pricingEyebrow: "간단한 요금",
+    pricingTitle: "플랜 선택",
+    pricingCopy: "ScanFit과 함께 우리 아이의 평생 건강을 설계하세요",
+    monthlyPlanTitle: "Standard Monthly",
+    monthlyPlanCopy: "매월 체계적인 건강 분석",
+    monthlyButton: "시작하기",
+    annualPlanTitle: "Premium Annual",
+    annualPlanCopy: "ScanFit의 모든 전문가 케어 포함",
+    annualButton: "구독 시작",
+    pricingMonthlyLabel: "/ 월",
+    pricingAnnualLabel: "/ 연간",
+    pricingBestValue: "BEST VALUE",
+    footerPrivacy: "개인정보",
+    footerTerms: "약관",
+    footerHelp: "support@scanfit.ai",
+      loginTitle: "Sign In",
+      loginHint: "이메일로 인증 링크를 보내고, 링크를 열면 로그인 상태가 활성화됩니다.",
+      loginButtonText: "인증 메일 보내기",
+    loginEmailPlaceholder: "Email",
+    checkoutTitle: "Payment",
+    checkoutPetsLabel: "Pets",
+    checkoutPlanLabel: "Plan",
+    checkoutAddonLabel: "Pet Add-on",
+    checkoutTotalLabel: "Total (Inc. Tax)",
+    checkoutAddonHint: "1마리부터 마리당 ₩1,000 또는 $1이 추가됩니다.",
+    demoPaymentButton: "데모 결제 완료 처리",
+    successTitle: "결제 완료!",
+    successCopy: "ScanFit 구독이 시작되었습니다!",
+    successButton: "확인",
+    sampleTitle: "Sample Report",
+    sampleCaloriesLabel: "칼로리",
+    sampleScoreLabel: "영양 점수",
+    sampleSummary: "뽀디: 전반적으로 영양 균형이 훌륭합니다!",
+    sampleClose: "닫기"
+  },
+  "en-US": {
+    navAnalysis: "Analysis", navPricing: "Pricing", startScan: "Start Scan", signIn: "Sign In",
+    heroKicker: "01 / ScanFit Food AI",
+    heroBadge: "AI report engine",
+    heroTitleLine1: "Scan your pet.",
+    heroTitleLine2: "Fit their health.",
+    heroLead1: "Podi reads the food label and connects it to a 7-day meal plan and exercise prescription.",
+    heroLead2: "Upload a dog or cat food image and ScanFit analyzes ingredients, calories, feeding amount, and activity routines in one flow.",
+    heroScanButtonText: "ScanFit",
+    heroMetric1Label: "Accuracy",
+    heroMetric2Label: "Care Flow",
+    heroMetric3Label: "Rating",
+    heroVideoLabel: "Live Podi",
+    heroSceneTag: "Real-time plan handoff",
+    heroSceneScanTag: "Step 1 · Scan",
+    heroSceneScanTitle: "Food label capture",
+    heroSceneScanCardTitle: "Label OCR",
+    heroSceneScanCardCopy: "Podi reads ingredients, guaranteed analysis, calories, and warnings.",
+    heroSceneScanRightTitle: "Input to evidence",
+    heroSceneScanRightCopy: "The original label stays visible so the report can cite the source text.",
+    heroSceneResultTag: "Step 2 · Report",
+    heroSceneResultTitle: "Meal plan result",
+    heroSceneResultCardTitle: "7-day meal output",
+    heroSceneResultCardCopy: "Daily grams, meal timing, and nutrient balance are calculated together.",
+    heroSceneResultNoteTitle: "Why this result",
+    heroSceneResultNoteCopy: "The report shows the label source, calorie formula, and feed recommendation together.",
+    heroSceneExerciseTag: "Step 3 · Exercise",
+    heroSceneExerciseTitle: "Exercise prescription",
+    heroSceneExerciseNoteTitle: "Joint-safe output",
+    heroSceneExerciseNoteCopy: "Meal plan data is converted into activity days, rest days, and burn targets.",
+    heroSceneExerciseBoardTitle: "Weekly prescription",
+    heroSceneExerciseBoardCopy: "Podi turns the meal result into a week of structured movement.",
+    heroSceneOrderCopy: "Step 1 scan → meal result → meal plan → step 3 exercise appears in order.",
+    heroPodiState: "Receiving meal and exercise plan",
+    heroPodiStateSub: "Live output",
+    heroMealCardTag: "Meal",
+    heroMealCardTitle: "7-Day Meal Plan",
+    heroMealCardCopy: "Calories, portions, and feeding time are packed into one report.",
+    heroExerciseCardTag: "Rx",
+    heroExerciseCardTitle: "Exercise Prescription",
+    heroExerciseCardCopy: "The meal plan becomes joint-safe activity, rest days, and burn targets.",
+    heroEvidenceCardTag: "Proof",
+    heroEvidenceCardTitle: "Label Evidence",
+    heroEvidenceCardCopy: "Ingredient lines, calorie math, and warnings stay visible.",
+    heroChip1Label: "Meal",
+    heroChip1Value: "7-day feeding plan",
+    heroChip1Sub: "Calories and grams together",
+    heroChip2Label: "Motion",
+    heroChip2Value: "Joint-safe routine",
+    heroChip2Sub: "Rest days and activity days split",
+    heroChip3Label: "Proof",
+    heroChip3Value: "Label text",
+    heroChip3Sub: "Ingredients, numbers, warnings",
+    heroTileFood: "Food",
+    heroTileMeal: "Meal",
+    heroTileMotion: "Motion",
+    flowStep1Label: "Capture",
+    flowStep1Title: "Food Label Upload",
+    flowStep1Copy: "Upload a food label photo and AI reads ingredients, calories, and feeding guidance.",
+    flowStep2Label: "Analyze",
+    flowStep2Title: "Meal Report",
+    flowStep2Copy: "Breed and weight are used to build a 7-day meal plan.",
+    flowStep3Label: "Act",
+    flowStep3Title: "Exercise Prescription",
+    flowStep3Copy: "Meal results are turned into a weekly activity plan in the exercise prescription step.",
+    evidenceTitle: "Evidence", formulaTitle: "Feeding Formula",
+    unlockTitle: "Unlock Full Report",
+    unlockCopy: "Preview is available before payment. Full reports and AI image reports unlock after checkout.",
+    unlockButton: "Subscribe & Download",
+    analysisSectionTitle: "AI Food Analysis and Exercise Prescription",
+    analysisSectionCopy: "One pet food image becomes a report, a weekly meal plan, and a linked exercise prescription.",
+    foodSectionTitle: "AI Food Analysis Report",
+    foodSectionCopy: "Take a picture of the back-of-pack label. ScanFit analyzes it with AI to create daily feeding guidance and a 7-day meal plan.",
+    foodUploadTitle: "Upload the food label",
+    foodUploadCopy: "Upload an image and AI will read the ingredients and guaranteed analysis, then generate feeding amounts and a 7-day meal plan.",
+    foodUploadButtonText: "Upload Label",
+    foodDirectUploadText: "Choose File",
+    foodPetTypeLabel: "Pet Type",
+    foodPetBreedLabel: "Breed",
+    foodPetWeightLabel: "Weight kg",
+    breedMissingText: "If the breed is not listed, type it manually. For mixed breeds, you can enter mix / unknown / mixed.",
+    breedMissingButton: "My breed is missing",
+    foodLiveBadge: "Live AI analysis complete",
+    foodReportCopy: "We turned the food image into one report with nutrient density, macro balance, feeding amount, and a weekly meal plan.",
+    foodCanvasEyebrow: "Huashu HTML-native output",
+    foodCanvasTitle: "AI Food Analysis Report Canvas",
+    foodCanvasCopy: "The uploaded food label is rendered as a persuasive report that breaks down nutrient density, feeding amount, and diet stability for conversion-focused checkout screens.",
+    foodReportTitle: "Food Analysis Report",
+    foodRationLabel: "Recommended Daily Feeding",
+    foodRationSentence: "Calculated from your pet's weight, body line, and the food's energy density.",
+    foodCoreTitle: "Nutrient Density Core",
+    foodEvidenceTitle: "Evidence",
+    foodRawTitle: "Label OCR",
+    foodFormulaTitle: "Feeding Formula",
+    foodTrustTitle: "AI Confidence",
+    foodTrustCopy: "Image reading quality and ingredient estimation stability",
+    foodDetectedPetsLabel: "Visible pets",
+    foodMultiPetWarning: "When multiple pets are visible, this report uses a conservative count. Upload each pet separately for exact accuracy.",
+    chatButtonText: "Contact",
+    podiChatTitle: "Contact",
+    podiChatSubtitle: "Leave your name, email, and message. It will be sent through the inquiry form.",
+    podiChatSendButton: "Send email",
+    podiSupportEyebrow: "Customer inquiry",
+    podiSupportCopy: "Leave your name, email, and message in Podi support. It will be sent through the inquiry form.",
+    podiContactNameLabel: "Name",
+    podiContactEmailLabel: "Email",
+    podiContactMessageLabel: "Message",
+    podiContactNamePlaceholder: "Your name",
+    podiContactEmailPlaceholder: "name@example.com",
+    podiContactMessagePlaceholder: "Write your inquiry here.",
+    podiContactEmailLink: "Formspree inquiry",
+    foodBalanceTitle: "Macro Balance",
+    foodMealPlanTitle: "7-Day Meal Plan",
+    foodDownloadButtonText: "Download Food/Meal Report",
+    foodImageTitle: "AI-generated Report Image",
+    foodImageBadge: "Image AI",
+    foodImageTitleText: "AI-generated Report Image",
+    foodImageBadgeText: "Image AI",
+    exerciseImageBadgeText: "Image AI",
+    analysisLoadingText: "Analyzing...",
+    foodEnergyLabel: "Energy",
+    foodConfidenceLabel: "AI Confidence",
+    foodPlanLabel: "Plan",
+    foodProteinLabel: "Protein",
+    foodFatLabel: "Fat",
+    foodCarbLabel: "Estimated Carbs",
+    exerciseIntensityLabel: "Intensity",
+    exerciseRecoveryLabel: "Recovery",
+    exercisePlanLabel: "Plan",
+    exerciseJointLabel: "Joint Load",
+    exerciseWeeklyBurnLabel: "Weekly Burn Target",
+    exerciseSectionTitle: "AI Exercise Prescription Report",
+    exerciseSectionCopy: "Weekly activity, joint load, and recovery days are derived from the food analysis and meal plan results.",
+    exerciseUploadTitle: "Convert the meal report into an exercise prescription",
+    exerciseUploadCopy: "ScanFit combines the food analysis with the 7-day meal plan to calculate the next 7 days of activity intensity, rest days, and burn targets.",
+    exerciseUploadButtonText: "Upload Report",
+    exerciseDirectUploadText: "Choose File",
+    exerciseGenerateButtonText: "Generate Prescription",
+    exerciseAgeLabel: "Age",
+    exercisePetTypeLabel: "Pet Type",
+    exerciseNeuteredLabel: "Neutered",
+    exerciseJointLabelText: "Joint",
+    exerciseActivityLabelText: "Activity",
+    exerciseCanvasEyebrow: "Huashu motion prescription",
+    exerciseCanvasTitle: "AI Exercise Prescription Load Report",
+    exerciseCanvasCopy: "The meal plan is translated into activity intensity, joint load, and recovery days to create a prescription dashboard users immediately value.",
+    exerciseSimTitle: "Activity Load Simulation",
+    exercisePlanTitle: "Weekly Exercise Plan",
+    exerciseReasonTitle: "This Week's Adjustment Rationale",
+    exerciseWarningsTitle: "Exercise Risk Warnings",
+    exerciseImageTitle: "AI-generated Exercise Image",
+    exerciseDownloadButtonText: "Download Exercise Report",
+    savedReportsTitle: "Saved Reports",
+    savedReportsCopy: "Reports generated after payment are stored in this browser and can be downloaded again.",
+    savedReportsRefresh: "Refresh",
+    pricingEyebrow: "Simple Pricing",
+    pricingTitle: "Choose Your Plan",
+    pricingCopy: "Design your pet's lifelong health with ScanFit",
+    monthlyPlanTitle: "Standard Monthly",
+    monthlyPlanCopy: "Structured health analysis every month",
+    monthlyButton: "Get Started",
+    annualPlanTitle: "Premium Annual",
+    annualPlanCopy: "Includes full expert care from ScanFit",
+    annualButton: "Subscribe Now",
+    pricingMonthlyLabel: "/ month",
+    pricingAnnualLabel: "/ year",
+    pricingBestValue: "BEST VALUE",
+    footerPrivacy: "Privacy",
+    footerTerms: "Terms",
+    footerHelp: "support@scanfit.ai",
+      loginTitle: "Sign In",
+      loginHint: "We send a verification link to your email. Open it to activate your login.",
+      loginButtonText: "Send verification email",
+    loginEmailPlaceholder: "Email",
+    checkoutTitle: "Payment",
+    checkoutPetsLabel: "Pets",
+    checkoutPlanLabel: "Plan",
+    checkoutAddonLabel: "Pet Add-on",
+    checkoutTotalLabel: "Total (Inc. Tax)",
+    checkoutAddonHint: "Add $1 or ₩1,000 per pet, starting from the first pet.",
+    demoPaymentButton: "Complete Demo Payment",
+    successTitle: "Payment Complete!",
+    successCopy: "Your ScanFit subscription has started.",
+    successButton: "OK",
+    sampleTitle: "Sample Report",
+    sampleCaloriesLabel: "Calories",
+    sampleScoreLabel: "Nutrition Score",
+    sampleSummary: "Podi: Your pet's nutrition balance looks excellent overall!",
+    sampleClose: "Close"
+  }
+};
+
+function t(key) {
+  return translations[currentLanguage]?.[key] || translations["ko-KR"][key] || key;
+}
+
+function applyTranslations() {
+  document.documentElement.lang = currentLanguage === 'en-US' ? 'en' : 'ko';
+  document.title = currentLanguage === 'en-US' ? 'ScanFit - AI Health Scan for Pets' : 'ScanFit - 우리 아이를 위한 AI 건강 스캔';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  const ids = [
+    'heroKicker','heroBadge','heroTitleLine1','heroTitleLine2','heroLead1','heroLead2','heroScanButtonText',
+    'heroMetric1Label','heroMetric2Label','heroMetric3Label','heroVideoLabel','heroSceneTag','heroSceneScanTag','heroSceneScanTitle',
+    'heroSceneScanCardTitle','heroSceneScanCardCopy','heroSceneScanRightTitle','heroSceneScanRightCopy','heroSceneResultTag',
+    'heroSceneResultTitle','heroSceneResultCardTitle','heroSceneResultCardCopy','heroSceneResultNoteTitle','heroSceneResultNoteCopy',
+    'heroSceneExerciseTag','heroSceneExerciseTitle','heroSceneExerciseNoteTitle','heroSceneExerciseNoteCopy',
+    'heroSceneExerciseBoardTitle','heroSceneExerciseBoardCopy','heroSceneOrderCopy','heroPodiState','heroPodiStateSub',
+    'heroMealCardTag','heroMealCardTitle','heroMealCardCopy','heroExerciseCardTag','heroExerciseCardTitle','heroExerciseCardCopy',
+    'heroEvidenceCardTag','heroEvidenceCardTitle','heroEvidenceCardCopy','heroChip1Label','heroChip1Value','heroChip1Sub',
+    'heroChip2Label','heroChip2Value','heroChip2Sub','heroChip3Label','heroChip3Value','heroChip3Sub',
+    'heroTileFood','heroTileMeal','heroTileMotion',
+    'flowStep1Label','flowStep1Title','flowStep1Copy','flowStep2Label','flowStep2Title','flowStep2Copy','flowStep3Label','flowStep3Title','flowStep3Copy',
+    'analysisLabel','analysisSectionTitle','analysisSectionCopy','foodSectionTitle','foodSectionCopy','foodUploadTitle','foodUploadCopy',
+    'foodUploadButtonText','foodLiveBadge','foodReportCopy','foodCanvasEyebrow','foodCanvasTitle','foodCanvasCopy',
+    'foodReportTitle','foodRationLabel','foodCoreTitle','foodEvidenceTitleText','foodRawTitleText','foodFormulaTitleText',
+    'foodTrustTitle','foodTrustCopy','foodBalanceTitle','foodMealPlanTitle','foodDownloadButtonText','exerciseSectionTitle',
+    'exerciseSectionCopy','exerciseUploadTitle','exerciseUploadCopy','exerciseUploadButtonText','exerciseGenerateButtonText',
+    'exerciseCanvasEyebrow','exerciseCanvasTitle','exerciseCanvasCopy','exerciseSimTitle','exercisePlanTitle',
+    'exerciseReasonTitle','exerciseWarningsTitleText','exerciseImageTitleText','exerciseDownloadButtonText','savedReportsTitle',
+    'savedReportsCopy','savedReportsRefresh','pricingEyebrow','pricingTitle','pricingCopy','monthlyPlanTitle','monthlyPlanCopy',
+    'monthlyButton','annualPlanTitle','annualPlanCopy','annualButton','pricingMonthlyLabel','pricingAnnualLabel','pricingBestValue',
+    'footerPrivacy','footerTerms','footerHelp','loginTitle','loginHint','loginButtonText','loginEmailPlaceholder','checkoutTitle',
+    'checkoutPetsLabel','checkoutPlanLabel','checkoutAddonLabel','checkoutTotalLabel','checkoutAddonHint','demoPaymentButton',
+    'successTitle','successCopy','successButton','sampleTitle','sampleCaloriesLabel','sampleScoreLabel','sampleSummary','sampleClose',
+    'foodRationSentence','foodImageTitleText','foodImageBadgeText','exerciseImageBadgeText','analysisLoadingText',
+    'foodEnergyLabel','foodConfidenceLabel','foodPlanLabel','foodProteinLabel','foodFatLabel','foodCarbLabel','foodDirectUploadText',
+    'breedMissingText','breedMissingButton','foodPetTypeLabel','foodPetBreedLabel','foodPetWeightLabel',
+    'foodDetectedPetsLabel',
+    'exerciseDirectUploadText',
+    'exercisePetTypeLabel','exerciseAgeLabel','exerciseNeuteredLabel','exerciseJointLabelText','exerciseActivityLabelText',
+    'exerciseIntensityLabel','exerciseRecoveryLabel','exercisePlanLabel','exerciseJointLabel','exerciseWeeklyBurnLabel',
+    'chatButtonText','podiChatTitle','podiChatSubtitle','podiChatSendButton','podiSupportEyebrow','podiSupportCopy','podiContactNameLabel','podiContactEmailLabel','podiContactMessageLabel','podiContactEmailLink'
+  ];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t(id);
+  });
+  const foodType = document.getElementById('foodPetType');
+  if (foodType) {
+    foodType.options[0].textContent = currentLanguage === 'en-US' ? 'Dog' : '강아지';
+    foodType.options[1].textContent = currentLanguage === 'en-US' ? 'Cat' : '고양이';
+  }
+  const breedInput = document.getElementById('foodPetBreed');
+  if (breedInput) {
+    const foodPetType = document.getElementById('foodPetType')?.value || 'dog';
+    breedInput.placeholder = currentLanguage === 'en-US'
+      ? (foodPetType === 'cat' ? 'e.g. Persian, Korean Shorthair' : 'e.g. Poodle, Jindo')
+      : (foodPetType === 'cat' ? '예: 페르시안, 코숏' : '예: 푸들, 진돗개');
+  }
+  const foodWeight = document.getElementById('foodPetWeight');
+  if (foodWeight) foodWeight.placeholder = currentLanguage === 'en-US' ? '5.2' : '5.2';
+  const neutered = document.getElementById('exerciseNeutered');
+  if (neutered) {
+    neutered.options[0].textContent = currentLanguage === 'en-US' ? 'Yes' : '예';
+    neutered.options[1].textContent = currentLanguage === 'en-US' ? 'No' : '아니오';
+  }
+  const joint = document.getElementById('exerciseJoint');
+  if (joint) {
+    joint.options[0].textContent = currentLanguage === 'en-US' ? 'Normal' : '정상';
+    joint.options[1].textContent = currentLanguage === 'en-US' ? 'Caution' : '주의';
+    joint.options[2].textContent = currentLanguage === 'en-US' ? 'Possible pain' : '통증 의심';
+  }
+  const activity = document.getElementById('exerciseActivity');
+  if (activity) {
+    activity.options[0].textContent = currentLanguage === 'en-US' ? 'Low' : '낮음';
+    activity.options[1].textContent = currentLanguage === 'en-US' ? 'Moderate' : '보통';
+    activity.options[2].textContent = currentLanguage === 'en-US' ? 'High' : '높음';
+  }
+  const exercisePetType = document.getElementById('exercisePetType');
+  if (exercisePetType) {
+    exercisePetType.options[0].textContent = currentLanguage === 'en-US' ? 'Dog' : '강아지';
+    exercisePetType.options[1].textContent = currentLanguage === 'en-US' ? 'Cat' : '고양이';
+  }
+  const loginEmail = document.getElementById('loginEmail');
+  if (loginEmail) loginEmail.placeholder = t('loginEmailPlaceholder');
+  const podiContactName = document.getElementById('podiContactName');
+  if (podiContactName) podiContactName.placeholder = t('podiContactNamePlaceholder');
+  const podiContactEmail = document.getElementById('podiContactEmail');
+  if (podiContactEmail) podiContactEmail.placeholder = t('podiContactEmailPlaceholder');
+  const podiContactMessage = document.getElementById('podiContactMessage');
+  if (podiContactMessage) podiContactMessage.placeholder = t('podiContactMessagePlaceholder');
+  const podiContactEmailLink = document.getElementById('podiContactEmailLink');
+  if (podiContactEmailLink) podiContactEmailLink.textContent = t('podiContactEmailLink');
+  const signInButton = document.getElementById('signInButton');
+  if (signInButton) signInButton.textContent = t('signIn');
+  const rationSentence = document.getElementById('podiTargetBreedSentence');
+  if (rationSentence) rationSentence.textContent = t('foodRationSentence');
+  updateBreedMissingCopy(document.getElementById('foodPetType')?.value || 'dog');
+  const langBtnKo = document.getElementById('langBtnKo');
+  const langBtnEn = document.getElementById('langBtnEn');
+    if (langBtnKo && langBtnEn) {
+      const koActive = currentLanguage === 'ko-KR';
+      langBtnKo.className = koActive
+        ? 'px-3 py-2 rounded-full text-xs font-black transition-all bg-slate-950 text-white shadow-sm'
+        : 'px-3 py-2 rounded-full text-xs font-black transition-all text-slate-500 hover:text-slate-900';
+      langBtnEn.className = koActive
+        ? 'px-3 py-2 rounded-full text-xs font-black transition-all text-slate-500 hover:text-slate-900'
+        : 'px-3 py-2 rounded-full text-xs font-black transition-all bg-slate-950 text-white shadow-sm';
+      langBtnKo.setAttribute('aria-pressed', koActive ? 'true' : 'false');
+      langBtnEn.setAttribute('aria-pressed', koActive ? 'false' : 'true');
+    }
+    updateAuthButton();
+    if (document.getElementById('podiChatModal')?.classList.contains('active')) renderPodiChat();
+  }
+
+function requirePaid(action) {
+  if (!requireAuth(action || '전체 리포트')) return false;
+  if (isPaid) return true;
+  showToast(currentLanguage === 'ko-KR' ? '전체 다운로드는 결제 후 가능합니다.' : 'Full downloads unlock after payment.');
+  openCheckout('monthly');
+  return false;
+}
+
+function getFreeUsage() {
+  try { return JSON.parse(localStorage.getItem(freeUsageKey) || '{}'); }
+  catch { return {}; }
+}
+
+function setFreeUsage(data) {
+  localStorage.setItem(freeUsageKey, JSON.stringify(data));
+}
+
+function consumeFreeUse(stepKey, suggestedPetCount = 1) {
+  if (isPaid) return true;
+  const usage = getFreeUsage();
+  const used = Number(usage[stepKey] || 0);
+  if (used >= 1) {
+    const checkoutPetCount = document.getElementById('checkoutPetCount');
+    if (checkoutPetCount) checkoutPetCount.value = Math.max(1, Number(suggestedPetCount || checkoutPetCount.value || 1));
+    showToast(currentLanguage === 'en-US'
+      ? 'Your free attempt has been used. Payment opens now.'
+      : '무료 1회는 이미 사용했습니다. 결제창을 엽니다.');
+    openCheckout('monthly');
+    return false;
+  }
+  usage[stepKey] = used + 1;
+  setFreeUsage(usage);
+  return true;
+}
+
+function getPodiChatHistory() {
+  try { return JSON.parse(localStorage.getItem(chatHistoryKey) || '[]'); }
+  catch { return []; }
+}
+
+function setPodiChatHistory(history) {
+  localStorage.setItem(chatHistoryKey, JSON.stringify(history.slice(-20)));
+}
+
+function updatePodiChatMessage(index, content, extra = {}) {
+  const history = getPodiChatHistory();
+  if (index < 0 || index >= history.length) return;
+  history[index] = { ...history[index], content, ...extra };
+  setPodiChatHistory(history);
+  renderPodiChat();
+}
+
+function downloadHtml(filename, html) {
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderPodiChat() {
+  const el = document.getElementById('podiChatMessages');
+  if (!el) return;
+  const history = getPodiChatHistory();
+  if (!history.length) {
+    const welcome = currentLanguage === 'en-US'
+      ? 'Hello. I am Podi. Ask me about food analysis, meal plans, exercise prescriptions, billing, or reports.'
+      : '안녕하세요. 뽀디입니다. 사료분석, 식단표, 운동처방, 결제, 리포트에 대해 물어보세요.';
+    history.push({ role: 'assistant', content: welcome });
+    setPodiChatHistory(history);
+  }
+  el.innerHTML = history.map(item => `
+    <div class="flex ${item.role === 'user' ? 'justify-end' : 'justify-start'}">
+      <div class="${item.role === 'user' ? 'bg-slate-950 text-white' : 'bg-white text-slate-800 border border-slate-200'} ${item.pending ? 'opacity-80' : ''} max-w-[82%] rounded-2xl px-4 py-3 shadow-sm">
+        <p class="text-sm leading-relaxed whitespace-pre-wrap">${escapeHtml(item.content)}</p>
+      </div>
+    </div>
+  `).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function openPodiChat() {
+  if (!requireAuth('Podi 상담')) return;
+  openModal('podiChatModal');
+  renderPodiChat();
+  const input = document.getElementById('podiContactName');
+  if (input) input.focus();
+}
+
+function pushPodiChat(role, content) {
+  const history = getPodiChatHistory();
+  history.push({ role, content });
+  setPodiChatHistory(history);
+  renderPodiChat();
+}
+
+function setPodiRealtimeUI(connected, connecting = false) {
+  podiRealtimeState.connected = connected;
+  podiRealtimeState.connecting = connecting;
+  const button = document.getElementById('podiRealtimeButton');
+  const status = document.getElementById('podiRealtimeStatus');
+  const en = currentLanguage === 'en-US';
+  if (button) button.textContent = connected ? (en ? 'Disconnect Live' : '실시간 종료') : (connecting ? (en ? 'Connecting...' : '연결 중...') : (en ? 'Connect Live' : '실시간 연결'));
+  if (status) status.textContent = connected ? (en ? 'LIVE' : '연결됨') : (connecting ? (en ? 'CONNECTING' : '연결 중') : (en ? 'OFFLINE' : '오프라인'));
+}
+
+function buildRealtimePodiInstructions() {
+  const en = currentLanguage === 'en-US';
+  const category = document.getElementById('podiCategory')?.value || 'food';
+  const categoryLabel = en
+    ? ({ food: 'food analysis', exercise: 'exercise prescription', billing: 'billing', accuracy: 'analysis errors', refund: 'refunds', paymentHelp: 'payment errors' }[category] || 'food analysis')
+    : ({ food: '사료분석', exercise: '운동처방', billing: '결제', accuracy: '분석 오류', refund: '환불', paymentHelp: '결제 오류' }[category] || '사료분석');
+  return en
+    ? `You are Podi, ScanFit's 24-hour real-time AI pet care assistant.
+Answer in English.
+Be concise, practical, and product-support oriented.
+Do not provide medical diagnosis.
+If the user asks about food analysis, feeding, exercise prescription, billing, refunds, or payment issues, answer directly.
+If the user asks about unsupported topics, redirect back to ScanFit features.
+If multiple pets are visible, remind the user to upload each pet separately for accuracy.
+Use the current topic focus: ${categoryLabel}.`
+    : `당신은 ScanFit의 24시간 실시간 AI 반려동물 상담사 뽀디입니다.
+한국어로 답하세요.
+간결하고 실용적으로, 제품 지원 상담 톤으로 답하세요.
+의료 진단은 제공하지 마세요.
+사료분석, 급여, 운동처방, 결제, 환불, 결제 오류에는 바로 답하세요.
+지원하지 않는 주제는 ScanFit 기능으로 자연스럽게 다시 안내하세요.
+한 장에 여러 반려동물이 보이면 정확도를 위해 각각 따로 업로드하라고 안내하세요.
+현재 상담 주제는 ${categoryLabel}입니다.`;
+}
+
+function closePodiRealtime() {
+  try { podiRealtimeState.dc?.close(); } catch {}
+  try { podiRealtimeState.pc?.close(); } catch {}
+  podiRealtimeState.pc = null;
+  podiRealtimeState.dc = null;
+  podiRealtimeState.currentText = '';
+  podiRealtimeState.pendingIndex = null;
+  setPodiRealtimeUI(false, false);
+}
+
+async function connectPodiRealtime() {
+  if (podiRealtimeState.connected || podiRealtimeState.connecting) return;
+  if (!window.RTCPeerConnection) {
+    showToast(currentLanguage === 'en-US' ? 'Realtime is not supported in this browser.' : '이 브라우저는 실시간 연결을 지원하지 않습니다.');
+    return;
+  }
+
+  setPodiRealtimeUI(false, true);
+  try {
+    const tokenResponse = await fetch(PODI_REALTIME_TOKEN_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        language: currentLanguage,
+        category: document.getElementById('podiCategory')?.value || 'food'
+      })
+    });
+    const tokenData = await tokenResponse.json();
+    if (!tokenResponse.ok) throw new Error(tokenData.error || 'Failed to mint realtime token');
+
+    podiRealtimeState.sessionInstructions = buildRealtimePodiInstructions();
+    const pc = new RTCPeerConnection();
+    podiRealtimeState.pc = pc;
+
+    const dc = pc.createDataChannel('oai-events');
+    podiRealtimeState.dc = dc;
+
+    dc.onopen = () => {
+      dc.send(JSON.stringify({
+        type: 'session.update',
+        session: {
+          type: 'realtime',
+          instructions: podiRealtimeState.sessionInstructions
+        }
+      }));
+      setPodiRealtimeUI(true, false);
+      showToast(currentLanguage === 'en-US' ? 'Live Podi connected.' : '뽀디 실시간 상담이 연결되었습니다.');
+    };
+
+    dc.onmessage = event => handlePodiRealtimeEvent(event);
+    dc.onerror = () => showToast(currentLanguage === 'en-US' ? 'Realtime channel error.' : '실시간 채널 오류가 발생했습니다.');
+    dc.onclose = () => closePodiRealtime();
+
+    pc.onconnectionstatechange = () => {
+      if (pc.connectionState === 'failed' || pc.connectionState === 'disconnected' || pc.connectionState === 'closed') {
+        closePodiRealtime();
+      }
+    };
+
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+
+    const sdpResponse = await fetch('https://api.openai.com/v1/realtime/calls', {
+      method: 'POST',
+      body: offer.sdp,
+      headers: {
+        'Authorization': `Bearer ${tokenData.value}`,
+        'Content-Type': 'application/sdp'
+      }
+    });
+
+    if (!sdpResponse.ok) {
+      throw new Error(await sdpResponse.text());
+    }
+
+    await pc.setRemoteDescription({
+      type: 'answer',
+      sdp: await sdpResponse.text()
+    });
+  } catch (error) {
+    closePodiRealtime();
+    showToast(currentLanguage === 'en-US'
+      ? 'Realtime connection failed. Falling back to text chat.'
+      : '실시간 연결에 실패했습니다. 텍스트 상담으로 전환합니다.');
+  }
+}
+
+function togglePodiRealtime() {
+  if (podiRealtimeState.connected || podiRealtimeState.connecting) {
+    closePodiRealtime();
+  } else {
+    connectPodiRealtime();
+  }
+}
+
+function sendPodiRealtimeMessage(message, placeholderIndex) {
+  const dc = podiRealtimeState.dc;
+  if (!dc || dc.readyState !== 'open') throw new Error('Realtime channel not ready');
+  podiRealtimeState.currentText = '';
+  podiRealtimeState.pendingIndex = placeholderIndex;
+  podiRealtimeState.sessionInstructions = buildRealtimePodiInstructions();
+  dc.send(JSON.stringify({
+    type: 'session.update',
+    session: {
+      type: 'realtime',
+      instructions: podiRealtimeState.sessionInstructions
+    }
+  }));
+  dc.send(JSON.stringify({
+    type: 'conversation.item.create',
+    item: {
+      type: 'message',
+      role: 'user',
+      content: [{ type: 'input_text', text: message }]
+    }
+  }));
+  dc.send(JSON.stringify({
+    type: 'response.create',
+    response: { output_modalities: ['text'] }
+  }));
+}
+
+function handlePodiRealtimeEvent(event) {
+  try {
+    const serverEvent = JSON.parse(event.data);
+    if (serverEvent.type === 'response.output_text.delta') {
+      podiRealtimeState.currentText += serverEvent.delta || '';
+      if (typeof podiRealtimeState.pendingIndex === 'number') {
+        updatePodiChatMessage(podiRealtimeState.pendingIndex, podiRealtimeState.currentText, { pending: true });
+      }
+      return;
+    }
+    if (serverEvent.type === 'response.done') {
+      const outputText = serverEvent.response?.output?.flatMap(item => item.content || []).map(item => item.text || '').join('') || '';
+      const finalText = (outputText || podiRealtimeState.currentText || '').trim();
+      if (typeof podiRealtimeState.pendingIndex === 'number') {
+        updatePodiChatMessage(podiRealtimeState.pendingIndex, finalText || (currentLanguage === 'en-US' ? 'No response was generated.' : '답변이 생성되지 않았습니다.'), { pending: false });
+      }
+      podiRealtimeState.currentText = '';
+      podiRealtimeState.pendingIndex = null;
+      return;
+    }
+    if (serverEvent.type === 'error') {
+      if (typeof podiRealtimeState.pendingIndex === 'number') {
+        updatePodiChatMessage(podiRealtimeState.pendingIndex, currentLanguage === 'en-US' ? 'Realtime error occurred.' : '실시간 상담 오류가 발생했습니다.', { pending: false });
+      }
+    }
+  } catch {
+    // Ignore malformed realtime packets and keep the session alive.
+  }
+}
+
+function sendQuickPodiMessage(kind) {
+  const en = currentLanguage === 'en-US';
+  const prompts = {
+    food: en ? 'I need help with Step 1 food analysis.' : 'Step 1 사료분석에 대해 문의합니다.',
+    exercise: en ? 'I need help with Step 2 exercise prescription.' : 'Step 2 운동처방에 대해 문의합니다.',
+    billing: en ? 'I need help with pricing and billing.' : '요금과 결제에 대해 문의합니다.',
+    accuracy: en ? 'The analysis looks wrong.' : '분석 결과가 잘못 보입니다.',
+    refund: en ? 'I need help with a refund.' : '환불 문의입니다.',
+    paymentHelp: en ? 'Payment is failing.' : '결제가 실패합니다.'
+  };
+  const prompt = prompts[kind] || prompts.food;
+  const messageInput = document.getElementById('podiContactMessage');
+  if (messageInput) messageInput.value = prompt;
+  messageInput?.focus();
+}
+
+function getSavedReports() {
+  try { return JSON.parse(localStorage.getItem("scanfit_saved_reports") || "[]"); }
+  catch { return []; }
+}
+
+function saveReportRecord(type, title, filename, html) {
+  const reports = getSavedReports();
+  reports.unshift({ id: Date.now(), type, title, filename, html, createdAt: new Date().toISOString() });
+  localStorage.setItem("scanfit_saved_reports", JSON.stringify(reports.slice(0, 20)));
+  renderSavedReports();
+}
+
+function renderSavedReports() {
+  const el = document.getElementById('savedReportsList');
+  if (!el) return;
+  const reports = getSavedReports();
+  const stamp = currentLanguage === 'en-US'
+    ? (value => new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(value)))
+    : (value => new Date(value).toLocaleString('ko-KR'));
+  if (!reports.length) {
+    el.innerHTML = `<div class="report-card rounded-2xl p-6 text-slate-500">${currentLanguage === 'en-US' ? 'No paid reports have been saved yet.' : '아직 저장된 유료 리포트가 없습니다.'}</div>`;
+    return;
+  }
+  el.innerHTML = reports.map(report => `
+    <div class="report-card rounded-2xl p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-[10px] font-black text-blue-500 uppercase">${report.type}</p>
+          <h3 class="font-black text-slate-900 mt-1">${report.title}</h3>
+          <p class="text-xs text-slate-400 mt-2">${stamp(report.createdAt)}</p>
+        </div>
+        <button onclick="redownloadReport(${report.id})" class="bg-slate-950 text-white font-bold px-4 py-2 rounded-xl text-sm">${currentLanguage === 'en-US' ? 'Download' : '다운로드'}</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function redownloadReport(id) {
+  const report = getSavedReports().find(item => item.id === id);
+  if (!report) return;
+  downloadHtml(report.filename, report.html);
+}
+
+function reportShell(title, body) {
+  const isEnglish = currentLanguage === 'en-US';
+  const date = isEnglish
+    ? new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date())
+    : new Date().toLocaleString('ko-KR');
+  const createdLabel = isEnglish ? 'Generated' : '생성';
+  return `<!doctype html><html lang="${isEnglish ? 'en' : 'ko'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>
+  body{font-family:Arial,'Malgun Gothic',sans-serif;background:#f6f7fb;color:#111827;margin:0;padding:32px}
+  .page{max-width:980px;margin:auto;background:#fff;border:1px solid #e5e7eb;border-radius:24px;padding:34px;box-shadow:0 24px 70px rgba(15,23,42,.08)}
+  h1{font-size:34px;margin:0 0 8px}.muted{color:#64748b}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{border:1px solid #e5e7eb;border-radius:18px;padding:18px;background:#fafafa}.hero{background:#0f172a;color:white;border-radius:22px;padding:24px;margin:24px 0}.bar{height:10px;background:#e5e7eb;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;border-radius:99px}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}img{max-width:100%;border-radius:16px}.pill{display:inline-block;background:#eff6ff;color:#1d4ed8;border-radius:99px;padding:6px 10px;font-weight:700;font-size:12px}@media print{body{background:#fff;padding:0}.page{box-shadow:none;border:0}}</style></head><body><main class="page"><span class="pill">ScanFit Report</span><h1>${title}</h1><p class="muted">${date} ${createdLabel}</p>${body}</main></body></html>`;
+}
+
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+});
+
+// ===== SPEECH SYNTHESIS (TTS) =====
+let speechEnabled = true;
+let currentLanguage = 'ko-KR';
+
+function speak(text, lang = 'ko-KR') {
+  if (!speechEnabled || !window.speechSynthesis) return;
+  
+  window.speechSynthesis.cancel();
+  
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = lang;
+  
+  // Find a softer, more natural voice
+  const voices = window.speechSynthesis.getVoices();
+  let selectedVoice = null;
+  
+  if (lang.startsWith('ko')) {
+    selectedVoice = voices.find(v => v.name.includes('Google') && v.lang.startsWith('ko')) || 
+                    voices.find(v => v.name.includes('Heami') || v.name.includes('SunHi')) ||
+                    voices.find(v => v.lang.startsWith('ko'));
+  } else {
+    selectedVoice = voices.find(v => v.name.includes('Google') && v.lang.startsWith('en')) ||
+                    voices.find(v => v.name.includes('Zira') || v.name.includes('Samantha')) ||
+                    voices.find(v => v.lang.startsWith('en'));
+  }
+  
+  if (selectedVoice) utterance.voice = selectedVoice;
+  
+  utterance.pitch = 1.15; 
+  utterance.rate = 0.95; // Slightly slower for better delivery
+  utterance.volume = 0.9;
+  
+  const podiImg = document.getElementById('podiImg');
+  if (podiImg) podiImg.classList.add('animate-bounce');
+  utterance.onend = () => { if (podiImg) podiImg.classList.remove('animate-bounce'); };
+  
+  window.speechSynthesis.speak(utterance);
+}
+
+// Initialization to ensure voices are loaded
+window.speechSynthesis.onvoiceschanged = () => { console.log("Voices loaded"); };
+
+function toggleSpeech() {
+  speechEnabled = !speechEnabled;
+  showToast(currentLanguage === 'en-US'
+    ? (speechEnabled ? '?? Voice guidance enabled' : '?? Voice guidance disabled')
+    : (speechEnabled ? '?? 음성 안내가 켜졌습니다' : '?? 음성 안내가 꺼졌습니다'));
+}
+
+// Dual language toggle (optional UI addition)
+function setLanguage(lang) {
+  currentLanguage = lang;
+  applyTranslations();
+  updateAuthButton();
+  renderSavedReports();
+  populateBreedList(document.getElementById('foodPetType')?.value || 'dog');
+  if (currentFoodPlan) calculateFeeding(currentFoodPlan.meta);
+  if (currentExercisePlan) generateExercisePrescription(Boolean(currentExercisePlan.sourceFromUpload), true);
+  if (podiRealtimeState.connected && podiRealtimeState.dc?.readyState === 'open') {
+    podiRealtimeState.sessionInstructions = buildRealtimePodiInstructions();
+    podiRealtimeState.dc.send(JSON.stringify({
+      type: 'session.update',
+      session: {
+        type: 'realtime',
+        instructions: podiRealtimeState.sessionInstructions
+      }
+    }));
+  }
+  showToast(lang === 'ko-KR' ? '한국어로 안내합니다' : 'English enabled');
+}
+
+// ===== STEP 02: OCR & FINAL FEEDING =====
+function triggerStep2Upload() {
+  if (!requireAuth('사료분석')) return;
+  const input = document.getElementById('fileInputStep2');
+  if (!input) return;
+  if (typeof input.showPicker === 'function') input.showPicker();
+  else input.click();
+}
+
+function useCustomBreedInput() {
+  const input = document.getElementById('foodPetBreed');
+  if (!input) return;
+  input.value = '';
+  const petType = document.getElementById('foodPetType')?.value || 'dog';
+  input.placeholder = currentLanguage === 'en-US'
+    ? (petType === 'cat' ? 'Type cat breed, mix, or unknown' : 'Type dog breed, mix, or unknown')
+    : (petType === 'cat' ? '고양이 품종, 믹스, unknown을 직접 입력' : '강아지 품종, 믹스견, unknown을 직접 입력');
+  input.focus();
+}
+
+function handleStep2OCR(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (!requireAuth('사료분석')) {
+    event.target.value = '';
+    return;
+  }
+  if (!consumeFreeUse('food', currentFoodPlan?.meta?.petCount || 1)) {
+    event.target.value = '';
+    return;
+  }
+  
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    document.getElementById('uploadPlaceholderStep2').style.display = 'none';
+    document.getElementById('uploadStatusStep2').style.display = 'flex';
+    document.getElementById('scanLineStep2').style.display = 'block';
+    
+    if (currentLanguage === 'ko-KR') {
+      speak("사료 성분표를 OCR로 분석하고 있습니다. 단백질, 지방, 칼로리를 0.5초 만에 추출하여 체형 데이터와 결합합니다!");
+    } else {
+      speak("Analyzing the food bag with OCR. Combining protein, fat, and calories with your pet's body data!");
+    }
+
+    const ocrContainer = document.getElementById('ocrResultContainer');
+    if (ocrContainer) ocrContainer.style.display = 'block';
+    const ocrImg = document.getElementById('ocrPreviewImg');
+    if (ocrImg) ocrImg.src = e.target.result;
+
+    const aiData = await analyzeFoodImage(e.target.result);
+    document.getElementById('scanLineStep2').style.display = 'none';
+    document.getElementById('uploadStatusStep2').style.display = 'none';
+    document.getElementById('step2Result').style.display = 'block';
+    calculateFeeding(aiData);
+  };
+  reader.readAsDataURL(file);
+}
+
+async function analyzeFoodImage(imageData) {
+  const profile = getFoodProfile();
+  try {
+    const response = await fetch(FOOD_AI_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: imageData, profile, analysisMode: 'high' })
+    });
+    if (!response.ok) throw new Error("AI endpoint unavailable");
+    const data = await response.json();
+    showToast(currentLanguage === 'en-US' ? '? AI food analysis complete!' : '? AI 사료분석 완료!');
+    return normalizeFoodAiData(data);
+  } catch (error) {
+    showToast(currentLanguage === 'en-US' ? 'AI server is offline, generating a local premium report.' : 'AI 서버가 연결되지 않아 로컬 고급 리포트로 생성합니다.');
+    return normalizeFoodAiData(buildLocalFoodAnalysis(profile));
+  }
+}
+
+function getFoodProfile() {
+  const petType = document.getElementById('foodPetType')?.value || "dog";
+  const breedRaw = document.getElementById('foodPetBreed')?.value || '';
+  const breed = normalizeBreedInput(breedRaw, petType);
+  const weight = Number(document.getElementById('foodPetWeight')?.value || globalWeight || 5);
+  return { petType, breed, weight, language: currentLanguage };
+}
+
+function normalizeFoodAiData(data) {
+  const en = currentLanguage === "en-US";
+  return {
+    caloriesPerKg: Number(data.caloriesPerKg || data.kcalPerKg || 3820),
+    proteinPct: Number(data.proteinPct || 28),
+    fatPct: Number(data.fatPct || 14),
+    carbPct: Number(data.carbPct || 36),
+    confidence: Number(data.confidence || 0.86),
+    petCount: Math.max(1, Number(data.petCount || 1)),
+    petCountConfidence: Math.min(1, Math.max(0, Number(data.petCountConfidence || 0.7))),
+    petCountNote: data.petCountNote || "",
+    summary: data.summary || (en ? "A balanced weekly feeding plan was generated from the label's key nutrients." : "라벨의 주요 영양 성분을 기준으로 균형 잡힌 주간 급여 계획을 생성했습니다."),
+    cautions: Array.isArray(data.cautions) ? data.cautions : [en ? "Adjust the feeding amount based on activity, neuter status, and health." : "실제 급여량은 활동량, 중성화 여부, 건강 상태에 따라 조정하세요."],
+    evidence: Array.isArray(data.evidence) ? data.evidence : [
+      { label: en ? "Metabolizable Energy" : "대사 에너지", value: `${data.caloriesPerKg || 3820} kcal/kg`, reason: en ? "This is the baseline for feeding calculations." : "권장 급여량 계산의 기준값입니다." },
+      { label: en ? "Protein/Fat" : "단백질/지방", value: `${data.proteinPct || 28}% / ${data.fatPct || 14}%`, reason: en ? "It affects meal balance and exercise intensity." : "식단 균형과 활동 처방 강도에 영향을 줍니다." }
+    ],
+    feedingFormula: data.feedingFormula || null
+    ,
+    rawLabelLines: Array.isArray(data.rawLabelLines) ? data.rawLabelLines : [en ? "Raw label text will be extracted after connecting to the AI server." : "라벨 원문은 AI 서버 연결 후 정밀 추출됩니다."],
+    guaranteedAnalysis: data.guaranteedAnalysis || {
+      protein: `${data.proteinPct || 28}%`,
+      fat: `${data.fatPct || 14}%`,
+      fiber: en ? "Estimated" : "추정값",
+      moisture: en ? "Estimated" : "추정값",
+      calories: `${data.caloriesPerKg || 3820} kcal/kg`
+    }
+  };
+}
+
+function buildLocalFoodAnalysis(profile) {
+  const cat = profile.petType === "cat";
+  const en = profile.language === "en-US";
+  return {
+    caloriesPerKg: cat ? 3980 : 3820,
+    proteinPct: cat ? 34 : 28,
+    fatPct: cat ? 16 : 14,
+    carbPct: cat ? 24 : 36,
+    confidence: 0.78,
+    petCount: 1,
+    petCountConfidence: 0.35,
+    petCountNote: en ? "Local preview cannot reliably count pets, so the report assumes one visible pet." : "로컬 미리보기는 마리 수를 정확히 판독할 수 없어 1마리 기준으로 표시합니다.",
+    summary: en
+      ? `For ${profile.breed}, ${profile.weight}kg, the label preview is estimated as a high-protein, moderate-fat food. Once the AI server is connected, ingredient names and guaranteed analysis will be extracted more precisely.`
+      : `${profile.breed} ${profile.weight}kg 기준으로 라벨 이미지에서 고단백/중지방 구성으로 추정했습니다. AI 서버가 연결되면 원료명과 보증성분을 더 정밀하게 추출합니다.`,
+    cautions: en
+      ? (cat ? ["For cats, transition food gradually over 5-7 days."] : ["On low-activity days, reduce treat calories first."])
+      : (cat ? ["고양이는 급격한 식단 변경을 피하고 5-7일에 걸쳐 전환하세요."] : ["활동량이 낮은 날은 간식 칼로리를 먼저 줄이세요."]),
+    evidence: en ? [
+      { label: "Profile", value: `${profile.breed} / ${profile.weight}kg`, reason: "Body weight and species are used in the feeding formula." },
+      { label: "Energy estimate", value: `${cat ? 3980 : 3820} kcal/kg`, reason: "Used as the calorie baseline before precise label extraction." },
+      { label: "Macro estimate", value: `Protein ${cat ? 34 : 28}% / Fat ${cat ? 16 : 14}%`, reason: "Used for the meal balance and exercise intensity." }
+    ] : [
+      { label: "프로필", value: `${profile.breed} / ${profile.weight}kg`, reason: "체중과 종 구분을 급여량 산식에 반영했습니다." },
+      { label: "열량 추정", value: `${cat ? 3980 : 3820} kcal/kg`, reason: "라벨 판독 전 기본 사료 열량 범위로 계산했습니다." },
+      { label: "성분 추정", value: `단백질 ${cat ? 34 : 28}% / 지방 ${cat ? 16 : 14}%`, reason: "식단 균형표와 운동처방 강도 산정에 사용됩니다." }
+    ],
+    rawLabelLines: en ? [
+      "Preview mode: label text extraction requires the AI server.",
+      `Estimated calories: ${cat ? 3980 : 3820} kcal/kg`,
+      `Estimated protein/fat: ${cat ? 34 : 28}% / ${cat ? 16 : 14}%`
+    ] : [
+      "미리보기 모드: 라벨 원문 추출은 AI 서버 연결 후 제공됩니다.",
+      `추정 열량: ${cat ? 3980 : 3820} kcal/kg`,
+      `추정 단백질/지방: ${cat ? 34 : 28}% / ${cat ? 16 : 14}%`
+    ],
+    guaranteedAnalysis: {
+      protein: `${cat ? 34 : 28}%`,
+      fat: `${cat ? 16 : 14}%`,
+      fiber: en ? "Estimated" : "추정값",
+      moisture: en ? "Estimated" : "추정값",
+      calories: `${cat ? 3980 : 3820} kcal/kg`
+    }
+  };
+}
+
+function calculateFeeding(aiData = null) {
+  const en = currentLanguage === "en-US";
+  const profile = getFoodProfile();
+  globalWeight = profile.weight;
+  globalCategory = profile.petType === "cat" ? "cat" : globalCategory;
+  const food = normalizeFoodAiData(aiData || buildLocalFoodAnalysis(profile));
+  const baseKcal = food.caloriesPerKg;
+  const rer = (30 * profile.weight) + 70;
+  let multiplier = profile.petType === "cat" ? 1.1 : 1.2;
+  
+  if (globalCategory === 'bully') multiplier = 1.0;
+  if (globalCategory === 'sighthound') multiplier = 1.6;
+  
+  const targetKcal = rer * multiplier;
+  const grams = Math.round((targetKcal / baseKcal) * 1000);
+  const formula = food.feedingFormula || {
+    rer: `30 x ${profile.weight}kg + 70 = ${Math.round(rer)} kcal`,
+    multiplier,
+    dailyKcal: Math.round(targetKcal),
+    gramsFormula: `${Math.round(targetKcal)} / ${baseKcal} x 1000 = ${grams}g`
+  };
+  
+  const podiSentence = document.getElementById('podiTargetBreedSentence');
+  if (podiSentence) podiSentence.textContent = t('foodRationSentence');
+  const detectedPetsText = document.getElementById('foodDetectedPetsText');
+  if (detectedPetsText) detectedPetsText.textContent = `${food.petCount}`;
+  const detectedPetsLabel = document.getElementById('foodDetectedPetsLabel');
+  if (detectedPetsLabel) detectedPetsLabel.textContent = t('foodDetectedPetsLabel');
+  const multiPetWarning = document.getElementById('foodMultiPetWarning');
+  if (multiPetWarning) {
+    const multi = food.petCount > 1;
+    const lowConfidence = food.petCountConfidence < 0.75;
+    multiPetWarning.textContent = multi
+      ? (currentLanguage === 'en-US'
+        ? `${food.petCount} pets are visible. ${lowConfidence ? 'This count is conservative, so please confirm before using it for exact feeding.' : 'Count confidence is acceptable, but separate scans are still best for exact feeding.'}`
+        : `사진에 ${food.petCount}마리가 보입니다. ${lowConfidence ? '이 수치는 보수적으로 판독했으니 정확한 급여를 위해 확인해 주세요.' : '마리 수 확신도는 괜찮지만, 정확한 급여를 위해서는 개별 스캔이 가장 좋습니다.'}`)
+      : (currentLanguage === 'en-US'
+        ? (lowConfidence ? 'The photo appears to show one pet, but the count should still be confirmed.' : '')
+        : (lowConfidence ? '사진에는 1마리로 보이지만, 마리 수는 한 번 더 확인하는 것이 좋습니다.' : ''));
+  }
+  document.getElementById('finalGramsText').textContent = `${grams} g`;
+  const canvasProteinText = document.getElementById('canvasProteinText');
+  if (canvasProteinText) canvasProteinText.textContent = `${food.proteinPct}%`;
+  const canvasEnergyText = document.getElementById('canvasEnergyText');
+  if (canvasEnergyText) canvasEnergyText.textContent = `${food.caloriesPerKg.toLocaleString()} kcal`;
+  const canvasPortionText = document.getElementById('canvasPortionText');
+  if (canvasPortionText) canvasPortionText.textContent = `${grams} g/day`;
+  document.getElementById('foodAiSummary').textContent = food.summary;
+  document.getElementById('energyDensityText').textContent = `${food.caloriesPerKg.toLocaleString()} kcal`;
+  document.getElementById('foodConfidenceText').textContent = `${Math.round(food.confidence * 100)}%`;
+  const confidence = Math.round(food.confidence * 100);
+  const confidenceRing = document.getElementById('confidenceRing');
+  if (confidenceRing) confidenceRing.style.setProperty('--value', confidence);
+  const confidenceRingText = document.getElementById('confidenceRingText');
+  if (confidenceRingText) confidenceRingText.textContent = `${confidence}%`;
+  document.getElementById('proteinPctText').textContent = `${food.proteinPct}%`;
+  document.getElementById('fatPctText').textContent = `${food.fatPct}%`;
+  document.getElementById('carbPctText').textContent = `${food.carbPct}%`;
+  document.getElementById('proteinBar').style.width = `${Math.min(100, food.proteinPct * 2.6)}%`;
+  document.getElementById('fatBar').style.width = `${Math.min(100, food.fatPct * 3.7)}%`;
+  document.getElementById('carbBar').style.width = `${Math.min(100, food.carbPct * 1.8)}%`;
+  currentFoodPlan = buildWeeklyMealPlan(grams, Math.round(targetKcal));
+  currentFoodPlan.meta = food;
+  currentFoodPlan.profile = profile;
+  currentFoodPlan.formula = formula;
+  renderWeeklyMealPlan(currentFoodPlan);
+  renderFoodEvidence(food.evidence, formula);
+  renderRawLabel(food.rawLabelLines, food.guaranteedAnalysis);
+  generateAiReportImage("food", {
+    grams: `${grams}g`,
+    caloriesPerKg: food.caloriesPerKg,
+    proteinPct: food.proteinPct,
+    fatPct: food.fatPct,
+    carbPct: food.carbPct,
+    breed: profile.breed,
+    weight: profile.weight,
+    language: currentLanguage
+  });
+  
+  const advice = en
+    ? `Analysis complete! Exactly ${grams}g of this food is ideal for today.`
+    : `분석 완료! 엄마, 오늘 사료는 정확히 ${grams}g만 먹이면 딱 좋아요!`;
+    
+  setTimeout(() => speak(advice, currentLanguage), 500);
+  showToast(en ? '? Feeding calculation complete!' : '? 최적 급여량 계산 완료!');
+}
+
+function renderFoodEvidence(evidence, formula) {
+  const list = document.getElementById('foodEvidenceList');
+  const en = currentLanguage === 'en-US';
+  if (list) {
+    list.innerHTML = (evidence || []).map(item => `
+      <div class="evidence-card">
+        <div class="flex justify-between gap-3"><strong>${item.label}</strong><span class="text-blue-600 font-black">${item.value}</span></div>
+        <p class="text-slate-500 text-xs leading-relaxed mt-2">${item.reason}</p>
+      </div>
+    `).join('');
+  }
+  const formulaEl = document.getElementById('feedingFormulaText');
+  if (formulaEl) {
+    formulaEl.innerHTML = en
+      ? `RER = <b>${formula.rer}</b><br>Multiplier = <b>${formula.multiplier}</b><br>Daily target calories = <b>${formula.dailyKcal} kcal</b><br>Feeding amount = <b>${formula.gramsFormula}</b>`
+      : `RER = <b>${formula.rer}</b><br>보정계수 = <b>${formula.multiplier}</b><br>일일 목표 열량 = <b>${formula.dailyKcal} kcal</b><br>급여량 = <b>${formula.gramsFormula}</b>`;
+  }
+}
+
+function renderRawLabel(lines, guaranteed) {
+  const el = document.getElementById('rawLabelLines');
+  const en = currentLanguage === 'en-US';
+  if (!el) return;
+  const raw = (lines || []).map(line => `<div>${line}</div>`).join('');
+  const analysis = guaranteed ? `
+    <div class="pt-3 mt-3 border-t border-white/10 text-emerald-300">
+      ${en ? 'Protein' : 'Protein'}: ${guaranteed.protein || '-'} / ${en ? 'Fat' : 'Fat'}: ${guaranteed.fat || '-'} / ${en ? 'Fiber' : 'Fiber'}: ${guaranteed.fiber || '-'} / ${en ? 'Moisture' : 'Moisture'}: ${guaranteed.moisture || '-'} / ${en ? 'Calories' : 'Calories'}: ${guaranteed.calories || '-'}
+    </div>
+  ` : '';
+  el.innerHTML = raw + analysis;
+}
+
+function buildWeeklyMealPlan(grams, kcal) {
+  const days = currentLanguage === 'en-US' ? ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] : ["월", "화", "수", "목", "금", "토", "일"];
+  return days.map((day, idx) => {
+    const adjust = idx === 2 ? -5 : (idx === 5 ? 5 : 0);
+    return {
+      day,
+      breakfast: Math.round((grams + adjust) * 0.45),
+      dinner: Math.round((grams + adjust) * 0.55),
+      kcal: kcal + (adjust * 4),
+      note: currentLanguage === 'en-US'
+        ? (idx === 2 ? "Light adjustment day" : (idx === 5 ? "Activity boost day" : "Standard maintenance"))
+        : (idx === 2 ? "가벼운 조절일" : (idx === 5 ? "활동량 보강일" : "표준 유지"))
+    };
+  });
+}
+
+function renderWeeklyMealPlan(plan) {
+  const el = document.getElementById('weeklyMealPlan');
+  const en = currentLanguage === 'en-US';
+  if (!el) return;
+  el.innerHTML = plan.map(item => `
+    <div class="meal-tile rounded-2xl px-4 py-3">
+      <div class="relative z-10 flex items-center justify-between">
+        <div><strong class="text-emerald-700">${item.day}</strong><span class="text-slate-500 text-xs ml-2">${item.note}</span></div>
+        <div class="text-right text-xs"><b>${item.breakfast}g</b> ${en ? 'Breakfast' : '아침'} / <b>${item.dinner}g</b> ${en ? 'Dinner' : '저녁'}<br><span class="text-slate-400">${item.kcal} kcal</span></div>
+      </div>
+    </div>
+  `).join('');
+  const strip = document.getElementById('weeklyMealStrip');
+  if (strip) {
+    strip.innerHTML = plan.map(item => `
+      <div>
+        <strong class="relative z-10 text-emerald-700">${item.day}</strong>
+        <p class="relative z-10 text-[11px] text-slate-500 mt-2">${item.breakfast}g / ${item.dinner}g</p>
+        <p class="relative z-10 text-[10px] text-slate-400">${item.kcal} kcal</p>
+      </div>
+    `).join('');
+  }
+}
+
+async function generateAiReportImage(type, payload) {
+  try {
+    const response = await fetch(REPORT_IMAGE_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type, payload })
+    });
+    if (!response.ok) throw new Error("image generation unavailable");
+    const data = await response.json();
+    if (!data.image) throw new Error("empty image result");
+    if (type === "exercise") {
+      document.getElementById('exerciseGeneratedImage').src = data.image;
+      document.getElementById('exerciseGeneratedImageCard').style.display = 'block';
+    } else {
+      document.getElementById('foodGeneratedImage').src = data.image;
+      document.getElementById('foodGeneratedImageCard').style.display = 'block';
+    }
+    showToast(currentLanguage === 'en-US' ? '??? AI report image generated.' : '??? AI 리포트 이미지 생성 완료!');
+  } catch (error) {
+    showToast(currentLanguage === 'en-US' ? 'Image generation API is unavailable, so the report UI is shown instead.' : '이미지 생성 API가 연결되지 않아 리포트 UI로 표시합니다.');
+  }
+}
+
+function downloadFoodReport() {
+  if (!requirePaid('food')) return;
+  if (!currentFoodPlan) calculateFeeding();
+  const isEnglish = currentLanguage === 'en-US';
+  const grams = document.getElementById('finalGramsText').textContent;
+  const food = currentFoodPlan?.meta || normalizeFoodAiData({});
+  const profile = currentFoodPlan?.profile || getFoodProfile();
+  const rows = (currentFoodPlan || []).map(d => `<tr><td>${d.day}</td><td>${d.breakfast}g</td><td>${d.dinner}g</td><td>${d.kcal} kcal</td><td>${d.note}</td></tr>`).join('');
+  const evidenceRows = (food.evidence || []).map(e => `<div class="card"><b>${e.label}: ${e.value}</b><p>${e.reason}</p></div>`).join('');
+  const formula = currentFoodPlan?.formula;
+  const petCountLine = isEnglish
+    ? `${food.petCount || 1} visible pet${Number(food.petCount || 1) > 1 ? 's' : ''}`
+    : `보이는 반려동물 ${food.petCount || 1}마리`;
+  const body = isEnglish
+    ? `<div class="hero"><h2>Food Scan Result</h2><p>Based on ${profile.breed} ${profile.weight}kg, the recommended daily feeding amount is <b>${grams}</b>. ${food.summary}</p><p class="muted">${petCountLine}${food.petCountConfidence < 0.75 ? ' - confirm manually for exact feeding.' : ''}</p></div>
+      <div class="grid"><div class="card"><b>Protein ${food.proteinPct}%</b><div class="bar"><span style="width:${Math.min(100, food.proteinPct * 2.6)}%;background:#2563eb"></span></div></div><div class="card"><b>Fat ${food.fatPct}%</b><div class="bar"><span style="width:${Math.min(100, food.fatPct * 3.7)}%;background:#10b981"></span></div></div><div class="card"><b>Carbs ${food.carbPct}%</b><div class="bar"><span style="width:${Math.min(100, food.carbPct * 1.8)}%;background:#f59e0b"></span></div></div></div>
+      <h2>Evidence</h2><div class="grid">${evidenceRows}</div>
+      <h2>Feeding Formula</h2><p>${formula ? `${formula.rer}, multiplier ${formula.multiplier}, ${formula.gramsFormula}` : ''}</p>
+      <h2>7-Day Meal Plan</h2><table width="100%" cellspacing="0" cellpadding="10" style="border-collapse:collapse"><tr style="background:#f1f5f9"><th>Day</th><th>Breakfast</th><th>Dinner</th><th>Calories</th><th>Note</th></tr>${rows}</table>`
+    : `<div class="hero"><h2>사료 스캔 결과</h2><p>${profile.breed} ${profile.weight}kg 기준 오늘 권장 급여량은 <b>${grams}</b>입니다. ${food.summary}</p><p class="muted">${petCountLine}${food.petCountConfidence < 0.75 ? ' - 정확한 급여를 위해 수동 확인이 필요합니다.' : ''}</p></div>
+      <div class="grid"><div class="card"><b>단백질 ${food.proteinPct}%</b><div class="bar"><span style="width:${Math.min(100, food.proteinPct * 2.6)}%;background:#2563eb"></span></div></div><div class="card"><b>지방 ${food.fatPct}%</b><div class="bar"><span style="width:${Math.min(100, food.fatPct * 3.7)}%;background:#10b981"></span></div></div><div class="card"><b>탄수화물 ${food.carbPct}%</b><div class="bar"><span style="width:${Math.min(100, food.carbPct * 1.8)}%;background:#f59e0b"></span></div></div></div>
+      <h2>분석 근거</h2><div class="grid">${evidenceRows}</div>
+      <h2>급여량 계산 공식</h2><p>${formula ? `${formula.rer}, 보정계수 ${formula.multiplier}, ${formula.gramsFormula}` : ''}</p>
+      <h2>한 주 식단표</h2><table width="100%" cellspacing="0" cellpadding="10" style="border-collapse:collapse"><tr style="background:#f1f5f9"><th>요일</th><th>아침</th><th>저녁</th><th>열량</th><th>메모</th></tr>${rows}</table>`;
+  const html = reportShell(isEnglish ? 'ScanFit Food / Meal Report' : 'ScanFit 사료/식단 리포트', body);
+  saveReportRecord('food', isEnglish ? 'ScanFit Food / Meal Report' : 'ScanFit 사료/식단 리포트', 'ScanFit_Food_Meal_Report.html', html);
+  downloadHtml('ScanFit_Food_Meal_Report.html', html);
+}
+
+// ===== STEP 03: EXERCISE PRESCRIPTION =====
+function triggerStep3Upload() {
+  const input = document.getElementById('fileInputStep3');
+  if (!input) return;
+  if (typeof input.showPicker === 'function') input.showPicker();
+  else input.click();
+}
+
+function handleStep3Upload(event) {
+  if (!event.target.files[0]) return;
+  showToast(currentLanguage === 'en-US' ? '?? Applying the uploaded report to the exercise prescription...' : '?? 업로드 리포트를 운동처방에 반영합니다...');
+  setTimeout(() => generateExercisePrescription(true), 900);
+}
+
+function generateExercisePrescription(fromUpload = false, bypassUsageGate = false) {
+  if (!requireAuth('운동처방')) return;
+  if (!bypassUsageGate && !consumeFreeUse('exercise', currentFoodPlan?.meta?.petCount || 1)) return;
+  const profile = currentFoodPlan?.profile || getFoodProfile();
+  const food = currentFoodPlan?.meta || normalizeFoodAiData({});
+  const en = currentLanguage === 'en-US';
+  const selectedPetType = document.getElementById('exercisePetType')?.value || profile.petType || 'dog';
+  const scan = {
+    angle: food.fatPct > 18 ? 9 : 15,
+    bcs: food.fatPct > 18 ? '4/5' : '3/5',
+    category: selectedPetType === 'cat' ? 'cat' : globalCategory,
+    weight: profile.weight || globalWeight || 5
+  };
+  const conditions = getExerciseConditions();
+  const higherLoad = scan.angle < 10 || scan.bcs === '4/5' || conditions.joint !== 'normal' || conditions.age >= 8;
+  const lowActivity = conditions.activity === 'low';
+  const plan = selectedPetType === 'cat'
+    ? (en ? [
+      { day: "Mon", activity: higherLoad ? "Slow Indoor Play" : "Climbing Play", time: higherLoad ? 12 : 18, kcal: higherLoad ? 35 : 55 },
+      { day: "Tue", activity: "Toy Chase", time: 15, kcal: 45 },
+      { day: "Wed", activity: higherLoad ? "Window Watch + Stretch" : "Short Play Session", time: higherLoad ? 10 : 16, kcal: higherLoad ? 25 : 48 },
+      { day: "Thu", activity: "Recovery Rest", time: 8, kcal: 15 },
+      { day: "Fri", activity: higherLoad ? "Low Jump Practice" : "Tunnel Play", time: higherLoad ? 12 : 18, kcal: higherLoad ? 30 : 52 },
+      { day: "Sat", activity: "Laser-Free Play", time: 15, kcal: 44 },
+      { day: "Sun", activity: "Easy Indoor Stroll", time: 10, kcal: 22 }
+    ] : [
+      { day: "월", activity: higherLoad ? "느린 실내 놀이" : "캣타워 오르기", time: higherLoad ? 12 : 18, kcal: higherLoad ? 35 : 55 },
+      { day: "화", activity: "장난감 추적", time: 15, kcal: 45 },
+      { day: "수", activity: higherLoad ? "창가 스트레칭" : "짧은 놀이 세션", time: higherLoad ? 10 : 16, kcal: higherLoad ? 25 : 48 },
+      { day: "목", activity: "회복 휴식", time: 8, kcal: 15 },
+      { day: "금", activity: higherLoad ? "낮은 점프 연습" : "터널 놀이", time: higherLoad ? 12 : 18, kcal: higherLoad ? 30 : 52 },
+      { day: "토", activity: "레이저 없이 놀이", time: 15, kcal: 44 },
+      { day: "일", activity: "가벼운 실내 산책", time: 10, kcal: 22 }
+    ])
+    : (en ? [
+      { day: "Mon", activity: higherLoad ? "Low-Intensity Walk" : "Power Walk", time: higherLoad ? 22 : (lowActivity ? 28 : 35), kcal: higherLoad ? 80 : (lowActivity ? 115 : 150) },
+      { day: "Tue", activity: "Exploration Play", time: 20, kcal: 55 },
+      { day: "Wed", activity: higherLoad ? "Indoor Balance Work" : "Interval Walk", time: higherLoad ? 15 : 28, kcal: higherLoad ? 45 : 160 },
+      { day: "Thu", activity: "Recovery Stretch", time: 12, kcal: 25 },
+      { day: "Fri", activity: higherLoad ? "Flat-Ground Walk" : "Strength Play", time: higherLoad ? 18 : 25, kcal: higherLoad ? 65 : 135 },
+      { day: "Sat", activity: "Toy Play", time: 25, kcal: 110 },
+      { day: "Sun", activity: "Easy Walk", time: 20, kcal: 70 }
+    ] : [
+      { day: "월", activity: higherLoad ? "저강도 산책" : "파워 워킹", time: higherLoad ? 22 : (lowActivity ? 28 : 35), kcal: higherLoad ? 80 : (lowActivity ? 115 : 150) },
+      { day: "화", activity: "탐색 놀이", time: 20, kcal: 55 },
+      { day: "수", activity: higherLoad ? "실내 균형 운동" : "인터벌 산책", time: higherLoad ? 15 : 28, kcal: higherLoad ? 45 : 160 },
+      { day: "목", activity: "회복일 스트레칭", time: 12, kcal: 25 },
+      { day: "금", activity: higherLoad ? "평지 걷기" : "근력 놀이", time: higherLoad ? 18 : 25, kcal: higherLoad ? 65 : 135 },
+      { day: "토", activity: "장난감 놀이", time: 25, kcal: 110 },
+      { day: "일", activity: "가벼운 산책", time: 20, kcal: 70 }
+    ]);
+  currentExercisePlan = plan;
+  currentExercisePlan.sourceFromUpload = fromUpload;
+  const weeklyBurn = plan.reduce((sum, item) => sum + item.kcal, 0);
+  document.getElementById('weeklyBurnText').textContent = `${weeklyBurn.toLocaleString()} kcal`;
+  document.getElementById('jointLoadText').textContent = higherLoad ? (en ? "Medium" : "중간") : (en ? "Low" : "낮음");
+  const canvasJointLoadText = document.getElementById('canvasJointLoadText');
+  if (canvasJointLoadText) canvasJointLoadText.textContent = higherLoad ? "Medium" : "Low";
+  const canvasBurnText = document.getElementById('canvasBurnText');
+  if (canvasBurnText) canvasBurnText.textContent = `${weeklyBurn.toLocaleString()} kcal`;
+  document.getElementById('jointLoadBar').style.width = higherLoad ? "58%" : "34%";
+  document.getElementById('jointLoadBar').style.background = higherLoad ? "#f59e0b" : "#10b981";
+  document.getElementById('weeklyExercisePlan').innerHTML = plan.map(item => `
+    <div class="flex items-center justify-between rounded-xl border border-slate-100 bg-white px-4 py-3">
+      <div><strong>${item.day}</strong><span class="text-slate-500 text-sm ml-3">${item.activity}</span></div>
+      <div class="text-right text-xs"><b>${item.time}분</b><br><span class="text-slate-400">${item.kcal} kcal</span></div>
+    </div>
+  `).join('');
+  const hasFoodPlan = Boolean(currentFoodPlan);
+  const intensityEl = document.getElementById('exerciseIntensityText');
+  if (intensityEl) intensityEl.textContent = higherLoad ? "L" : "M+";
+  document.getElementById('exerciseRationale').textContent = en
+    ? `${fromUpload ? "The uploaded report plus " : ""}the meal plan, age ${conditions.age || '-'}, neuter status ${conditions.neutered === 'yes' ? 'yes' : 'no'}, joint condition ${conditions.joint}, and activity level ${conditions.activity} were used for this prescription. ${hasFoodPlan ? "The latest food analysis and 7-day meal plan were reflected." : "Run food analysis again to include the meal plan and ingredient risk."}`
+    : `${fromUpload ? "업로드한 리포트와 " : ""}식단표, 나이 ${conditions.age || '-'}세, 중성화 ${conditions.neutered === 'yes' ? '예' : '아니오'}, 관절 상태 ${conditions.joint}, 활동량 ${conditions.activity}을 기준으로 처방했습니다. ${hasFoodPlan ? "직전 사료분석과 1주 식단표를 반영했습니다." : "사료분석 후 다시 생성하면 식단표와 성분 리스크가 함께 반영됩니다."}`;
+  renderExerciseWarnings(conditions, higherLoad);
+  document.getElementById('step3Result').style.display = 'block';
+  generateAiReportImage("exercise", {
+    jointLoad: document.getElementById('jointLoadText').textContent,
+    weeklyBurn: document.getElementById('weeklyBurnText').textContent,
+    intensity: intensityEl ? intensityEl.textContent : "M",
+    plan: plan.map(item => en ? `${item.day} ${item.activity} ${item.time} min` : `${item.day} ${item.activity} ${item.time}분`).join(', '),
+    language: currentLanguage
+  });
+  document.getElementById('step3Result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  showToast(en ? '?? Exercise report generated!' : '?? 운동처방 리포트 생성 완료!');
+}
+
+function getExerciseConditions() {
+  return {
+    age: Number(document.getElementById('exerciseAge')?.value || 3),
+    neutered: document.getElementById('exerciseNeutered')?.value || 'yes',
+    joint: document.getElementById('exerciseJoint')?.value || 'normal',
+    activity: document.getElementById('exerciseActivity')?.value || 'normal'
+  };
+}
+
+function renderExerciseWarnings(conditions, higherLoad) {
+  const warnings = [];
+  if (conditions.age >= 8) warnings.push(currentLanguage === 'en-US' ? "Senior pets should avoid jumps and sudden acceleration; add more recovery days." : "고령 반려동물은 점프와 급가속 운동을 피하고 회복일을 늘리세요.");
+  if (conditions.joint !== 'normal') warnings.push(currentLanguage === 'en-US' ? "Joint caution detected. Exclude stairs, slippery floors, and long runs." : "관절 주의 상태입니다. 계단, 미끄러운 바닥, 장시간 달리기는 제외하세요.");
+  if (conditions.neutered === 'yes') warnings.push(currentLanguage === 'en-US' ? "Neutered pets may have a lower metabolic rate, so manage food and exercise together." : "중성화 후 대사량이 낮을 수 있어 식단표와 운동량을 함께 관리하세요.");
+  if (!warnings.length) warnings.push(higherLoad ? (currentLanguage === 'en-US' ? "Start with low intensity and watch the response." : "저강도부터 시작해 반응을 확인하세요.") : (currentLanguage === 'en-US' ? "Standard intensity exercise is appropriate for current conditions." : "현재 조건에서는 표준 강도 운동이 가능합니다."));
+  const el = document.getElementById('exerciseWarnings');
+  if (el) el.innerHTML = warnings.map(w => `<div class="flex gap-2"><span class="material-symbols-outlined text-sm">priority_high</span><span>${w}</span></div>`).join('');
+}
+
+function downloadExerciseReport() {
+  if (!requirePaid('exercise')) return;
+  const isEnglish = currentLanguage === 'en-US';
+  showToast(isEnglish ? '?? Downloading the exercise prescription...' : '?? 운동 처방 다운로드 중...');
+  if (!currentExercisePlan) generateExercisePrescription();
+  const rows = (currentExercisePlan || []).map(d => `<tr><td>${d.day}</td><td>${d.activity}</td><td>${d.time}${isEnglish ? ' min' : '분'}</td><td>${d.kcal} kcal</td></tr>`).join('');
+  const rationale = document.getElementById('exerciseRationale')?.textContent || (isEnglish ? 'Exercise prescription based on body and meal-plan data.' : '체형 분석과 식단표 기반 운동처방입니다.');
+  const body = isEnglish
+    ? `<div class="hero"><h2>Exercise Prescription Summary</h2><p>${rationale}</p></div>
+      <div class="grid"><div class="card"><b>Joint Load</b><div class="bar"><span style="width:${document.getElementById('jointLoadBar')?.style.width || '34%'};background:#10b981"></span></div></div><div class="card"><b>Weekly Burn Target</b><p>${document.getElementById('weeklyBurnText')?.textContent || 'Calculating'}</p></div><div class="card"><b>Recheck Rule</b><p>Compare weekly photos</p></div></div>
+      <h2>Weekly Exercise Plan</h2><table width="100%" cellspacing="0" cellpadding="10" style="border-collapse:collapse"><tr style="background:#f1f5f9"><th>Day</th><th>Exercise</th><th>Time</th><th>Estimated Burn</th></tr>${rows}</table>`
+    : `<div class="hero"><h2>운동처방 요약</h2><p>${rationale}</p></div>
+      <div class="grid"><div class="card"><b>관절 부담</b><div class="bar"><span style="width:${document.getElementById('jointLoadBar')?.style.width || '34%'};background:#10b981"></span></div></div><div class="card"><b>주간 소모 목표</b><p>${document.getElementById('weeklyBurnText')?.textContent || '계산 중'}</p></div><div class="card"><b>재처방 기준</b><p>매주 사진 비교</p></div></div>
+      <h2>주간 운동처방표</h2><table width="100%" cellspacing="0" cellpadding="10" style="border-collapse:collapse"><tr style="background:#f1f5f9"><th>요일</th><th>운동</th><th>시간</th><th>예상 소모</th></tr>${rows}</table>`;
+  const html = reportShell(isEnglish ? 'ScanFit Exercise Report' : 'ScanFit 운동처방 리포트', body);
+  saveReportRecord('exercise', isEnglish ? 'ScanFit Exercise Report' : 'ScanFit 운동처방 리포트', 'ScanFit_Exercise_Report.html', html);
+  downloadHtml('ScanFit_Exercise_Report.html', html);
+}
+
+// ===== PRICING =====
+function setCurrency(btn) {
+  document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  checkoutState.currency = btn.textContent.trim() === 'USD' ? 'USD' : 'KRW';
+  document.getElementById('monthPrice').textContent = checkoutState.currency === 'USD' ? '$21' : '₩29,000';
+  document.getElementById('yearPrice').textContent = checkoutState.currency === 'USD' ? '$210' : '₩290,000';
+}
+
+function openCheckout(plan) {
+  if (!requireAuth('결제')) return;
+  checkoutState.plan = plan;
+  checkoutState.petCount = Number(document.getElementById('checkoutPetCount')?.value || 1);
+  updateCheckoutTotal();
+  openModal('checkoutModal');
+}
+
+function getCheckoutPrice() {
+  const isAnnual = checkoutState.plan === 'annual';
+  const currency = checkoutState.currency || 'KRW';
+  const petCount = Math.max(1, Number(document.getElementById('checkoutPetCount')?.value || checkoutState.petCount || 1));
+  const base = currency === 'USD' ? (isAnnual ? 210 : 21) : (isAnnual ? 290000 : 29000);
+  const addon = petCount * (currency === 'USD' ? 1 : 1000);
+  return { base, addon, total: base + addon, petCount, currency, sym: currency === 'USD' ? '$' : '₩' };
+}
+
+function updateCheckoutTotal() {
+  const isAnnual = checkoutState.plan === 'annual';
+  const price = getCheckoutPrice();
+  document.getElementById('checkoutTitle').textContent = isAnnual ? t('annualPlanTitle') : t('monthlyPlanTitle');
+  document.getElementById('orderItemName').textContent = isAnnual ? t('annualPlanTitle') : t('monthlyPlanTitle');
+  document.getElementById('orderItemPrice').textContent = price.sym + price.base.toLocaleString();
+  document.getElementById('petAddonPrice').textContent = price.sym + price.addon.toLocaleString();
+  document.getElementById('orderTotal').textContent = price.sym + price.total.toLocaleString();
+  setupPayPal();
+}
+
+async function setupPayPal() {
+  const container = document.getElementById('paypalButtons');
+  const notice = document.getElementById('paypalNotice');
+  container.innerHTML = '';
+  let config;
+  try {
+    const response = await fetch('/api/paypal/config');
+    if (!response.ok) throw new Error('paypal config unavailable');
+    config = await response.json();
+  } catch (error) {
+    notice.innerHTML = currentLanguage === 'en-US'
+      ? 'Live PayPal checkout is not available yet. Check <b>PAYPAL_CLIENT_ID</b>, <b>PAYPAL_CLIENT_SECRET</b>, and confirm the app is running in the correct sandbox/live mode. Demo payment is still available.'
+      : '실제 PayPal 결제가 아직 열리지 않았습니다. 서버의 <b>PAYPAL_CLIENT_ID</b>, <b>PAYPAL_CLIENT_SECRET</b>와 sandbox/live 설정을 확인해야 합니다. 데모 결제는 계속 사용할 수 있습니다.';
+    return;
+  }
+  notice.textContent = currentLanguage === 'en-US'
+    ? `PayPal ${config.env || 'sandbox'} checkout is active. PayPal order capture uses USD, so KRW amounts are converted on the server.`
+    : `PayPal ${config.env || 'sandbox'} 결제 버튼이 활성화되었습니다. PayPal 주문 캡처는 USD로 진행되므로 KRW 금액은 서버에서 USD로 변환됩니다.`;
+  const renderButtons = () => {
+    if (!window.paypal) return;
+    container.innerHTML = '';
+    window.paypal.Buttons({
+      style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' },
+      createOrder: () => {
+        const price = getCheckoutPrice();
+        return fetch('/api/paypal/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan: checkoutState.plan, petCount: price.petCount, currency: price.currency })
+        }).then(res => res.json()).then(order => {
+          if (!order.id) throw new Error('PayPal order failed');
+          return order.id;
+        });
+      },
+      onApprove: (data) => fetch('/api/paypal/capture-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderID: data.orderID })
+      }).then(res => res.json()).then(result => {
+        if (result.status !== 'COMPLETED') throw new Error('Capture not completed');
+        isPaid = true;
+        localStorage.setItem("scanfit_paid", "true");
+        closeModal('checkoutModal');
+        openModal('successModal');
+        showToast(currentLanguage === 'en-US' ? '? PayPal payment completed.' : '? PayPal 결제가 완료되었습니다.');
+      }),
+      onError: (err) => {
+        const detail = err?.message || '';
+        notice.innerHTML = currentLanguage === 'en-US'
+          ? `PayPal payment failed. Check sandbox/live mismatch, USD currency, blocked scripts, and server credentials. ${detail ? `<br><span class="font-bold">${detail}</span>` : ''}`
+          : `PayPal 결제가 실패했습니다. sandbox/live 불일치, USD 통화 요구, 스크립트 차단, 서버 자격 증명을 확인하세요. ${detail ? `<br><span class="font-bold">${detail}</span>` : ''}`;
+        showToast(currentLanguage === 'en-US' ? 'PayPal payment failed. Check the notice below.' : 'PayPal 결제가 실패했습니다. 아래 안내를 확인하세요.');
+      }
+    }).render('#paypalButtons');
+  };
+  if (window.paypal) { renderButtons(); return; }
+  const script = document.createElement('script');
+  script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(config.clientId)}&currency=USD`;
+  script.onload = renderButtons;
+  script.onerror = () => {
+    notice.innerHTML = currentLanguage === 'en-US'
+      ? 'PayPal SDK failed to load. Check network access, ad blockers, and browser script blocking. Demo payment is still available.'
+      : 'PayPal SDK를 불러오지 못했습니다. 네트워크, 광고 차단, 브라우저 스크립트 차단을 확인하세요. 데모 결제는 계속 사용할 수 있습니다.';
+  };
+  document.body.appendChild(script);
+}
+
+function processPayment() {
+  showToast(currentLanguage === 'en-US' ? 'Processing demo checkout...' : '데모 결제 처리 중...');
+  setTimeout(() => {
+    isPaid = true;
+    localStorage.setItem("scanfit_paid", "true");
+    closeModal('checkoutModal');
+    openModal('successModal');
+  }, 1500);
+}
+
+async function handleLogin() {
+  const emailEl = document.getElementById('loginEmail');
+  const statusEl = document.getElementById('loginStatus');
+  const email = String(emailEl?.value || '').trim();
+  if (!email) {
+    if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Enter your email.' : '이메일을 입력하세요.';
+    return;
+  }
+  if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Sending verification email...' : '인증 메일을 보내는 중...';
+  try {
+    const response = await fetch('/api/auth/request-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        email,
+        language: currentLanguage,
+        page: location.pathname + location.search
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const reason = data.reason || data.error || 'Failed to send verification email';
+      if (statusEl) statusEl.textContent = reason;
+      loadLoginDiagnostics();
+      showToast(currentLanguage === 'en-US'
+        ? 'Verification email failed. Check SMTP settings.'
+        : '인증 메일 발송에 실패했습니다. SMTP 설정을 확인하세요.');
+      return;
+    }
+    if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
+      ? 'Verification email sent. Check your inbox.'
+      : '인증 메일을 보냈습니다. 받은편지함을 확인하세요.';
+    showToast(currentLanguage === 'en-US'
+      ? 'Verification email sent.'
+      : '인증 메일을 보냈습니다.');
+    closeModal('loginModal');
+  } catch (error) {
+    if (statusEl) statusEl.textContent = error.message;
+    showToast(currentLanguage === 'en-US' ? 'Login request failed.' : '로그인 요청에 실패했습니다.');
+  }
+}
+</script>
+</body>
+</html>
+
+
+
+
