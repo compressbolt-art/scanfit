@@ -7,6 +7,13 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+(function initTheme() {
+  const savedTheme = localStorage.getItem('scanfit_theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
+})();
+</script>
 <style>
 body{font-family:'Plus Jakarta Sans',sans-serif;background:#f8f7f2;color:#1b1c1a;overflow-x:hidden}
 .font-display{font-family:'Epilogue',sans-serif}
@@ -251,6 +258,29 @@ header{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,0
 /* Notification toast */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1b1c1a;color:white;padding:12px 24px;border-radius:100px;font-size:14px;z-index:9999;transition:opacity 0.3s;opacity:0;pointer-events:none}
 .toast.show{opacity:1}
+.theme-switch{width:72px;height:40px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;box-shadow:0 10px 26px rgba(15,23,42,.08);display:inline-grid;grid-template-columns:1fr 1fr;align-items:center;padding:3px;position:relative;transition:background .25s,border-color .25s,box-shadow .25s}
+.theme-switch::before{content:"";position:absolute;top:3px;left:3px;width:32px;height:32px;border-radius:999px;background:#0f172a;box-shadow:0 8px 18px rgba(15,23,42,.22);transition:transform .25s,background .25s}
+.theme-switch .material-symbols-outlined{position:relative;z-index:1;font-size:19px;line-height:1;color:#64748b;transition:color .25s,transform .25s}
+.theme-switch .theme-icon-light{color:#fff}
+.theme-switch .theme-icon-dark{color:#64748b}
+html[data-theme="dark"] body{background:#08111f;color:#e5edf7}
+html[data-theme="dark"] header{background:rgba(8,17,31,.9);border-bottom-color:rgba(148,163,184,.2)}
+html[data-theme="dark"] .future-slide{background:#08111f}
+html[data-theme="dark"] .future-slide::before{background:linear-gradient(rgba(226,232,240,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(226,232,240,.08) 1px,transparent 1px)}
+html[data-theme="dark"] .future-slide::after{background:linear-gradient(to bottom,transparent,#08111f)}
+html[data-theme="dark"] .bg-white,html[data-theme="dark"] .glass,html[data-theme="dark"] .report-card,html[data-theme="dark"] .evidence-card,html[data-theme="dark"] .macro-card,html[data-theme="dark"] .meal-tile{background:#101b2d!important;color:#e5edf7!important;border-color:rgba(148,163,184,.22)!important}
+html[data-theme="dark"] .bg-slate-50,html[data-theme="dark"] .bg-slate-100,html[data-theme="dark"] .flow-panel,html[data-theme="dark"] .premium-report,html[data-theme="dark"] .report-strip div{background:#0c1728!important;color:#e5edf7!important;border-color:rgba(148,163,184,.2)!important}
+html[data-theme="dark"] .text-slate-950,html[data-theme="dark"] .text-slate-900,html[data-theme="dark"] .text-slate-800{color:#f8fafc!important}
+html[data-theme="dark"] .text-slate-700,html[data-theme="dark"] .text-slate-600{color:#cbd5e1!important}
+html[data-theme="dark"] .text-slate-500,html[data-theme="dark"] .text-slate-400{color:#94a3b8!important}
+html[data-theme="dark"] .border-slate-200,html[data-theme="dark"] .border-slate-100{border-color:rgba(148,163,184,.24)!important}
+html[data-theme="dark"] .shadow-lg,html[data-theme="dark"] .shadow-sm,html[data-theme="dark"] .shadow-2xl{box-shadow:0 18px 48px rgba(0,0,0,.34)!important}
+html[data-theme="dark"] input,html[data-theme="dark"] select,html[data-theme="dark"] textarea{background:#0b1627!important;color:#f8fafc!important;border-color:rgba(148,163,184,.28)!important}
+html[data-theme="dark"] .modal{background:rgba(2,6,23,.72)}
+html[data-theme="dark"] .theme-switch{background:#0f172a;border-color:rgba(148,163,184,.26);box-shadow:0 12px 30px rgba(0,0,0,.26)}
+html[data-theme="dark"] .theme-switch::before{transform:translateX(32px);background:#f8fafc}
+html[data-theme="dark"] .theme-switch .theme-icon-light{color:#64748b}
+html[data-theme="dark"] .theme-switch .theme-icon-dark{color:#0f172a}
 @media (max-width:640px){
   .future-slide{min-height:auto}
   .metric-tile{min-height:86px}
@@ -281,6 +311,10 @@ header{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,0
     </nav>
   </div>
   <div class="flex items-center gap-3">
+    <button onclick="toggleTheme()" id="themeToggle" class="theme-switch" type="button" aria-label="Toggle dark and light mode" aria-pressed="false">
+      <span class="material-symbols-outlined theme-icon-light">light_mode</span>
+      <span class="material-symbols-outlined theme-icon-dark">dark_mode</span>
+    </button>
     <div class="inline-flex items-center rounded-full border border-slate-200 bg-white p-1 shadow-sm">
       <button onclick="setLanguage('ko-KR')" id="langBtnKo" class="px-3 py-2 rounded-full text-xs font-black transition-all">KR</button>
       <button onclick="setLanguage('en-US')" id="langBtnEn" class="px-3 py-2 rounded-full text-xs font-black transition-all">EN</button>
@@ -1023,6 +1057,23 @@ header{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,255,255,0
 </div>
 
 <script>
+function applyTheme(theme) {
+  const safeTheme = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.dataset.theme = safeTheme;
+  localStorage.setItem('scanfit_theme', safeTheme);
+  const toggle = document.getElementById('themeToggle');
+  if (toggle) toggle.setAttribute('aria-pressed', String(safeTheme === 'dark'));
+}
+
+function toggleTheme() {
+  const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(nextTheme);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  applyTheme(document.documentElement.dataset.theme || 'light');
+});
+
 let globalCategory = "athletic";
 let globalWeight = 5;
 let currentFoodPlan = null;
