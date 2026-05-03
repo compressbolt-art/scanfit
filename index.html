@@ -4,6 +4,13 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="google-adsense-account" content="ca-pub-6956999120497477"/>
+<meta name="description" content="ScanFit is an AI pet care tool for dog and cat food label analysis, 7-day meal planning, exercise prescriptions, and downloadable wellness reports."/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta property="og:title" content="ScanFit - AI Health Scan for Pets"/>
+<meta property="og:description" content="Analyze pet food labels, feeding amounts, meal plans, and exercise routines in one guided ScanFit report."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://scanfit.pages.dev/"/>
+<link rel="canonical" href="https://scanfit.pages.dev/"/>
 <title>ScanFit - AI Health Scan for Pets</title>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6956999120497477" crossorigin="anonymous"></script>
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,6 +22,22 @@
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.documentElement.dataset.theme = savedTheme || (prefersDark ? 'dark' : 'light');
 })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ScanFit",
+  "url": "https://scanfit.pages.dev/",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "description": "AI pet care reports for food label analysis, feeding plans, and exercise routines for dogs and cats.",
+  "offers": {
+    "@type": "Offer",
+    "price": "29000",
+    "priceCurrency": "KRW"
+  }
+}
 </script>
 <style>
 body{font-family:'Plus Jakarta Sans',sans-serif;background:#f8f7f2;color:#1b1c1a;overflow-x:hidden}
@@ -366,6 +389,8 @@ html[data-theme="dark"] .theme-switch .theme-icon-dark{color:#0f172a}
     <nav class="hidden md:flex gap-6 items-center">
       <a href="#analysis" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navAnalysis">Analysis</a>
       <a href="#pricing" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navPricing">Pricing</a>
+      <a href="/guide.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Guide</a>
+      <a href="/about.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">About</a>
     </nav>
   </div>
   <div class="flex items-center gap-3">
@@ -1018,8 +1043,10 @@ html[data-theme="dark"] .theme-switch .theme-icon-dark{color:#0f172a}
     <div class="text-2xl font-black font-display text-blue-400 mb-4">ScanFit</div>
     <p class="text-slate-400 text-sm mb-6">ⓒ 2026 ScanFit. All rights reserved.</p>
     <div class="flex justify-center gap-6 text-sm text-slate-500">
-      <a href="#" class="hover:text-white transition-colors" id="footerPrivacy" data-i18n="footerPrivacy">Privacy</a>
-      <a href="#" class="hover:text-white transition-colors" id="footerTerms" data-i18n="footerTerms">Terms</a>
+      <a href="/privacy.html" class="hover:text-white transition-colors" id="footerPrivacy" data-i18n="footerPrivacy">Privacy</a>
+      <a href="/terms.html" class="hover:text-white transition-colors" id="footerTerms" data-i18n="footerTerms">Terms</a>
+      <a href="/guide.html" class="hover:text-white transition-colors">Guide</a>
+      <a href="/about.html" class="hover:text-white transition-colors">About</a>
     </div>
   </div>
 </footer>
