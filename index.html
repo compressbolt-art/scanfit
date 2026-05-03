@@ -1338,22 +1338,14 @@ async function loadLoginDiagnostics() {
     const data = await response.json();
     const missing = Array.isArray(data.missing) ? data.missing : [];
     const ok = response.ok && missing.length === 0;
-    if (statusEl) {
-      statusEl.textContent = ok
-        ? ''
-        : (currentLanguage === 'en-US'
-          ? 'Email verification is being prepared. Please try again later.'
-          : '이메일 인증 기능을 준비 중입니다. 잠시 후 다시 시도하세요.');
-    }
-    if (hintEl && !ok) {
-      hintEl.textContent = currentLanguage === 'en-US'
-        ? 'We send a verification link to your email. Open it to activate your login.'
-        : '이메일로 인증 링크를 보내고, 링크를 열면 로그인 상태가 활성화됩니다.';
-    }
+    if (statusEl) statusEl.textContent = '';
+    if (hintEl) hintEl.textContent = ok
+      ? t('loginHint')
+      : (currentLanguage === 'en-US'
+        ? 'Enter your email to continue. Verification email delivery will be enabled soon.'
+        : '계속하려면 이메일을 입력하세요. 인증 메일 발송은 곧 활성화됩니다.');
   } catch {
-    if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
-      ? 'Email verification is temporarily unavailable.'
-      : '이메일 인증을 잠시 사용할 수 없습니다.';
+    if (statusEl) statusEl.textContent = '';
   }
 }
 
@@ -1362,6 +1354,7 @@ function resetLoginMessage() {
   const hintEl = document.getElementById('loginHint');
   if (statusEl) statusEl.textContent = '';
   if (hintEl) hintEl.textContent = t('loginHint');
+  loadLoginDiagnostics();
 }
 
 const translations = {
@@ -2934,7 +2927,7 @@ async function handleLogin() {
     if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Enter your email.' : '이메일을 입력하세요.';
     return;
   }
-  if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Sending verification email...' : '인증 메일을 보내는 중...';
+  if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Signing you in...' : '로그인 처리 중...';
   try {
     const response = await fetch('/api/auth/request-login', {
       method: 'POST',
