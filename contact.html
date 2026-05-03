@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ScanFit 문의 페이지. 서비스, 결제, 제휴, 기술 문의를 보낼 수 있습니다.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://scanfit.pages.dev/contact.html">
+  <title>Contact - ScanFit</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f8fafc;color:#0f172a;line-height:1.7}
+    main{max-width:760px;margin:0 auto;padding:48px 20px 72px}
+    a{color:#2563eb;text-decoration:none}
+    .card{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:24px;box-shadow:0 18px 48px rgba(15,23,42,.06)}
+    label{display:block;font-weight:700;margin:14px 0 6px}
+    input,textarea{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:14px;padding:14px 16px;font:inherit;background:#fff}
+    textarea{min-height:160px;resize:vertical}
+    button{margin-top:16px;background:#0f172a;color:#fff;border:0;border-radius:14px;padding:14px 18px;font:inherit;font-weight:800}
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="/">ScanFit으로 돌아가기</a></p>
+  <div class="card">
+    <h1>Contact</h1>
+    <p>서비스 문의, 제휴 문의, 오류 제보를 보내주세요. 답변은 Formspree 문의 폼으로 전달됩니다.</p>
+    <form action="https://formspree.io/f/mzdodrre" method="POST">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Your name" required>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="name@example.com" required>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your inquiry here." required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</main>
+</body>
+</html>
