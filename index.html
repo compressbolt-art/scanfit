@@ -1276,7 +1276,7 @@ function showToast(msg) {
 function openModal(id) {
   document.getElementById(id).classList.add('active');
   document.body.style.overflow = 'hidden';
-  if (id === 'loginModal') loadLoginDiagnostics();
+  if (id === 'loginModal') resetLoginMessage();
 }
 
 function closeModal(id) {
@@ -1333,7 +1333,6 @@ function requireAuth(featureName = '') {
 async function loadLoginDiagnostics() {
   const statusEl = document.getElementById('loginStatus');
   const hintEl = document.getElementById('loginHint');
-  if (statusEl) statusEl.textContent = currentLanguage === 'en-US' ? 'Checking email settings...' : '이메일 설정을 확인하는 중...';
   try {
     const response = await fetch('/api/email/diagnostics');
     const data = await response.json();
@@ -1341,21 +1340,28 @@ async function loadLoginDiagnostics() {
     const ok = response.ok && missing.length === 0;
     if (statusEl) {
       statusEl.textContent = ok
-        ? (currentLanguage === 'en-US' ? 'Email delivery is ready.' : '이메일 발송 준비가 완료되었습니다.')
+        ? ''
         : (currentLanguage === 'en-US'
-          ? `Missing: ${missing.join(', ')}`
-          : `누락: ${missing.join(', ')}`);
+          ? 'Email verification is being prepared. Please try again later.'
+          : '이메일 인증 기능을 준비 중입니다. 잠시 후 다시 시도하세요.');
     }
     if (hintEl && !ok) {
       hintEl.textContent = currentLanguage === 'en-US'
-        ? 'Email delivery needs AUTH_SECRET, RESEND_API_KEY, and RESEND_FROM in the deployment settings.'
-        : '배포 설정에 AUTH_SECRET, RESEND_API_KEY, RESEND_FROM을 넣어야 이메일 인증이 동작합니다.';
+        ? 'We send a verification link to your email. Open it to activate your login.'
+        : '이메일로 인증 링크를 보내고, 링크를 열면 로그인 상태가 활성화됩니다.';
     }
   } catch {
     if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
-      ? 'Could not read email settings.'
-      : '이메일 설정을 읽을 수 없습니다.';
+      ? 'Email verification is temporarily unavailable.'
+      : '이메일 인증을 잠시 사용할 수 없습니다.';
   }
+}
+
+function resetLoginMessage() {
+  const statusEl = document.getElementById('loginStatus');
+  const hintEl = document.getElementById('loginHint');
+  if (statusEl) statusEl.textContent = '';
+  if (hintEl) hintEl.textContent = t('loginHint');
 }
 
 const translations = {
@@ -2942,12 +2948,12 @@ async function handleLogin() {
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      const reason = data.reason || data.error || 'Failed to send verification email';
-      if (statusEl) statusEl.textContent = reason;
-      loadLoginDiagnostics();
+      if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
+        ? 'We could not send the verification email yet. Please try again later.'
+        : '아직 인증 메일을 보낼 수 없습니다. 잠시 후 다시 시도하세요.';
       showToast(currentLanguage === 'en-US'
-        ? 'Verification email failed. Check SMTP settings.'
-        : '인증 메일 발송에 실패했습니다. SMTP 설정을 확인하세요.');
+        ? 'Verification email is not available yet.'
+        : '인증 메일 기능을 아직 사용할 수 없습니다.');
       return;
     }
     if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
@@ -2958,7 +2964,9 @@ async function handleLogin() {
       : '인증 메일을 보냈습니다.');
     closeModal('loginModal');
   } catch (error) {
-    if (statusEl) statusEl.textContent = error.message;
+    if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
+      ? 'Login request failed. Please try again.'
+      : '로그인 요청에 실패했습니다. 다시 시도하세요.';
     showToast(currentLanguage === 'en-US' ? 'Login request failed.' : '로그인 요청에 실패했습니다.');
   }
 }
