@@ -389,10 +389,10 @@ html[data-theme="dark"] .theme-switch .theme-icon-dark{color:#0f172a}
     <nav class="hidden md:flex gap-6 items-center">
       <a href="#analysis" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navAnalysis">Analysis</a>
       <a href="#pricing" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navPricing">Pricing</a>
-      <a href="#faq" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">FAQ</a>
-      <a href="/contact.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Contact</a>
-      <a href="/guide.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">Guide</a>
-      <a href="/about.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors">About</a>
+      <a href="#faq" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navFaq">FAQ</a>
+      <a href="/contact.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navContact">Contact</a>
+      <a href="/guide.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navGuide">Guide</a>
+      <a href="/about.html" class="text-slate-600 hover:text-blue-600 font-medium transition-colors" data-i18n="navAbout">About</a>
     </nav>
   </div>
   <div class="flex items-center gap-3">
@@ -1043,26 +1043,26 @@ html[data-theme="dark"] .theme-switch .theme-icon-dark{color:#0f172a}
 <section class="py-24 px-6 bg-white" id="faq">
   <div class="max-w-6xl mx-auto">
     <div class="text-center max-w-3xl mx-auto mb-12">
-      <span class="inline-block bg-slate-100 text-slate-500 font-bold text-sm px-4 py-2 rounded-full mb-4 uppercase">FAQ</span>
-      <h2 class="font-display font-black text-4xl md:text-5xl mb-4 text-slate-950">Helpful answers for first-time visitors</h2>
-      <p class="text-slate-500 text-lg">ScanFit is built around one job: turn pet food labels into clear feeding and exercise guidance.</p>
+      <span class="inline-block bg-slate-100 text-slate-500 font-bold text-sm px-4 py-2 rounded-full mb-4 uppercase" id="faqKicker" data-i18n="faqKicker">FAQ</span>
+      <h2 class="font-display font-black text-4xl md:text-5xl mb-4 text-slate-950" id="faqTitle" data-i18n="faqTitle">Helpful answers for first-time visitors</h2>
+      <p class="text-slate-500 text-lg" id="faqCopy" data-i18n="faqCopy">ScanFit is built around one job: turn pet food labels into clear feeding and exercise guidance.</p>
     </div>
     <div class="grid md:grid-cols-2 gap-4">
       <div class="report-card rounded-[1.5rem] p-6">
-        <h3 class="font-black text-slate-900 mb-2">Does ScanFit replace a veterinarian?</h3>
-        <p class="text-slate-600">No. ScanFit helps you read labels, organize plans, and spot risk signals, but it does not replace veterinary diagnosis or treatment.</p>
+        <h3 class="font-black text-slate-900 mb-2" id="faqQ1" data-i18n="faqQ1">Does ScanFit replace a veterinarian?</h3>
+        <p class="text-slate-600" id="faqA1" data-i18n="faqA1">No. ScanFit helps you read labels, organize plans, and spot risk signals, but it does not replace veterinary diagnosis or treatment.</p>
       </div>
       <div class="report-card rounded-[1.5rem] p-6">
-        <h3 class="font-black text-slate-900 mb-2">What makes the site better for AdSense?</h3>
-        <p class="text-slate-600">Clear purpose, policy pages, visible navigation, original content, and a complete sitemap help the site look like a real service rather than a thin landing page.</p>
+        <h3 class="font-black text-slate-900 mb-2" id="faqQ2" data-i18n="faqQ2">What makes the site better for AdSense?</h3>
+        <p class="text-slate-600" id="faqA2" data-i18n="faqA2">Clear purpose, policy pages, visible navigation, original content, and a complete sitemap help the site look like a real service rather than a thin landing page.</p>
       </div>
       <div class="report-card rounded-[1.5rem] p-6">
-        <h3 class="font-black text-slate-900 mb-2">Can I use it for both dogs and cats?</h3>
-        <p class="text-slate-600">Yes. The experience supports both species and adjusts the report flow, feeding logic, and exercise guidance accordingly.</p>
+        <h3 class="font-black text-slate-900 mb-2" id="faqQ3" data-i18n="faqQ3">Can I use it for both dogs and cats?</h3>
+        <p class="text-slate-600" id="faqA3" data-i18n="faqA3">Yes. The experience supports both species and adjusts the report flow, feeding logic, and exercise guidance accordingly.</p>
       </div>
       <div class="report-card rounded-[1.5rem] p-6">
-        <h3 class="font-black text-slate-900 mb-2">Where can users contact you?</h3>
-        <p class="text-slate-600">Use the Contact page or the in-app inquiry form to send a message. The site no longer exposes a raw support email address in the footer.</p>
+        <h3 class="font-black text-slate-900 mb-2" id="faqQ4" data-i18n="faqQ4">Where can users contact you?</h3>
+        <p class="text-slate-600" id="faqA4" data-i18n="faqA4">Use the Contact page or the in-app inquiry form to send a message. The site no longer exposes a raw support email address in the footer.</p>
       </div>
     </div>
   </div>
@@ -1074,11 +1074,11 @@ html[data-theme="dark"] .theme-switch .theme-icon-dark{color:#0f172a}
     <div class="text-2xl font-black font-display text-blue-400 mb-4">ScanFit</div>
     <p class="text-slate-400 text-sm mb-6">ⓒ 2026 ScanFit. All rights reserved.</p>
     <div class="flex justify-center gap-6 text-sm text-slate-500">
-      <a href="/contact.html" class="hover:text-white transition-colors">Contact</a>
+      <a href="/contact.html" class="hover:text-white transition-colors" data-i18n="navContact">Contact</a>
       <a href="/privacy.html" class="hover:text-white transition-colors" id="footerPrivacy" data-i18n="footerPrivacy">Privacy</a>
       <a href="/terms.html" class="hover:text-white transition-colors" id="footerTerms" data-i18n="footerTerms">Terms</a>
-      <a href="/guide.html" class="hover:text-white transition-colors">Guide</a>
-      <a href="/about.html" class="hover:text-white transition-colors">About</a>
+      <a href="/guide.html" class="hover:text-white transition-colors" data-i18n="navGuide">Guide</a>
+      <a href="/about.html" class="hover:text-white transition-colors" data-i18n="navAbout">About</a>
     </div>
   </div>
 </footer>
@@ -1475,7 +1475,7 @@ function resetLoginMessage() {
 
 const translations = {
   "ko-KR": {
-    navAnalysis: "분석", navPricing: "가격", startScan: "스캔 시작", signIn: "로그인",
+    navAnalysis: "분석", navPricing: "가격", navFaq: "자주 묻는 질문", navContact: "문의", navGuide: "가이드", navAbout: "소개", startScan: "스캔 시작", signIn: "로그인",
     heroKicker: "01 / ScanFit Food AI",
     heroBadge: "AI 리포트 엔진",
     heroTitleLine1: "우리 아이를 스캔하세요.",
@@ -1641,6 +1641,17 @@ const translations = {
     pricingMonthlyLabel: "/ 월",
     pricingAnnualLabel: "/ 연간",
     pricingBestValue: "BEST VALUE",
+    faqKicker: "FAQ",
+    faqTitle: "처음 방문하는 분들을 위한 안내",
+    faqCopy: "ScanFit은 반려동물 사료 라벨을 읽고, 급여와 운동 가이드를 명확하게 정리하는 데 집중합니다.",
+    faqQ1: "ScanFit이 수의사를 대체하나요?",
+    faqA1: "아니요. ScanFit은 라벨을 읽고, 계획을 정리하고, 위험 신호를 찾는 데 도움을 주지만 수의사의 진단이나 치료를 대체하지 않습니다.",
+    faqQ2: "AdSense에 더 유리한 이유는 무엇인가요?",
+    faqA2: "명확한 목적, 정책 페이지, 보이는 탐색 구조, 독창적인 콘텐츠, 완전한 사이트맵은 사이트가 얇은 랜딩페이지가 아니라 실제 서비스처럼 보이게 합니다.",
+    faqQ3: "강아지와 고양이 모두 사용할 수 있나요?",
+    faqA3: "네. 서비스는 두 종을 모두 지원하며 리포트 흐름, 급여 로직, 운동 가이드를 각각 조정합니다.",
+    faqQ4: "사용자는 어디서 문의하나요?",
+    faqA4: "문의 페이지나 앱 안의 문의 폼으로 메시지를 보낼 수 있습니다. 사이트 푸터에는 원본 지원 이메일을 노출하지 않습니다.",
     footerPrivacy: "개인정보",
     footerTerms: "약관",
       loginTitle: "Sign In",
@@ -1664,7 +1675,7 @@ const translations = {
     sampleClose: "닫기"
   },
   "en-US": {
-    navAnalysis: "Analysis", navPricing: "Pricing", startScan: "Start Scan", signIn: "Sign In",
+    navAnalysis: "Analysis", navPricing: "Pricing", navFaq: "FAQ", navContact: "Contact", navGuide: "Guide", navAbout: "About", startScan: "Start Scan", signIn: "Sign In",
     heroKicker: "01 / ScanFit Food AI",
     heroBadge: "AI report engine",
     heroTitleLine1: "Scan your pet.",
@@ -1830,6 +1841,17 @@ const translations = {
     pricingMonthlyLabel: "/ month",
     pricingAnnualLabel: "/ year",
     pricingBestValue: "BEST VALUE",
+    faqKicker: "FAQ",
+    faqTitle: "Helpful answers for first-time visitors",
+    faqCopy: "ScanFit is built around one job: turn pet food labels into clear feeding and exercise guidance.",
+    faqQ1: "Does ScanFit replace a veterinarian?",
+    faqA1: "No. ScanFit helps you read labels, organize plans, and spot risk signals, but it does not replace veterinary diagnosis or treatment.",
+    faqQ2: "What makes the site better for AdSense?",
+    faqA2: "Clear purpose, policy pages, visible navigation, original content, and a complete sitemap help the site look like a real service rather than a thin landing page.",
+    faqQ3: "Can I use it for both dogs and cats?",
+    faqA3: "Yes. The experience supports both species and adjusts the report flow, feeding logic, and exercise guidance accordingly.",
+    faqQ4: "Where can users contact you?",
+    faqA4: "Use the Contact page or the in-app inquiry form to send a message. The site no longer exposes a raw support email address in the footer.",
     footerPrivacy: "Privacy",
     footerTerms: "Terms",
       loginTitle: "Sign In",
@@ -1885,7 +1907,7 @@ function applyTranslations() {
     'exerciseReasonTitle','exerciseWarningsTitleText','exerciseImageTitleText','exerciseDownloadButtonText','savedReportsTitle',
     'savedReportsCopy','savedReportsRefresh','pricingEyebrow','pricingTitle','pricingCopy','monthlyPlanTitle','monthlyPlanCopy',
     'monthlyButton','annualPlanTitle','annualPlanCopy','annualButton','pricingMonthlyLabel','pricingAnnualLabel','pricingBestValue',
-    'footerPrivacy','footerTerms','loginTitle','loginHint','loginButtonText','loginEmailPlaceholder','checkoutTitle',
+    'loginTitle','loginHint','loginButtonText','loginEmailPlaceholder','checkoutTitle',
     'checkoutPetsLabel','checkoutPlanLabel','checkoutAddonLabel','checkoutTotalLabel','checkoutAddonHint','demoPaymentButton',
     'successTitle','successCopy','successButton','sampleTitle','sampleCaloriesLabel','sampleScoreLabel','sampleSummary','sampleClose',
     'foodRationSentence','foodImageTitleText','foodImageBadgeText','exerciseImageBadgeText','analysisLoadingText',
