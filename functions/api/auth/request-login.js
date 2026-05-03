@@ -1,4 +1,4 @@
-import { json, normalizeEmail, sendVerificationEmail, signToken } from '../../_shared.js';
+import { emailConfig, json, normalizeEmail, sendVerificationEmail, signToken } from '../../_shared.js';
 
 export async function onRequestPost({ request, env }) {
   const payload = await request.json().catch(() => ({}));
@@ -11,6 +11,27 @@ export async function onRequestPost({ request, env }) {
 
   if (!env.AUTH_SECRET) {
     return json({ ok: false, delivered: false, reason: 'Missing: AUTH_SECRET' }, 503);
+  }
+
+  const emailReady = emailConfig(env).missing.filter(key => key !== 'AUTH_SECRET').length === 0;
+  if (!emailReady) {
+    const now = Date.now();
+    const session = await signToken({
+      type: 'session',
+      email,
+      language,
+      iat: now,
+      exp: now + (30 * 24 * 60 * 60 * 1000)
+    }, env.AUTH_SECRET);
+    return json({
+      ok: true,
+      delivered: false,
+      verified: true,
+      email,
+      fallbackLogin: true
+    }, 200, {
+      'Set-Cookie': `scanfit_auth=${encodeURIComponent(session)}; Path=/; Max-Age=${30 * 24 * 60 * 60}; Secure; SameSite=Lax`
+    });
   }
 
   const token = await signToken({

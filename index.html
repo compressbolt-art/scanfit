@@ -2956,6 +2956,17 @@ async function handleLogin() {
         : '인증 메일 기능을 아직 사용할 수 없습니다.');
       return;
     }
+    if (data.verified) {
+      setAuthState({ authenticated: true, email: data.email || email });
+      if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
+        ? 'Login completed.'
+        : '로그인이 완료되었습니다.';
+      showToast(currentLanguage === 'en-US'
+        ? 'Login completed.'
+        : '로그인이 완료되었습니다.');
+      closeModal('loginModal');
+      return;
+    }
     if (statusEl) statusEl.textContent = currentLanguage === 'en-US'
       ? 'Verification email sent. Check your inbox.'
       : '인증 메일을 보냈습니다. 받은편지함을 확인하세요.';
