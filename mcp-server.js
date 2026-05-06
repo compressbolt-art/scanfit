@@ -30,13 +30,13 @@ const RESOURCE_DEFS = [
   {
     uri: 'scanfit://auth/help',
     name: 'ScanFit Auth Help',
-    description: 'Email login and verification flow for ScanFit.',
+    description: 'Login flow has been removed from ScanFit.',
     mimeType: 'text/plain'
   },
   {
     uri: 'scanfit://auth/cloudflare',
     name: 'ScanFit Cloudflare Auth',
-    description: 'Cloudflare Access and MCP portal notes for ScanFit login protection.',
+    description: 'Cloudflare Access notes for ScanFit deployment.',
     mimeType: 'text/plain'
   }
 ];
@@ -96,12 +96,9 @@ function getResourceContents(uri) {
       uri,
       mimeType: 'text/plain',
       text: [
-        'ScanFit uses email verification to unlock app access.',
-        'Login request endpoint: POST /api/auth/request-login',
-        'Verification endpoint: GET /auth/verify?token=...&email=...&lang=...',
-        'Status endpoint: GET /api/auth/status',
-        'Logout endpoint: POST /api/auth/logout',
-        'SMTP must be configured for actual email delivery.'
+        'ScanFit no longer exposes a login flow in the site or API.',
+        'The previous email-verification flow has been removed.',
+        'Use the public app without authentication.'
       ].join('\n')
     }];
   }
@@ -115,9 +112,8 @@ function getResourceContents(uri) {
         'Recommended setup:',
         '- Put the web app behind a Cloudflare Access application or MCP server portal.',
         '- Use managed OAuth or a third-party IdP such as Auth0, WorkOS, or Stytch.',
-        '- Keep ScanFit login state synced with the Access identity, then allow free and paid flows after verification.',
-        '- Use the MCP server portal for chat/resource access and the Access app for browser login.',
-        'This repo still ships a local email-verification path; Cloudflare is the deployment target, not the local runtime.'
+        '- Keep ScanFit app access aligned with your Access policy if you need protection.',
+        '- Use the MCP server portal for chat/resource access and the Access app for browser access.'
       ].join('\n')
     }];
   }

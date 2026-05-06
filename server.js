@@ -990,10 +990,7 @@ const server = http.createServer(async (req, res) => {
       if (req.url === '/api/podi-contact' && req.method === 'POST') return podiContact(req, res);
       if (req.url === '/api/podi-realtime-token' && req.method === 'POST') return podiRealtimeToken(req, res);
       if (req.url === '/api/email/diagnostics' && req.method === 'GET') return emailDiagnostics(req, res);
-      if (req.url === '/api/auth/request-login' && req.method === 'POST') return requestLoginEmail(req, res);
-      if (req.url === '/api/auth/status' && req.method === 'GET') return authStatus(req, res);
-      if (req.url === '/api/auth/logout' && req.method === 'POST') return logoutAuth(req, res);
-      if (req.url.startsWith('/auth/verify') && req.method === 'GET') return verifyLoginToken(req, res, new URL(req.url, 'http://localhost'));
+      if (req.url === '/api/auth/request-login' || req.url === '/api/auth/status' || req.url === '/api/auth/logout' || req.url.startsWith('/auth/verify')) return send(res, 404, 'Not found');
       if (req.url === '/mcp' && req.method === 'POST') return podiMcp(req, res);
     if (req.url === '/api/paypal/config' && req.method === 'GET') return paypalConfig(req, res);
     if (req.url === '/api/paypal/create-order' && req.method === 'POST') return createPaypalOrder(req, res);
